@@ -1,0 +1,112 @@
+---
+title: "572 Paper Reproduction"
+output: rmarkdown::word_document
+vignette: >
+  %\VignetteIndexEntry{main}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+
+library(z.572.paper)
+library(sp)
+library(rgeos)
+library(spdep)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+
+set.seed(1)
+
+```
+
+
+
+# TO DO
+- Add tau_w parameter to create_cov_dagar and create_cov_car
+- ...
+
+
+
+# Generate datasets
+```{r}
+
+# generate_dataset(type="path", rho=0.1)
+
+```
+
+
+
+# Figure 1
+```{r}
+
+adj_mtx_path <- generate_graph_path() %>% adj_from_graph()
+adj_mtx_lat <- generate_graph_lattice() %>% adj_from_graph()
+adj_mtx_us <- 999 # !!!!! TO DO
+
+rhos <- seq(from=0.1, to=0.9, by=0.1)
+for (rho in rhos) {
+  
+  # Generate average neighbor-pair correlation for DAGAR
+  cov_dagar <- generate_cov_dagar(adj_mtx_lat, rho)
+  cor <- 0
+  count <- 0
+  for (i in 2:length(cov_dagar$neighbors)) {
+    
+    nbs <- cov_dagar$neighbors[[i]]
+    
+    for (nb in 1:length(nbs)) {
+      j <- nbs[nb]
+      cor <- cor + cov_dagar$mtx_cov[i,j] / 
+        (sqrt(cov_dagar$mtx_cov[i,i]) * sqrt(cov_dagar$mtx_cov[j,j]))
+      count <- count+1
+    }
+    
+  }
+  anpc_dagar <- cor/count
+  
+  # Generate average neighbor-pair correlation for CAR
+  
+  
+  print(paste("anpc_dagar:", anpc_dagar))
+
+}
+
+
+# !!!!! Placeholder data
+y1 <- rhos + rnorm(n=9, mean=0, sd=0.1)
+y2 <- rhos + rnorm(n=9, mean=0, sd=0.1)
+
+ggplot(
+  data = data.frame(
+    x = rep(rep(rhos, 2), 3),
+    y = rep(c(y1,y2), 3),
+    grp = rep(rep(c("CAR","DAGAR"), each=9), 3),
+    type = rep(c("Path", "Grid", "US"), each=18)
+  ),
+  aes(x=x, y=y, group=grp,
+      color=as.factor(grp))) + 
+  geom_segment(x=0, y=0, xend=1, yend=1, color="grey") +
+  geom_line() + geom_point(size=2) +
+  scale_color_manual(values=c("firebrick", "darkolivegreen4")) +
+  xlim(0,1) +
+  ylim(0,1) +
+  facet_wrap(~type, ncol=3) +
+  labs(
+    title = paste0("Figure 1. Average neighbor pair correlations as a function",       " of rho for proper CAR and DAGAR model. The solid gray line represents",
+      " x = y line."),
+    x = "rho",
+    y = "Average neighbor correlation",
+    color = "Model"
+  )
+
+```
