@@ -3,9 +3,10 @@
 #' @param adj_mtx Adjacency matrix
 #' @param rho Spatial correlation parameter
 #' @return A list containing the following: \cr
-#'     * `mtx_cov`: Covariance matrix corresponding to the given adjacency matrix
+#'     * `mtx_cov`: Covariance matrix corresponding to the given adjacency
+#'         matrix
 #'     * `mtx_B`: B matrix
-#'     * `n_lti`: Vector containing number of neighbors for region i
+#'     * `n_i`: Vector containing number of neighbors for region i
 #'     * `neighbors`: List containing neighbor sets for each region
 #'     * `tau`: Vector of tau_1, ..., tau_k
 #'     * `dim`: Dimension (number of regions)
@@ -16,7 +17,7 @@ generate_cov_dagar <- function(adj_mtx, rho) {
 
   # Create neighbor sets
   neighbors <- list()
-  n_lti <- c()
+  n_i <- c()
   for (i in 1:dim) {
     nset <- c()
     for (j in 1:dim) {
@@ -26,16 +27,16 @@ generate_cov_dagar <- function(adj_mtx, rho) {
     }
     if (!is.null(nset)) {
       neighbors[[as.character(i)]] <- nset
-      n_lti <- c(n_lti, length(nset))
+      n_i <- c(n_i, length(nset))
     } else {
       neighbors[[as.character(i)]] <- 0
-      n_lti <- c(n_lti, 0)
+      n_i <- c(n_i, 0)
     }
   }
 
   # Create F matrix
   # !!!!! Make sure tau_1 is supposed to equal 1
-  tau <- (1 + (n_lti-1)*(rho^2)) / (1-rho^2)
+  tau <- (1 + (n_i-1)*(rho^2)) / (1-rho^2)
   mtx_F <- diag(tau)
 
   # Create B matrix
@@ -43,7 +44,7 @@ generate_cov_dagar <- function(adj_mtx, rho) {
   for (i in 2:dim) {
     for (j in 1:dim) {
       if (j %in% neighbors[[as.character(i)]]) {
-        mtx_B[i,j] <- rho / (1 + (n_lti[i]-1)*(rho^2))
+        mtx_B[i,j] <- rho / (1 + (n_i[i]-1)*(rho^2))
       }
     }
   }
@@ -56,7 +57,7 @@ generate_cov_dagar <- function(adj_mtx, rho) {
   return (list(
     "mtx_cov" = mtx_cov,
     "mtx_B" = mtx_B,
-    "n_lti" = n_lti,
+    "n_i" = n_i,
     "neighbors" = neighbors,
     "tau" = tau,
     "dim" = dim

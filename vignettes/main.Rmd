@@ -24,6 +24,7 @@ library(rgdal)
 library(ggplot2)
 library(dplyr)
 library(magrittr)
+library(permute)
 
 set.seed(1)
 
@@ -51,52 +52,76 @@ set.seed(1)
 
 adj_mtx_path <- generate_graph_path() %>% adj_from_graph()
 adj_mtx_lat <- generate_graph_lattice() %>% adj_from_graph()
-adj_mtx_us <- 999 # !!!!! TO DO
+adj_mtx_us <- adj_from_gis_us()
 
 rhos <- seq(from=0.1, to=0.9, by=0.1)
-for (rho in rhos) {
+rho_out <- c()
+
+for (adj_mtx in list(adj_mtx_path, adj_mtx_lat, adj_mtx_us)) {
   
-  # Generate average neighbor-pair correlation for DAGAR
-  cov_dagar <- generate_cov_dagar(adj_mtx_lat, rho)
-  cor <- 0
-  count <- 0
-  for (i in 2:length(cov_dagar$neighbors)) {
+  for (rho in rhos) {
     
-    nbs <- cov_dagar$neighbors[[i]]
-    
-    for (nb in 1:length(nbs)) {
-      j <- nbs[nb]
-      cor <- cor + cov_dagar$mtx_cov[i,j] / 
-        (sqrt(cov_dagar$mtx_cov[i,i]) * sqrt(cov_dagar$mtx_cov[j,j]))
-      count <- count+1
+    # Generate average neighbor-pair correlation for DAGAR
+    cov_dagar <- generate_cov_dagar(adj_mtx, rho)
+    cor <- 0
+    count <- 0
+    for (i in 2:length(cov_dagar$neighbors)) {
+      
+      nbs <- cov_dagar$neighbors[[i]]
+      if (nbs[1]!=0) {
+        for (nb in 1:length(nbs)) {
+          j <- nbs[nb]
+          cor <- cor + ( cov_dagar$mtx_cov[i,j] / 
+            (sqrt(cov_dagar$mtx_cov[i,i]) * sqrt(cov_dagar$mtx_cov[j,j])) )
+          count <- count+1
+        }
+      }
+      
     }
+    anpc_dagar <- cor/count
+    rho_out <- c(rho_out, anpc_dagar)
     
+    # Generate average neighbor-pair correlation for CAR
+    cov_car <- generate_cov_car(adj_mtx, rho)
+    cor <- 0
+    count <- 0
+    for (i in 1:length(cov_car$neighbors)) {
+      
+      nbs <- cov_car$neighbors[[i]]
+      if (nbs[1]!=0) {
+        for (nb in 1:length(nbs)) {
+          j <- nbs[nb]
+          cor <- cor + ( cov_car$mtx_cov[i,j] / 
+            (sqrt(cov_car$mtx_cov[i,i]) * sqrt(cov_car$mtx_cov[j,j])) )
+          count <- count+1
+          
+        }
+      }
+      
+    }
+    anpc_car <- cor/count
+    rho_out <- c(rho_out, anpc_car)
+  
   }
-  anpc_dagar <- cor/count
-  
-  # Generate average neighbor-pair correlation for CAR
-  
-  
-  print(paste("anpc_dagar:", anpc_dagar))
 
 }
 
-
-# !!!!! Placeholder data
-y1 <- rhos + rnorm(n=9, mean=0, sd=0.1)
-y2 <- rhos + rnorm(n=9, mean=0, sd=0.1)
-
+# Plot results
 ggplot(
   data = data.frame(
-    x = rep(rep(rhos, 2), 3),
-    y = rep(c(y1,y2), 3),
-    grp = rep(rep(c("CAR","DAGAR"), each=9), 3),
-    type = rep(c("Path", "Grid", "US"), each=18)
+    x = rep(rep(rhos, each=2), 3),
+    y = rho_out,
+    grp = rep(c("DAGAR","CAR"), 27),
+    type = rep(c(
+      "(a) Path graph of length 100",
+      "(b) 10 x 10 grid",
+      "(c) 48 contiguous US states"
+    ), each=18)
   ),
   aes(x=x, y=y, group=grp,
       color=as.factor(grp))) + 
   geom_segment(x=0, y=0, xend=1, yend=1, color="grey") +
-  geom_line() + geom_point(size=2) +
+  geom_line() + geom_point(size=3) +
   scale_color_manual(values=c("firebrick", "darkolivegreen4")) +
   xlim(0,1) +
   ylim(0,1) +
@@ -107,6 +132,7 @@ ggplot(
     x = "rho",
     y = "Average neighbor correlation",
     color = "Model"
-  )
+  ) +
+  theme(legend.position = "bottom")
 
 ```

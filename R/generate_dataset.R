@@ -33,27 +33,7 @@ generate_dataset <- function(type, rho) {
     },
     "US" = {
 
-      # Read in data
-      geo <- readOGR(
-        paste0(
-          system.file(package = "z.572.paper"),
-          "/extdata/GADM/gadm36_USA_shp"
-        ),
-        layer = "gadm36_USA_1",
-        verbose = F
-      )
-      n_features <- length(geo[["GID_1"]])
-
-      # Generate adjacency matrix
-      # !!!!! Save this object for quick loading
-      neighbor_list <- poly2nb(
-        geo,
-        queen = FALSE,
-        row.names = 1:n_features
-      )
-      adj_mtx <- nb2mat(neighbor_list, style="B",zero.policy=TRUE)
-      adj_mtx <- as.matrix(adj_mtx[1:dim(adj_mtx)[1], 1:dim(adj_mtx)[1]])
-
+      # !!!!!
 
     }
   )

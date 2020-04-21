@@ -3,12 +3,12 @@
 #' @param graph Graph, represented as a data frame with two columns ('n1' and
 #'     'n2'). Each row represents an edge between two nodes. Values in the
 #'     data frame represent the index of the node
-#' @return And adjacency matrix
+#' @return An adjacency matrix
 #' @export
 adj_from_graph <- function(graph) {
 
   dim <- max(c(graph$n1,graph$n2))
-  adj_mtx <- diag(1, nrow=dim, ncol=dim)
+  adj_mtx <- matrix(0, nrow=dim, ncol=dim)
 
   for (i in 1:nrow(graph)) {
 
