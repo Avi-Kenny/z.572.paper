@@ -1,8 +1,10 @@
-#' Generate a graph corresponding to the "lattice" graph
+#' Generate a graph corresponding to the "grid" graph
 #'
+#' @description Numbering starts on the top left (#1) and goes to the top right
+#'     (#10), then continues on the next row (#11), etc.
 #' @return A data frame representing the edges of a graph
 #' @export
-generate_graph_lattice <- function() {
+generate_graph_grid <- function() {
 
   data <- data.frame(
     "n1" = integer(),

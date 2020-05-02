@@ -7,13 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
+# Load packages
 ```{r}
 
 library(z.572.paper)
@@ -21,10 +15,16 @@ library(sp)
 library(rgeos)
 library(spdep)
 library(rgdal)
+library(simba)
 library(ggplot2)
 library(dplyr)
 library(magrittr)
 library(permute)
+library(maps)
+library(maptools)
+library(rjags)
+# library(classInt)
+# library(RColorBrewer)
 
 set.seed(1)
 
@@ -32,26 +32,11 @@ set.seed(1)
 
 
 
-# TO DO
-- Add tau_w parameter to create_cov_dagar and create_cov_car
-- ...
-
-
-
-# Generate datasets
-```{r}
-
-# generate_dataset(type="path", rho=0.1)
-
-```
-
-
-
-# Figure 1
+# Generate figure 1
 ```{r}
 
 adj_mtx_path <- generate_graph_path() %>% adj_from_graph()
-adj_mtx_lat <- generate_graph_lattice() %>% adj_from_graph()
+adj_mtx_lat <- generate_graph_grid() %>% adj_from_graph()
 adj_mtx_us <- adj_from_gis_us()
 
 rhos <- seq(from=0.1, to=0.9, by=0.1)
@@ -127,12 +112,139 @@ ggplot(
   ylim(0,1) +
   facet_wrap(~type, ncol=3) +
   labs(
-    title = paste0("Figure 1. Average neighbor pair correlations as a function",       " of rho for proper CAR and DAGAR model. The solid gray line represents",
-      " x = y line."),
+    title = paste0("Figure 1. Average neighbor pair correlations as a function",
+                   " of rho for proper CAR and DAGAR model"),
     x = "rho",
     y = "Average neighbor correlation",
     color = "Model"
   ) +
   theme(legend.position = "bottom")
+
+```
+
+
+
+# Generate figure 2
+```{r}
+
+rd_path <- function(p) {
+  sqrt(
+    (4*p^8 + 2*p^4) / ( (3+6*p^2+p^4)^2 + (18*p^2*(1+p^2)^2) + (2*p^4) )
+  )
+}
+
+s <- function(p) {
+  1 / ( 1 + (1-1)*p^2 ) +
+  2 / ( 1 + (2-1)*p^2 ) +
+  3 / ( 1 + (3-1)*p^2 ) +
+  4 / ( 1 + (4-1)*p^2 )
+}
+
+rd_grid <- function(p) {
+  sqrt(
+    (
+      p^4 * ( s(p)/5 - 2/(1+p^2) )^2 +
+      2 * ( 1/3 - s(p)/30 - p^2/(1+p^2) )^2 +
+      12 * ( 1/6 - s(p)/60 )^2
+    ) /
+    (
+      ( 1 + p^2 + p^2*(s(p)/5) )^2 +
+      4 * p^2 +
+      20 * ( 1/6 - s(p)/60 )^2
+    )
+  )
+}
+
+# Generate data
+n <- 101
+rhos <- seq(from=0, to=1, length.out=n)
+
+# Plot results
+ggplot(
+  data = data.frame(
+    x = rep(rhos, 2),
+    y = c( rd_path(rhos), rd_grid(rhos) ),
+    grp = rep(c("(a) Path graph","(b) Grid graph"), each=n)
+  ),
+  aes(x=x, y=y, group=grp)
+) +
+  geom_line() + 
+  geom_text(
+    data = data.frame(
+      x = rep(seq(from=0, to=1, by=0.25), 2),
+      y = c(
+        c(0, 0.02, 0.07, 0.12, 0.19), # !!!!!
+        c(0, 0.06, 0.12, 0.16, 0.17) # !!!!!
+      ),
+      grp = rep(c("(a) Path graph", "(b) Grid graph"), each=5)
+    ),
+    aes(x=x, y=y, label=y),
+    size = 2
+  ) +
+  xlim(0,1) +
+  # ylim(0,1) +
+  facet_wrap(~grp, ncol=2) +
+  labs(
+    title = paste0("Figure 2. Asymptotic relative difference between the DAGAR",
+                   "model and the order free DAGAR model"),
+    x = "rho",
+    y = "Relative difference"
+  )
+
+```
+
+
+
+# TO DO
+- Add tau_w parameter to create_cov_dagar and create_cov_car
+- ...
+
+
+
+# Main simulation
+```{r}
+
+  sim <- new_sim()
+  
+  sim %<>% set_config(
+    num_sim = 5,
+    parallel = "outer",
+    packages = c("z.572.paper", "dplyr")
+  )
+  
+  sim %<>% add_constants(
+    tau_w = 0.25
+  )
+  
+  sim %<>% add_method( "m", function(x) { return (x) } )
+  
+  sim %<>% set_levels(
+    type = c("path", "grid", "US"),
+    phi = (function(j){-log(j/10)})(1:10)
+  )
+  
+  sim %<>% add_creator(generate_dataset)
+  
+  sim %<>% add_script(
+    "script_mainsim",
+    function(L,C) {
+      
+      data <- generate_dataset(
+        type = L$type,
+        rho = 0.5,
+        tau_w = C$tau_w,
+        phi = L$phi
+      )
+      
+    }
+  )
+  
+  sim %<>% run("script_mainsim")
+  
+  summary(
+    sim_obj = sim,
+    bias = list(name="bias_theta", truth="theta", estimate="theta_hat")
+  )
+
 
 ```

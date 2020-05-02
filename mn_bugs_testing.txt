@@ -1,0 +1,1905 @@
+map:87
+Xscale:1
+Yscale:1
+
+1 areaaitkin
+2 areaanoka
+3 areabecker
+4 areabeltrami
+5 areabenton
+6 areabig stone
+7 areablue earth
+8 areabrown
+9 areacarlton
+10 areacarver
+11 areacass
+12 areachippewa
+13 areachisago
+14 areaclay
+15 areaclearwater
+16 areacook
+17 areacottonwood
+18 areacrow wing
+19 areadakota
+20 areadodge
+21 areadouglas
+22 areafaribault
+23 areafillmore
+24 areafreeborn
+25 areagoodhue
+26 areagrant
+27 areahennepin
+28 areahouston
+29 areahubbard
+30 areaisanti
+31 areaitasca
+32 areajackson
+33 areakanabec
+34 areakandiyohi
+35 areakittson
+36 areakoochiching
+37 arealac qui parle
+38 arealake
+39 arealake of the woods
+40 areale sueur
+41 arealincoln
+42 arealyon
+43 areamahnomen
+44 areamarshall
+45 areamartin
+46 areamcleod
+47 areameeker
+48 areamille lacs
+49 areamorrison
+50 areamower
+51 areamurray
+52 areanicollet
+53 areanobles
+54 areanorman
+55 areaolmsted
+56 areaotter tail
+57 areapennington
+58 areapine
+59 areapipestone
+60 areapolk
+61 areapope
+62 arearamsey
+63 areared lake
+64 arearedwood
+65 arearenville
+66 arearice
+67 arearock
+68 arearoseau
+69 areascott
+70 areasherburne
+71 areasibley
+72 areast louis
+73 areastearns
+74 areasteele
+75 areastevens
+76 areaswift
+77 areatodd
+78 areatraverse
+79 areawabasha
+80 areawadena
+81 areawaseca
+82 areawashington
+83 areawatonwan
+84 areawilkin
+85 areawinona
+86 areawright
+87 areayellow medicine
+
+areaaitkin -93.0369 47.0226 
+areaaitkin -93.0483 46.7648 
+areaaitkin -93.0483 46.7648 
+areaaitkin -93.0541 46.5872 
+areaaitkin -93.0369 46.5757 
+areaaitkin -93.0369 46.4268 
+areaaitkin -93.0369 46.1689 
+areaaitkin -93.4322 46.1632 
+areaaitkin -93.4322 46.2606 
+areaaitkin -93.8104 46.2549 
+areaaitkin -93.8161 46.5929 
+areaaitkin -93.7817 46.5872 
+areaaitkin -93.7703 46.7992 
+areaaitkin -93.7703 47.0169 
+areaaitkin -93.0369 47.0226 
+NA NA NA
+areaanoka -93.5182 45.2465 
+areaanoka -93.5182 45.4298 
+areaanoka -93.0197 45.4184 
+areaanoka -93.0140 45.3038 
+areaanoka -93.0140 45.1319 
+areaanoka -93.2317 45.1319 
+areaanoka -93.2317 45.0517 
+areaanoka -93.2947 45.0574 
+areaanoka -93.2890 45.0975 
+areaanoka -93.2890 45.1319 
+areaanoka -93.3234 45.1548 
+areaanoka -93.3864 45.2064 
+areaanoka -93.4895 45.2350 
+areaanoka -93.5182 45.2465 
+NA NA NA
+areabecker -95.1454 46.7190 
+areabecker -96.1480 46.7132 
+areabecker -96.1538 46.9825 
+areabecker -96.1767 46.9825 
+areabecker -96.1767 47.1544 
+areabecker -96.0506 47.1544 
+areabecker -95.5464 47.1544 
+areabecker -95.1683 47.1487 
+areabecker -95.1626 46.9825 
+areabecker -95.1396 46.9825 
+areabecker -95.1454 46.8049 
+areabecker -95.1454 46.7190 
+NA NA NA
+areabeltrami -95.5865 48.5353 
+areabeltrami -95.3230 48.5353 
+areabeltrami -95.1969 48.5353 
+areabeltrami -95.1969 48.3691 
+areabeltrami -94.3948 48.3576 
+areabeltrami -94.4005 48.0253 
+areabeltrami -94.3948 48.0196 
+areabeltrami -94.3948 47.8477 
+areabeltrami -94.3891 47.4237 
+areabeltrami -94.3948 47.4065 
+areabeltrami -94.6641 47.4065 
+areabeltrami -95.1683 47.4008 
+areabeltrami -95.1683 47.6758 
+areabeltrami -95.1855 47.6758 
+areabeltrami -95.1797 47.8764 
+areabeltrami -95.2313 47.8764 
+areabeltrami -95.2542 47.8878 
+areabeltrami -95.2657 47.9107 
+areabeltrami -95.2657 47.9394 
+areabeltrami -95.2542 47.9738 
+areabeltrami -95.2141 48.0081 
+areabeltrami -95.2027 48.0253 
+areabeltrami -95.5694 48.0253 
+areabeltrami -95.5751 48.1743 
+areabeltrami -95.5751 48.3519 
+areabeltrami -95.5865 48.3576 
+areabeltrami -95.5865 48.5353 
+NA NA NA
+areabenton -93.7703 45.8366 
+areabenton -93.7703 45.5731 
+areabenton -94.1599 45.5731 
+areabenton -94.1828 45.6017 
+areabenton -94.2057 45.6361 
+areabenton -94.2000 45.6877 
+areabenton -94.2286 45.7278 
+areabenton -94.2229 45.7392 
+areabenton -94.2229 45.7449 
+areabenton -94.2573 45.7449 
+areabenton -94.2630 45.7736 
+areabenton -94.2859 45.7851 
+areabenton -94.3260 45.8080 
+areabenton -94.3547 45.8366 
+areabenton -93.7703 45.8366 
+NA NA NA
+areabig stone -96.1079 45.4184 
+areabig stone -96.1079 45.2407 
+areabig stone -96.0850 45.2465 
+areabig stone -96.0908 45.1777 
+areabig stone -96.1251 45.1892 
+areabig stone -96.1595 45.2178 
+areabig stone -96.1652 45.2121 
+areabig stone -96.1939 45.2178 
+areabig stone -96.2283 45.2236 
+areabig stone -96.2684 45.2236 
+areabig stone -96.2798 45.2293 
+areabig stone -96.2741 45.2465 
+areabig stone -96.3027 45.2465 
+areabig stone -96.3600 45.2579 
+areabig stone -96.4345 45.2637 
+areabig stone -96.4345 45.2923 
+areabig stone -96.4403 45.3152 
+areabig stone -96.4403 45.3267 
+areabig stone -96.4575 45.3553 
+areabig stone -96.5147 45.3783 
+areabig stone -96.5778 45.4069 
+areabig stone -96.6866 45.4470 
+areabig stone -96.7210 45.4986 
+areabig stone -96.7783 45.5559 
+areabig stone -96.8127 45.5845 
+areabig stone -96.2397 45.5903 
+areabig stone -96.2340 45.4184 
+areabig stone -96.1079 45.4184 
+NA NA NA
+areablue earth -94.3719 43.8599 
+areablue earth -94.3719 44.1177 
+areablue earth -94.3719 44.2839 
+areablue earth -94.3260 44.2724 
+areablue earth -94.3031 44.2610 
+areablue earth -94.2401 44.2438 
+areablue earth -94.2286 44.2266 
+areablue earth -94.1828 44.2152 
+areablue earth -94.1656 44.2037 
+areablue earth -94.1083 44.2037 
+areablue earth -94.0911 44.1808 
+areablue earth -94.0338 44.1750 
+areablue earth -94.0166 44.1808 
+areablue earth -94.0052 44.2037 
+areablue earth -94.0109 44.2266 
+areablue earth -94.0109 44.2381 
+areablue earth -94.0052 44.2553 
+areablue earth -93.7760 44.2553 
+areablue earth -93.7760 44.2037 
+areablue earth -93.7760 43.8599 
+areablue earth -94.2630 43.8599 
+areablue earth -94.3719 43.8599 
+NA NA NA
+areabrown -94.7901 44.4730 
+areabrown -94.7844 44.4615 
+areabrown -94.7615 44.4615 
+areabrown -94.7042 44.4386 
+areabrown -94.6985 44.4271 
+areabrown -94.6813 44.4214 
+areabrown -94.6526 44.4214 
+areabrown -94.5839 44.3870 
+areabrown -94.5266 44.3813 
+areabrown -94.5094 44.3813 
+areabrown -94.4979 44.3699 
+areabrown -94.4349 44.3412 
+areabrown -94.4120 44.3011 
+areabrown -94.3891 44.2839 
+areabrown -94.3719 44.2839 
+areabrown -94.3719 44.1177 
+areabrown -94.8646 44.1177 
+areabrown -95.0995 44.1235 
+areabrown -95.0995 44.2037 
+areabrown -95.1167 44.2037 
+areabrown -95.1167 44.2954 
+areabrown -94.8704 44.2954 
+areabrown -94.8589 44.5074 
+areabrown -94.8245 44.4959 
+areabrown -94.7959 44.4902 
+areabrown -94.7901 44.4730 
+NA NA NA
+areacarlton -93.0483 46.7648 
+areacarlton -92.2978 46.7648 
+areacarlton -92.3035 46.6560 
+areacarlton -92.2920 46.4210 
+areacarlton -93.0369 46.4268 
+areacarlton -93.0369 46.5757 
+areacarlton -93.0541 46.5872 
+areacarlton -93.0483 46.7648 
+NA NA NA
+areacarver -93.5182 44.8225 
+areacarver -93.5755 44.8053 
+areacarver -93.5869 44.7824 
+areacarver -93.6098 44.7766 
+areacarver -93.6098 44.7652 
+areacarver -93.6270 44.7480 
+areacarver -93.6156 44.7251 
+areacarver -93.6328 44.7136 
+areacarver -93.6614 44.7079 
+areacarver -93.6843 44.7022 
+areacarver -93.7015 44.6792 
+areacarver -93.7645 44.6621 
+areacarver -93.7645 44.6850 
+areacarver -93.8791 44.6850 
+areacarver -93.8849 44.7251 
+areacarver -94.0109 44.7251 
+areacarver -94.0166 44.9829 
+areacarver -93.7645 44.9886 
+areacarver -93.7645 44.8970 
+areacarver -93.5182 44.8970 
+areacarver -93.5182 44.8225 
+NA NA NA
+areacass -94.3891 47.4237 
+areacass -94.3661 47.4180 
+areacass -94.3375 47.4237 
+areacass -94.3146 47.4180 
+areacass -94.2917 47.4180 
+areacass -94.2859 47.4294 
+areacass -94.2630 47.4409 
+areacass -94.2573 47.4524 
+areacass -94.2458 47.4581 
+areacass -94.2458 47.4696 
+areacass -94.2401 47.4925 
+areacass -94.2286 47.5097 
+areacass -94.2114 47.5154 
+areacass -94.2000 47.5039 
+areacass -94.1771 47.5154 
+areacass -94.1542 47.5154 
+areacass -94.1083 47.4982 
+areacass -94.0739 47.4867 
+areacass -94.0453 47.4638 
+areacass -94.0281 47.4352 
+areacass -93.9937 47.4180 
+areacass -93.9937 47.4065 
+areacass -94.0109 47.4008 
+areacass -94.0224 47.3893 
+areacass -94.0224 47.3664 
+areacass -94.0109 47.3550 
+areacass -93.9536 47.3320 
+areacass -93.9192 47.2977 
+areacass -93.8963 47.2977 
+areacass -93.8849 47.3091 
+areacass -93.8677 47.3206 
+areacass -93.8390 47.3149 
+areacass -93.8104 47.2919 
+areacass -93.7817 47.2919 
+areacass -93.7703 47.2805 
+areacass -93.7760 47.2633 
+areacass -93.7932 47.2461 
+areacass -93.7989 47.2289 
+areacass -93.7875 47.2117 
+areacass -93.7703 47.2060 
+areacass -93.7703 47.0169 
+areacass -93.7703 46.7992 
+areacass -94.3318 46.8049 
+areacass -94.3318 46.6273 
+areacass -94.3146 46.6273 
+areacass -94.3260 46.3064 
+areacass -94.3490 46.2835 
+areacass -94.3547 46.3064 
+areacass -94.3547 46.3122 
+areacass -94.3833 46.3179 
+areacass -94.4005 46.3179 
+areacass -94.4120 46.3351 
+areacass -94.4349 46.3408 
+areacass -94.4578 46.3408 
+areacass -94.4922 46.3294 
+areacass -94.5323 46.3236 
+areacass -94.5552 46.3179 
+areacass -94.5724 46.3294 
+areacass -94.6068 46.3351 
+areacass -94.6297 46.3408 
+areacass -94.6412 46.3637 
+areacass -94.6584 46.3695 
+areacass -94.6755 46.3637 
+areacass -94.6870 46.3580 
+areacass -94.6927 46.3523 
+areacass -94.7099 46.3408 
+areacass -94.7328 46.3408 
+areacass -94.7386 46.3695 
+areacass -94.7615 46.3752 
+areacass -94.7729 46.3752 
+areacass -94.7672 46.6216 
+areacass -94.7787 46.6273 
+areacass -94.7787 46.8049 
+areacass -94.6469 46.8049 
+areacass -94.6469 46.9768 
+areacass -94.6584 46.9768 
+areacass -94.6584 47.3263 
+areacass -94.6698 47.3320 
+areacass -94.6641 47.4065 
+areacass -94.3948 47.4065 
+areacass -94.3891 47.4237 
+NA NA NA
+areachippewa -95.2428 45.1548 
+areachippewa -95.2428 44.8970 
+areachippewa -95.4834 44.8970 
+areachippewa -95.4891 44.7766 
+areachippewa -95.5121 44.7824 
+areachippewa -95.5293 44.7824 
+areachippewa -95.5235 44.7996 
+areachippewa -95.5006 44.8053 
+areachippewa -95.5522 44.8397 
+areachippewa -95.5751 44.8397 
+areachippewa -95.5808 44.8511 
+areachippewa -95.6209 44.8741 
+areachippewa -95.6381 44.8798 
+areachippewa -95.6438 44.8912 
+areachippewa -95.6782 44.8970 
+areachippewa -95.6840 44.8970 
+areachippewa -95.7183 44.9084 
+areachippewa -95.7183 44.9256 
+areachippewa -95.7470 44.9314 
+areachippewa -95.7699 44.9428 
+areachippewa -95.8043 44.9543 
+areachippewa -95.8157 44.9715 
+areachippewa -95.8387 45.0058 
+areachippewa -95.8959 45.0459 
+areachippewa -95.9246 45.0746 
+areachippewa -95.9704 45.1147 
+areachippewa -96.0392 45.1548 
+areachippewa -95.2428 45.1548 
+NA NA NA
+areachisago -92.9051 45.6418 
+areachisago -92.9223 45.6189 
+areachisago -92.9108 45.5845 
+areachisago -92.7791 45.5673 
+areachisago -92.7390 45.5215 
+areachisago -92.6816 45.4585 
+areachisago -92.6702 45.4298 
+areachisago -92.6874 45.4069 
+areachisago -92.7275 45.3725 
+areachisago -92.7504 45.3324 
+areachisago -92.7619 45.2980 
+areachisago -93.0140 45.3038 
+areachisago -93.0197 45.4184 
+areachisago -93.0140 45.5731 
+areachisago -93.1400 45.5731 
+areachisago -93.1400 45.7449 
+areachisago -92.8478 45.7335 
+areachisago -92.8879 45.7048 
+areachisago -92.9051 45.6418 
+NA NA NA
+areaclay -96.1480 46.7132 
+areaclay -96.1538 46.6330 
+areaclay -96.2569 46.6330 
+areaclay -96.7783 46.6330 
+areaclay -96.7840 46.6674 
+areaclay -96.7783 46.7075 
+areaclay -96.7726 46.7992 
+areaclay -96.7668 46.8737 
+areaclay -96.7554 46.9195 
+areaclay -96.8241 46.9997 
+areaclay -96.8184 47.0341 
+areaclay -96.8127 47.0513 
+areaclay -96.8127 47.0857 
+areaclay -96.8184 47.1200 
+areaclay -96.8184 47.1487 
+areaclay -96.1767 47.1544 
+areaclay -96.1767 46.9825 
+areaclay -96.1538 46.9825 
+areaclay -96.1480 46.7132 
+NA NA NA
+areaclearwater -95.5694 47.9337 
+areaclearwater -95.5694 48.0253 
+areaclearwater -95.2027 48.0253 
+areaclearwater -95.2141 48.0081 
+areaclearwater -95.2542 47.9738 
+areaclearwater -95.2657 47.9394 
+areaclearwater -95.2657 47.9107 
+areaclearwater -95.2542 47.8878 
+areaclearwater -95.2313 47.8764 
+areaclearwater -95.1797 47.8764 
+areaclearwater -95.1855 47.6758 
+areaclearwater -95.1683 47.6758 
+areaclearwater -95.1683 47.4008 
+areaclearwater -95.1740 47.3263 
+areaclearwater -95.1626 47.3206 
+areaclearwater -95.1683 47.1487 
+areaclearwater -95.5464 47.1544 
+areaclearwater -95.5464 47.4925 
+areaclearwater -95.5464 47.6701 
+areaclearwater -95.5694 47.6701 
+areaclearwater -95.5694 47.9337 
+NA NA NA
+areacook -91.0143 48.1972 
+areacook -90.9914 48.2144 
+areacook -90.9513 48.2373 
+areacook -90.9055 48.2488 
+areacook -90.8768 48.2545 
+areacook -90.8367 48.2545 
+areacook -90.8310 48.2430 
+areacook -90.8138 48.1915 
+areacook -90.7622 48.1686 
+areacook -90.7565 48.1399 
+areacook -90.7508 48.1170 
+areacook -90.7221 48.1055 
+areacook -90.6820 48.1113 
+areacook -90.6247 48.1227 
+areacook -90.5904 48.1285 
+areacook -90.5617 48.1285 
+areacook -90.4930 48.1055 
+areacook -90.4242 48.1113 
+areacook -90.3096 48.1170 
+areacook -90.2294 48.1113 
+areacook -90.1721 48.1227 
+areacook -90.1148 48.1170 
+areacook -90.0632 48.1113 
+areacook -90.0289 48.0883 
+areacook -89.9945 48.0654 
+areacook -89.9601 48.0425 
+areacook -89.9143 48.0196 
+areacook -89.8455 47.9967 
+areacook -89.7882 48.0139 
+areacook -89.7538 48.0253 
+areacook -89.6851 48.0196 
+areacook -89.5590 48.0139 
+areacook -89.4731 48.0081 
+areacook -89.5877 47.9795 
+areacook -89.6622 47.9337 
+areacook -89.7710 47.8878 
+areacook -89.8398 47.8706 
+areacook -89.9544 47.8362 
+areacook -90.1033 47.7904 
+areacook -90.2122 47.7675 
+areacook -90.3554 47.7388 
+areacook -90.4930 47.6987 
+areacook -90.7049 47.6071 
+areacook -90.7852 47.5841 
+areacook -90.8425 47.5383 
+areacook -90.9456 47.4867 
+areacook -91.0029 47.4524 
+areacook -91.0029 48.0654 
+areacook -91.0258 48.0597 
+areacook -91.0143 48.1972 
+NA NA NA
+areacottonwood -95.1167 44.2037 
+areacottonwood -95.0995 44.2037 
+areacottonwood -95.0995 44.1235 
+areacottonwood -94.8646 44.1177 
+areacottonwood -94.8646 43.8599 
+areacottonwood -95.4777 43.8599 
+areacottonwood -95.4662 44.2152 
+areacottonwood -95.1167 44.2037 
+NA NA NA
+areacrow wing -93.8104 46.2549 
+areacrow wing -93.8104 46.1632 
+areacrow wing -94.4005 46.1632 
+areacrow wing -94.4177 46.1689 
+areacrow wing -94.4120 46.1919 
+areacrow wing -94.3891 46.2033 
+areacrow wing -94.3948 46.2262 
+areacrow wing -94.3948 46.2434 
+areacrow wing -94.3948 46.2606 
+areacrow wing -94.3719 46.2663 
+areacrow wing -94.3490 46.2835 
+areacrow wing -94.3260 46.3064 
+areacrow wing -94.3146 46.6273 
+areacrow wing -94.3318 46.6273 
+areacrow wing -94.3318 46.8049 
+areacrow wing -93.7703 46.7992 
+areacrow wing -93.7817 46.5872 
+areacrow wing -93.8161 46.5929 
+areacrow wing -93.8104 46.2549 
+NA NA NA
+areadakota -93.0369 44.4787 
+areadakota -93.2718 44.4844 
+areadakota -93.2833 44.5532 
+areadakota -93.2718 44.6391 
+areadakota -93.3176 44.6391 
+areadakota -93.3176 44.7251 
+areadakota -93.3291 44.7251 
+areadakota -93.3291 44.8110 
+areadakota -93.2833 44.8110 
+areadakota -93.2432 44.8397 
+areadakota -93.1973 44.8741 
+areadakota -93.1744 44.8970 
+areadakota -93.1400 44.9142 
+areadakota -93.1228 44.9371 
+areadakota -93.0369 44.9371 
+areadakota -93.0254 44.9256 
+areadakota -93.0140 44.8970 
+areadakota -93.0082 44.8626 
+areadakota -93.0140 44.8053 
+areadakota -93.0140 44.7824 
+areadakota -92.9166 44.7766 
+areadakota -92.8994 44.7824 
+areadakota -92.8421 44.7595 
+areadakota -92.8020 44.7537 
+areadakota -92.7390 44.7136 
+areadakota -92.7332 44.6449 
+areadakota -92.8020 44.6449 
+areadakota -92.7962 44.5532 
+areadakota -92.9166 44.5532 
+areadakota -92.9166 44.5246 
+areadakota -92.9452 44.5131 
+areadakota -92.9739 44.5131 
+areadakota -92.9853 44.5246 
+areadakota -93.0140 44.5246 
+areadakota -93.0369 44.5246 
+areadakota -93.0369 44.4787 
+NA NA NA
+areadodge -93.0541 43.8542 
+areadodge -93.0483 44.2037 
+areadodge -92.6702 44.2037 
+areadodge -92.6759 43.8599 
+areadodge -92.6931 43.8599 
+areadodge -93.0541 43.8542 
+NA NA NA
+areadouglas -95.1396 45.7679 
+areadouglas -95.7584 45.7679 
+areadouglas -95.7584 45.9569 
+areadouglas -95.7699 45.9569 
+areadouglas -95.7699 46.1116 
+areadouglas -95.1454 46.1116 
+areadouglas -95.1511 45.9283 
+areadouglas -95.1339 45.9283 
+areadouglas -95.1339 45.7851 
+areadouglas -95.1396 45.7679 
+NA NA NA
+areafaribault -93.6442 43.5104 
+areafaribault -93.9765 43.5104 
+areafaribault -94.2630 43.5047 
+areafaribault -94.2630 43.8599 
+areafaribault -93.7760 43.8599 
+areafaribault -93.6500 43.8599 
+areafaribault -93.6442 43.5104 
+NA NA NA
+areafillmore -91.7248 43.5104 
+areafillmore -92.0800 43.5047 
+areafillmore -92.4582 43.5047 
+areafillmore -92.4582 43.8427 
+areafillmore -92.4525 43.8599 
+areafillmore -92.0858 43.8599 
+areafillmore -91.7191 43.8599 
+areafillmore -91.7248 43.5104 
+NA NA NA
+areafreeborn -93.0598 43.5104 
+areafreeborn -93.4953 43.5104 
+areafreeborn -93.6442 43.5104 
+areafreeborn -93.6500 43.8599 
+areafreeborn -93.4150 43.8599 
+areafreeborn -93.0541 43.8542 
+areafreeborn -93.0598 43.5104 
+NA NA NA
+areagoodhue -92.6702 44.2037 
+areagoodhue -93.0483 44.2037 
+areagoodhue -93.0369 44.4787 
+areagoodhue -93.0369 44.5246 
+areagoodhue -93.0140 44.5246 
+areagoodhue -92.9853 44.5246 
+areagoodhue -92.9739 44.5131 
+areagoodhue -92.9452 44.5131 
+areagoodhue -92.9166 44.5246 
+areagoodhue -92.9166 44.5532 
+areagoodhue -92.7962 44.5532 
+areagoodhue -92.8020 44.6449 
+areagoodhue -92.7332 44.6449 
+areagoodhue -92.7390 44.7136 
+areagoodhue -92.6759 44.6907 
+areagoodhue -92.6301 44.6506 
+areagoodhue -92.5900 44.6048 
+areagoodhue -92.5327 44.5818 
+areagoodhue -92.4353 44.5761 
+areagoodhue -92.3608 44.5532 
+areagoodhue -92.3379 44.5417 
+areagoodhue -92.3207 44.5246 
+areagoodhue -92.2978 44.4844 
+areagoodhue -92.2519 44.4558 
+areagoodhue -92.4296 44.4673 
+areagoodhue -92.4238 44.3756 
+areagoodhue -92.5556 44.3813 
+areagoodhue -92.5556 44.2037 
+areagoodhue -92.6702 44.2037 
+NA NA NA
+areagrant -95.7584 45.7679 
+areagrant -96.2397 45.7679 
+areagrant -96.2397 45.9340 
+areagrant -96.2569 45.9398 
+areagrant -96.2512 46.0314 
+areagrant -96.2512 46.1116 
+areagrant -95.7699 46.1116 
+areagrant -95.7699 45.9569 
+areagrant -95.7584 45.9569 
+areagrant -95.7584 45.7679 
+NA NA NA
+areahennepin -93.3291 44.8110 
+areahennepin -93.3635 44.7996 
+areahennepin -93.3864 44.8110 
+areahennepin -93.4208 44.8225 
+areahennepin -93.4551 44.8225 
+areahennepin -93.4551 44.8168 
+areahennepin -93.4838 44.8168 
+areahennepin -93.5182 44.8225 
+areahennepin -93.5182 44.8970 
+areahennepin -93.7645 44.8970 
+areahennepin -93.7645 44.9886 
+areahennepin -93.7645 45.0689 
+areahennepin -93.7588 45.0918 
+areahennepin -93.7244 45.1090 
+areahennepin -93.7015 45.1548 
+areahennepin -93.6843 45.1605 
+areahennepin -93.6500 45.1720 
+areahennepin -93.6500 45.1835 
+areahennepin -93.6614 45.2064 
+areahennepin -93.6442 45.2178 
+areahennepin -93.6041 45.2178 
+areahennepin -93.5869 45.2350 
+areahennepin -93.5354 45.2293 
+areahennepin -93.5182 45.2465 
+areahennepin -93.4895 45.2350 
+areahennepin -93.3864 45.2064 
+areahennepin -93.3234 45.1548 
+areahennepin -93.2890 45.1319 
+areahennepin -93.2890 45.0975 
+areahennepin -93.2947 45.0574 
+areahennepin -93.2317 45.0517 
+areahennepin -93.2088 45.0517 
+areahennepin -93.2030 44.9371 
+areahennepin -93.1744 44.8970 
+areahennepin -93.1973 44.8741 
+areahennepin -93.2432 44.8397 
+areahennepin -93.2833 44.8110 
+areahennepin -93.3291 44.8110 
+NA NA NA
+areahouston -91.2263 43.4990 
+areahouston -91.6045 43.5104 
+areahouston -91.7248 43.5104 
+areahouston -91.7191 43.8599 
+areahouston -91.2894 43.8542 
+areahouston -91.2607 43.8427 
+areahouston -91.2435 43.8026 
+areahouston -91.2435 43.7854 
+areahouston -91.2550 43.7281 
+areahouston -91.2722 43.6880 
+areahouston -91.2378 43.6307 
+areahouston -91.2493 43.5964 
+areahouston -91.2607 43.5563 
+areahouston -91.2263 43.5104 
+areahouston -91.2206 43.5104 
+areahouston -91.2263 43.4990 
+NA NA NA
+areahubbard -94.6641 47.4065 
+areahubbard -94.6698 47.3320 
+areahubbard -94.6584 47.3263 
+areahubbard -94.6584 46.9768 
+areahubbard -94.6469 46.9768 
+areahubbard -94.6469 46.8049 
+areahubbard -94.7787 46.8049 
+areahubbard -95.1454 46.8049 
+areahubbard -95.1396 46.9825 
+areahubbard -95.1626 46.9825 
+areahubbard -95.1683 47.1487 
+areahubbard -95.1626 47.3206 
+areahubbard -95.1740 47.3263 
+areahubbard -95.1683 47.4008 
+areahubbard -94.6641 47.4065 
+NA NA NA
+areaisanti -93.0197 45.4184 
+areaisanti -93.5182 45.4298 
+areaisanti -93.5182 45.5731 
+areaisanti -93.5182 45.7449 
+areaisanti -93.1400 45.7449 
+areaisanti -93.1400 45.5731 
+areaisanti -93.0140 45.5731 
+areaisanti -93.0197 45.4184 
+NA NA NA
+areaitasca -94.3891 47.4237 
+areaitasca -94.3948 47.8477 
+areaitasca -93.7531 47.8477 
+areaitasca -93.7531 47.8935 
+areaitasca -93.0598 47.8821 
+areaitasca -93.0655 47.7159 
+areaitasca -93.0541 47.7159 
+areaitasca -93.0598 47.3664 
+areaitasca -93.0483 47.3664 
+areaitasca -93.0541 47.1086 
+areaitasca -93.0369 47.1086 
+areaitasca -93.0369 47.0226 
+areaitasca -93.7703 47.0169 
+areaitasca -93.7703 47.2060 
+areaitasca -93.7875 47.2117 
+areaitasca -93.7989 47.2289 
+areaitasca -93.7932 47.2461 
+areaitasca -93.7760 47.2633 
+areaitasca -93.7703 47.2805 
+areaitasca -93.7817 47.2919 
+areaitasca -93.8104 47.2919 
+areaitasca -93.8390 47.3149 
+areaitasca -93.8677 47.3206 
+areaitasca -93.8849 47.3091 
+areaitasca -93.8963 47.2977 
+areaitasca -93.9192 47.2977 
+areaitasca -93.9536 47.3320 
+areaitasca -94.0109 47.3550 
+areaitasca -94.0224 47.3664 
+areaitasca -94.0224 47.3893 
+areaitasca -94.0109 47.4008 
+areaitasca -93.9937 47.4065 
+areaitasca -93.9937 47.4180 
+areaitasca -94.0281 47.4352 
+areaitasca -94.0453 47.4638 
+areaitasca -94.0739 47.4867 
+areaitasca -94.1083 47.4982 
+areaitasca -94.1542 47.5154 
+areaitasca -94.1771 47.5154 
+areaitasca -94.2000 47.5039 
+areaitasca -94.2114 47.5154 
+areaitasca -94.2286 47.5097 
+areaitasca -94.2401 47.4925 
+areaitasca -94.2458 47.4696 
+areaitasca -94.2458 47.4581 
+areaitasca -94.2573 47.4524 
+areaitasca -94.2630 47.4409 
+areaitasca -94.2859 47.4294 
+areaitasca -94.2917 47.4180 
+areaitasca -94.3146 47.4180 
+areaitasca -94.3375 47.4237 
+areaitasca -94.3661 47.4180 
+areaitasca -94.3891 47.4237 
+NA NA NA
+areajackson -94.8646 43.5047 
+areajackson -94.9162 43.5047 
+areajackson -95.3917 43.5047 
+areajackson -95.4662 43.5047 
+areajackson -95.4777 43.8599 
+areajackson -94.8646 43.8599 
+areajackson -94.8646 43.5047 
+NA NA NA
+areakanabec -93.1400 45.7449 
+areakanabec -93.5182 45.7449 
+areakanabec -93.5182 45.9971 
+areakanabec -93.4322 45.9971 
+areakanabec -93.4322 46.1632 
+areakanabec -93.0369 46.1689 
+areakanabec -93.0483 45.9971 
+areakanabec -93.1400 45.9971 
+areakanabec -93.1400 45.7449 
+NA NA NA
+areakandiyohi -95.1282 45.4184 
+areakandiyohi -94.7615 45.4184 
+areakandiyohi -94.7615 45.3324 
+areakandiyohi -94.7558 45.2407 
+areakandiyohi -94.7500 45.2350 
+areakandiyohi -94.7500 44.8970 
+areakandiyohi -95.2428 44.8970 
+areakandiyohi -95.2428 45.1548 
+areakandiyohi -95.2428 45.2465 
+areakandiyohi -95.2542 45.2465 
+areakandiyohi -95.2600 45.4184 
+areakandiyohi -95.1282 45.4184 
+NA NA NA
+areakittson -97.1450 48.5467 
+areakittson -97.1565 48.5696 
+areakittson -97.1565 48.5811 
+areakittson -97.1393 48.6097 
+areakittson -97.1106 48.6327 
+areakittson -97.0934 48.6613 
+areakittson -97.1106 48.6957 
+areakittson -97.1278 48.7301 
+areakittson -97.1450 48.7472 
+areakittson -97.1794 48.8103 
+areakittson -97.1851 48.8676 
+areakittson -97.1908 48.8962 
+areakittson -97.2252 48.9363 
+areakittson -97.2252 48.9994 
+areakittson -96.3715 48.9994 
+areakittson -96.3772 48.7243 
+areakittson -96.3600 48.7186 
+areakittson -96.3486 48.5410 
+areakittson -97.1450 48.5467 
+NA NA NA
+areakoochiching -94.3948 48.3576 
+areakoochiching -94.4005 48.7014 
+areakoochiching -94.3719 48.7071 
+areakoochiching -94.3318 48.7071 
+areakoochiching -94.2917 48.7014 
+areakoochiching -94.2516 48.6900 
+areakoochiching -94.2344 48.6498 
+areakoochiching -94.1542 48.6498 
+areakoochiching -93.8448 48.6384 
+areakoochiching -93.8104 48.6212 
+areakoochiching -93.7875 48.5983 
+areakoochiching -93.7932 48.5353 
+areakoochiching -93.7703 48.5066 
+areakoochiching -93.4494 48.5582 
+areakoochiching -93.4380 48.5926 
+areakoochiching -93.4093 48.6040 
+areakoochiching -93.2661 48.6384 
+areakoochiching -93.2374 48.6441 
+areakoochiching -93.1859 48.6441 
+areakoochiching -93.0713 48.6269 
+areakoochiching -93.0942 48.0654 
+areakoochiching -93.0713 48.0597 
+areakoochiching -93.0770 47.9738 
+areakoochiching -93.0655 47.9738 
+areakoochiching -93.0598 47.8821 
+areakoochiching -93.7531 47.8935 
+areakoochiching -93.7531 47.8477 
+areakoochiching -94.3948 47.8477 
+areakoochiching -94.3948 48.0196 
+areakoochiching -94.4005 48.0253 
+areakoochiching -94.3948 48.3576 
+NA NA NA
+arealac qui parle -96.0908 45.1777 
+arealac qui parle -96.0736 45.1663 
+arealac qui parle -96.0564 45.1605 
+arealac qui parle -96.0392 45.1548 
+arealac qui parle -95.9704 45.1147 
+arealac qui parle -95.9246 45.0746 
+arealac qui parle -95.8959 45.0459 
+arealac qui parle -95.8387 45.0058 
+arealac qui parle -95.8157 44.9715 
+arealac qui parle -95.8043 44.9543 
+arealac qui parle -95.7699 44.9428 
+arealac qui parle -95.7470 44.9314 
+arealac qui parle -95.7470 44.8970 
+arealac qui parle -95.8616 44.8970 
+arealac qui parle -95.8616 44.8110 
+arealac qui parle -96.4345 44.8168 
+arealac qui parle -96.4345 44.9772 
+arealac qui parle -96.4345 45.2637 
+arealac qui parle -96.3600 45.2579 
+arealac qui parle -96.3027 45.2465 
+arealac qui parle -96.2741 45.2465 
+arealac qui parle -96.2798 45.2293 
+arealac qui parle -96.2684 45.2236 
+arealac qui parle -96.2283 45.2236 
+arealac qui parle -96.1939 45.2178 
+arealac qui parle -96.1652 45.2121 
+arealac qui parle -96.1595 45.2178 
+arealac qui parle -96.1251 45.1892 
+arealac qui parle -96.0908 45.1777 
+NA NA NA
+arealake -91.0143 48.1972 
+arealake -91.0258 48.0597 
+arealake -91.0029 48.0654 
+arealake -91.0029 47.4524 
+arealake -91.0716 47.4008 
+arealake -91.1404 47.3492 
+arealake -91.2894 47.2289 
+arealake -91.3982 47.1487 
+arealake -91.5357 47.0857 
+arealake -91.6160 47.0398 
+arealake -91.7420 46.9711 
+arealake -91.7878 46.9482 
+arealake -91.7821 47.4925 
+arealake -91.7936 47.7274 
+arealake -91.7706 48.2029 
+arealake -91.7535 48.2087 
+arealake -91.7248 48.2029 
+arealake -91.7019 48.1915 
+arealake -91.6962 48.1686 
+arealake -91.6904 48.1342 
+arealake -91.6732 48.1170 
+arealake -91.6217 48.1055 
+arealake -91.5644 48.1055 
+arealake -91.5529 48.0712 
+arealake -91.5186 48.0654 
+arealake -91.4899 48.0712 
+arealake -91.4555 48.0769 
+arealake -91.4097 48.0597 
+arealake -91.3008 48.0769 
+arealake -91.2263 48.0998 
+arealake -91.1633 48.1399 
+arealake -91.0716 48.1858 
+arealake -91.0143 48.1972 
+NA NA NA
+arealake of the woods -94.4005 48.7014 
+arealake of the woods -94.3948 48.3576 
+arealake of the woods -95.1969 48.3691 
+arealake of the woods -95.1969 48.5353 
+arealake of the woods -95.3230 48.5353 
+arealake of the woods -95.3287 48.7129 
+arealake of the woods -95.0823 48.7071 
+arealake of the woods -95.0766 48.9306 
+arealake of the woods -95.0995 48.9077 
+arealake of the woods -95.1225 48.8962 
+arealake of the woods -95.1454 48.8905 
+arealake of the woods -95.1740 48.8848 
+arealake of the woods -95.2084 48.8848 
+arealake of the woods -95.2485 48.8905 
+arealake of the woods -95.2772 48.8905 
+arealake of the woods -95.2829 48.9134 
+arealake of the woods -95.2943 48.9249 
+arealake of the woods -95.2886 48.9478 
+arealake of the woods -95.3115 48.9707 
+arealake of the woods -95.2943 48.9994 
+arealake of the woods -95.1568 49.0051 
+arealake of the woods -95.1511 49.3832 
+arealake of the woods -95.1053 49.3718 
+arealake of the woods -95.0537 49.3660 
+arealake of the woods -95.0193 49.3603 
+arealake of the woods -94.9849 49.3718 
+arealake of the woods -94.9334 49.3775 
+arealake of the woods -94.9047 49.3660 
+arealake of the woods -94.8818 49.3489 
+arealake of the woods -94.8417 49.3431 
+arealake of the woods -94.8016 49.3374 
+arealake of the woods -94.7959 49.2973 
+arealake of the woods -94.7901 49.2400 
+arealake of the woods -94.7615 49.1712 
+arealake of the woods -94.7328 49.1139 
+arealake of the woods -94.7214 49.0566 
+arealake of the woods -94.6985 48.9822 
+arealake of the woods -94.6755 48.9306 
+arealake of the woods -94.6755 48.8905 
+arealake of the woods -94.6755 48.8504 
+arealake of the woods -94.6870 48.8160 
+arealake of the woods -94.6813 48.7874 
+arealake of the woods -94.6698 48.7644 
+arealake of the woods -94.6068 48.7358 
+arealake of the woods -94.5209 48.7129 
+arealake of the woods -94.4406 48.6900 
+arealake of the woods -94.4005 48.7014 
+NA NA NA
+areale sueur -93.8963 44.5532 
+areale sueur -93.5239 44.5532 
+areale sueur -93.5239 44.2037 
+areale sueur -93.7760 44.2037 
+areale sueur -93.7760 44.2553 
+areale sueur -94.0052 44.2553 
+areale sueur -93.9937 44.2782 
+areale sueur -93.9479 44.3297 
+areale sueur -93.9364 44.3584 
+areale sueur -93.9594 44.4157 
+areale sueur -93.9364 44.4558 
+areale sueur -93.9364 44.4673 
+areale sueur -93.9250 44.4844 
+areale sueur -93.9021 44.4959 
+areale sueur -93.8963 44.5303 
+areale sueur -93.8963 44.5417 
+areale sueur -93.8963 44.5532 
+NA NA NA
+arealincoln -96.4288 44.2037 
+arealincoln -96.4345 44.5475 
+arealincoln -96.4345 44.6391 
+arealincoln -96.0678 44.6391 
+arealincoln -96.0506 44.2152 
+arealincoln -96.4288 44.2037 
+NA NA NA
+arealyon -95.5980 44.5532 
+arealyon -95.5923 44.2152 
+arealyon -96.0506 44.2152 
+arealyon -96.0678 44.6391 
+arealyon -95.6095 44.6449 
+arealyon -95.6095 44.5532 
+arealyon -95.5980 44.5532 
+NA NA NA
+areamahnomen -95.5464 47.4925 
+areamahnomen -95.5464 47.1544 
+areamahnomen -96.0506 47.1544 
+areamahnomen -96.0506 47.5039 
+areamahnomen -95.5464 47.4925 
+NA NA NA
+areamarshall -96.3486 48.5410 
+areamarshall -95.5865 48.5353 
+areamarshall -95.5865 48.3576 
+areamarshall -95.5751 48.3519 
+areamarshall -95.5751 48.1743 
+areamarshall -96.4689 48.1686 
+areamarshall -97.1450 48.1686 
+areamarshall -97.1393 48.1915 
+areamarshall -97.1393 48.2316 
+areamarshall -97.1393 48.2774 
+areamarshall -97.1393 48.3233 
+areamarshall -97.1507 48.3691 
+areamarshall -97.1393 48.4092 
+areamarshall -97.1393 48.4550 
+areamarshall -97.1393 48.5123 
+areamarshall -97.1450 48.5467 
+areamarshall -96.3486 48.5410 
+NA NA NA
+areamartin -94.4521 43.5047 
+areamartin -94.8646 43.5047 
+areamartin -94.8646 43.8599 
+areamartin -94.3719 43.8599 
+areamartin -94.2630 43.8599 
+areamartin -94.2630 43.5047 
+areamartin -94.4521 43.5047 
+NA NA NA
+areamcleod -94.4979 44.7251 
+areamcleod -94.4979 44.8970 
+areamcleod -94.5037 44.9829 
+areamcleod -94.2516 44.9829 
+areamcleod -94.0166 44.9829 
+areamcleod -94.0109 44.7251 
+areamcleod -94.2516 44.7251 
+areamcleod -94.2516 44.6391 
+areamcleod -94.4922 44.6391 
+areamcleod -94.4979 44.7251 
+NA NA NA
+areameeker -94.2630 45.2923 
+areameeker -94.2516 44.9829 
+areameeker -94.5037 44.9829 
+areameeker -94.4979 44.8970 
+areameeker -94.7500 44.8970 
+areameeker -94.7500 45.2350 
+areameeker -94.7558 45.2407 
+areameeker -94.7615 45.3324 
+areameeker -94.3776 45.3324 
+areameeker -94.3833 45.2923 
+areameeker -94.2630 45.2923 
+NA NA NA
+areamille lacs -93.7703 45.5731 
+areamille lacs -93.7703 45.8366 
+areamille lacs -93.7760 45.9913 
+areamille lacs -93.8104 45.9971 
+areamille lacs -93.8104 46.1632 
+areamille lacs -93.8104 46.2549 
+areamille lacs -93.4322 46.2606 
+areamille lacs -93.4322 46.1632 
+areamille lacs -93.4322 45.9971 
+areamille lacs -93.5182 45.9971 
+areamille lacs -93.5182 45.7449 
+areamille lacs -93.5182 45.5731 
+areamille lacs -93.7703 45.5731 
+NA NA NA
+areamorrison -93.7703 45.8366 
+areamorrison -94.3547 45.8366 
+areamorrison -94.3260 45.8080 
+areamorrison -94.2859 45.7851 
+areamorrison -94.6354 45.7851 
+areamorrison -94.6526 46.3351 
+areamorrison -94.6182 46.3351 
+areamorrison -94.6068 46.3351 
+areamorrison -94.5724 46.3294 
+areamorrison -94.5552 46.3179 
+areamorrison -94.5323 46.3236 
+areamorrison -94.4922 46.3294 
+areamorrison -94.4578 46.3408 
+areamorrison -94.4349 46.3408 
+areamorrison -94.4120 46.3351 
+areamorrison -94.4005 46.3179 
+areamorrison -94.3833 46.3179 
+areamorrison -94.3547 46.3122 
+areamorrison -94.3547 46.3064 
+areamorrison -94.3490 46.2835 
+areamorrison -94.3719 46.2663 
+areamorrison -94.3948 46.2606 
+areamorrison -94.3948 46.2434 
+areamorrison -94.3948 46.2262 
+areamorrison -94.3891 46.2033 
+areamorrison -94.4120 46.1919 
+areamorrison -94.4177 46.1689 
+areamorrison -94.4005 46.1632 
+areamorrison -93.8104 46.1632 
+areamorrison -93.8104 45.9971 
+areamorrison -93.7760 45.9913 
+areamorrison -93.7703 45.8366 
+NA NA NA
+areamower -93.0541 43.8542 
+areamower -92.6931 43.8599 
+areamower -92.6874 43.8427 
+areamower -92.4582 43.8427 
+areamower -92.4582 43.5047 
+areamower -92.5499 43.5104 
+areamower -93.0254 43.5104 
+areamower -93.0598 43.5104 
+areamower -93.0541 43.8542 
+NA NA NA
+areamurray -95.5923 44.2152 
+areamurray -95.4662 44.2152 
+areamurray -95.4777 43.8599 
+areamurray -96.0506 43.8599 
+areamurray -96.0506 44.2152 
+areamurray -95.5923 44.2152 
+NA NA NA
+areanicollet -94.0052 44.2553 
+areanicollet -94.0109 44.2381 
+areanicollet -94.0109 44.2266 
+areanicollet -94.0052 44.2037 
+areanicollet -94.0166 44.1808 
+areanicollet -94.0338 44.1750 
+areanicollet -94.0911 44.1808 
+areanicollet -94.1083 44.2037 
+areanicollet -94.1656 44.2037 
+areanicollet -94.1828 44.2152 
+areanicollet -94.2286 44.2266 
+areanicollet -94.2401 44.2438 
+areanicollet -94.3031 44.2610 
+areanicollet -94.3260 44.2724 
+areanicollet -94.3719 44.2839 
+areanicollet -94.3891 44.2839 
+areanicollet -94.4120 44.3011 
+areanicollet -94.4349 44.3412 
+areanicollet -94.4979 44.3699 
+areanicollet -94.5094 44.3813 
+areanicollet -94.5266 44.3813 
+areanicollet -94.5839 44.3870 
+areanicollet -94.6526 44.4214 
+areanicollet -94.6813 44.4214 
+areanicollet -94.6985 44.4271 
+areanicollet -94.7042 44.4386 
+areanicollet -94.7615 44.4615 
+areanicollet -94.7844 44.4615 
+areanicollet -94.7901 44.4730 
+areanicollet -94.6182 44.4730 
+areanicollet -93.9364 44.4673 
+areanicollet -93.9364 44.4558 
+areanicollet -93.9594 44.4157 
+areanicollet -93.9364 44.3584 
+areanicollet -93.9479 44.3297 
+areanicollet -93.9937 44.2782 
+areanicollet -94.0052 44.2553 
+NA NA NA
+areanobles -95.8616 43.5047 
+areanobles -96.0449 43.4990 
+areanobles -96.0506 43.8599 
+areanobles -95.4777 43.8599 
+areanobles -95.4662 43.5047 
+areanobles -95.8616 43.5047 
+NA NA NA
+areanorman -96.8184 47.1487 
+areanorman -96.8241 47.2060 
+areanorman -96.8299 47.2404 
+areanorman -96.8356 47.2747 
+areanorman -96.8299 47.3206 
+areanorman -96.8241 47.3607 
+areanorman -96.8241 47.3893 
+areanorman -96.8356 47.4352 
+areanorman -96.8356 47.4925 
+areanorman -96.8356 47.4982 
+areanorman -96.0506 47.5039 
+areanorman -96.0506 47.1544 
+areanorman -96.1767 47.1544 
+areanorman -96.8184 47.1487 
+NA NA NA
+areaolmsted -92.6931 43.8599 
+areaolmsted -92.6759 43.8599 
+areaolmsted -92.6702 44.2037 
+areaolmsted -92.5556 44.2037 
+areaolmsted -92.3207 44.2037 
+areaolmsted -92.3207 44.1235 
+areaolmsted -92.0800 44.1177 
+areaolmsted -92.0858 43.8599 
+areaolmsted -92.4525 43.8599 
+areaolmsted -92.4582 43.8427 
+areaolmsted -92.6874 43.8427 
+areaolmsted -92.6931 43.8599 
+NA NA NA
+areaotter tail -95.1454 46.1116 
+areaotter tail -95.7699 46.1116 
+areaotter tail -96.2512 46.1116 
+areaotter tail -96.2569 46.2835 
+areaotter tail -96.2741 46.2835 
+areaotter tail -96.2569 46.6330 
+areaotter tail -96.1538 46.6330 
+areaotter tail -96.1480 46.7132 
+areaotter tail -95.1454 46.7190 
+areaotter tail -95.1454 46.3752 
+areaotter tail -95.1511 46.2835 
+areaotter tail -95.1396 46.2835 
+areaotter tail -95.1454 46.1116 
+NA NA NA
+areapennington -95.5751 48.1743 
+areapennington -95.5694 48.0253 
+areapennington -95.5694 47.9337 
+areapennington -95.6954 47.9337 
+areapennington -95.6954 47.9623 
+areapennington -96.4575 47.9680 
+areapennington -96.4575 48.0311 
+areapennington -96.4632 48.0311 
+areapennington -96.4689 48.1686 
+areapennington -95.5751 48.1743 
+NA NA NA
+areapine -93.0369 46.1689 
+areapine -93.0369 46.4268 
+areapine -92.2920 46.4210 
+areapine -92.2920 46.1517 
+areapine -92.3035 46.0715 
+areapine -92.3322 46.0543 
+areapine -92.3608 46.0257 
+areapine -92.4353 46.0257 
+areapine -92.4639 45.9913 
+areapine -92.5384 45.9799 
+areapine -92.5785 45.9512 
+areapine -92.6874 45.9111 
+areapine -92.7332 45.8939 
+areapine -92.7561 45.8653 
+areapine -92.7791 45.8424 
+areapine -92.7848 45.7851 
+areapine -92.8077 45.7564 
+areapine -92.8478 45.7335 
+areapine -93.1400 45.7449 
+areapine -93.1400 45.9971 
+areapine -93.0483 45.9971 
+areapine -93.0369 46.1689 
+NA NA NA
+areapipestone -96.0506 44.2152 
+areapipestone -96.0506 43.8599 
+areapipestone -96.4288 43.8542 
+areapipestone -96.4288 44.2037 
+areapipestone -96.4288 44.2037 
+areapipestone -96.0506 44.2152 
+NA NA NA
+areapolk -95.5694 47.9337 
+areapolk -95.5694 47.6701 
+areapolk -95.5464 47.6701 
+areapolk -95.5464 47.4925 
+areapolk -96.0506 47.5039 
+areapolk -96.8356 47.4982 
+areapolk -96.8413 47.5326 
+areapolk -96.8471 47.5555 
+areapolk -96.8471 47.5841 
+areapolk -96.8585 47.6071 
+areapolk -96.8700 47.6414 
+areapolk -96.8814 47.6701 
+areapolk -96.9101 47.7159 
+areapolk -96.9330 47.7675 
+areapolk -96.9559 47.8076 
+areapolk -96.9903 47.8592 
+areapolk -97.0189 47.8821 
+areapolk -97.0361 47.9279 
+areapolk -97.0476 47.9623 
+areapolk -97.0591 47.9967 
+areapolk -97.0648 48.0368 
+areapolk -97.0762 48.0597 
+areapolk -97.1335 48.1342 
+areapolk -97.1450 48.1686 
+areapolk -96.4689 48.1686 
+areapolk -96.4632 48.0311 
+areapolk -96.4575 48.0311 
+areapolk -96.4575 47.9680 
+areapolk -96.4575 47.8592 
+areapolk -96.3314 47.8534 
+areapolk -96.3314 47.7618 
+areapolk -96.0793 47.7618 
+areapolk -95.8215 47.7618 
+areapolk -95.8215 47.8477 
+areapolk -95.7011 47.8477 
+areapolk -95.6954 47.9337 
+areapolk -95.5694 47.9337 
+NA NA NA
+areapope -95.1282 45.4184 
+areapope -95.2600 45.4184 
+areapope -95.7470 45.4184 
+areapope -95.7470 45.6017 
+areapope -95.7584 45.6017 
+areapope -95.7584 45.7679 
+areapope -95.1396 45.7679 
+areapope -95.1339 45.5903 
+areapope -95.1282 45.5903 
+areapope -95.1282 45.4184 
+NA NA NA
+arearamsey -93.0140 45.1319 
+arearamsey -92.9796 45.1319 
+arearamsey -92.9796 44.8970 
+arearamsey -93.0140 44.8970 
+arearamsey -93.0254 44.9256 
+arearamsey -93.0369 44.9371 
+arearamsey -93.1228 44.9371 
+arearamsey -93.1400 44.9142 
+arearamsey -93.1744 44.8970 
+arearamsey -93.2030 44.9371 
+arearamsey -93.2088 45.0517 
+arearamsey -93.2317 45.0517 
+arearamsey -93.2317 45.1319 
+arearamsey -93.0140 45.1319 
+NA NA NA
+areared lake -96.4575 47.9680 
+areared lake -95.6954 47.9623 
+areared lake -95.6954 47.9337 
+areared lake -95.7011 47.8477 
+areared lake -95.8215 47.8477 
+areared lake -95.8215 47.7618 
+areared lake -96.0793 47.7618 
+areared lake -96.3314 47.7618 
+areared lake -96.3314 47.8534 
+areared lake -96.4575 47.8592 
+areared lake -96.4575 47.9680 
+NA NA NA
+arearedwood -95.5923 44.2152 
+arearedwood -95.5980 44.5532 
+arearedwood -95.3574 44.5532 
+arearedwood -95.3516 44.7136 
+arearedwood -95.3115 44.7079 
+arearedwood -95.2829 44.6792 
+arearedwood -95.2313 44.6792 
+arearedwood -95.1855 44.6391 
+arearedwood -95.1454 44.6334 
+arearedwood -95.1396 44.6105 
+arearedwood -95.0823 44.5990 
+arearedwood -95.0881 44.5933 
+arearedwood -95.0766 44.5876 
+arearedwood -95.0537 44.5876 
+arearedwood -94.8990 44.5303 
+arearedwood -94.8589 44.5074 
+arearedwood -94.8704 44.2954 
+arearedwood -95.1167 44.2954 
+arearedwood -95.1167 44.2037 
+arearedwood -95.4662 44.2152 
+arearedwood -95.5923 44.2152 
+NA NA NA
+arearenville -94.4979 44.8970 
+arearenville -94.4979 44.7251 
+arearenville -94.6240 44.7251 
+arearenville -94.6297 44.5532 
+arearenville -94.6125 44.5532 
+arearenville -94.6182 44.4730 
+arearenville -94.7901 44.4730 
+arearenville -94.7959 44.4902 
+arearenville -94.8245 44.4959 
+arearenville -94.8589 44.5074 
+arearenville -94.8990 44.5303 
+arearenville -95.0537 44.5876 
+arearenville -95.0766 44.5876 
+arearenville -95.0881 44.5933 
+arearenville -95.0823 44.5990 
+arearenville -95.1396 44.6105 
+arearenville -95.1454 44.6334 
+arearenville -95.1855 44.6391 
+arearenville -95.2313 44.6792 
+arearenville -95.2829 44.6792 
+arearenville -95.3115 44.7079 
+arearenville -95.3516 44.7136 
+arearenville -95.3688 44.7194 
+arearenville -95.4089 44.7537 
+arearenville -95.4490 44.7595 
+arearenville -95.4891 44.7766 
+arearenville -95.4834 44.8970 
+arearenville -95.2428 44.8970 
+arearenville -94.7500 44.8970 
+arearenville -94.4979 44.8970 
+NA NA NA
+arearice -93.0369 44.4787 
+arearice -93.0483 44.2037 
+arearice -93.4093 44.2037 
+arearice -93.5239 44.2037 
+arearice -93.5239 44.5532 
+arearice -93.2833 44.5532 
+arearice -93.2718 44.4844 
+arearice -93.0369 44.4787 
+NA NA NA
+arearock -96.0506 43.8599 
+arearock -96.0449 43.4990 
+arearock -96.4288 43.4932 
+arearock -96.4288 43.8542 
+arearock -96.0506 43.8599 
+NA NA NA
+arearoseau -95.5865 48.5353 
+arearoseau -96.3486 48.5410 
+arearoseau -96.3600 48.7186 
+arearoseau -96.3772 48.7243 
+arearoseau -96.3715 48.9994 
+arearoseau -95.2943 48.9994 
+arearoseau -95.3115 48.9707 
+arearoseau -95.2886 48.9478 
+arearoseau -95.2943 48.9249 
+arearoseau -95.2829 48.9134 
+arearoseau -95.2772 48.8905 
+arearoseau -95.2485 48.8905 
+arearoseau -95.2084 48.8848 
+arearoseau -95.1740 48.8848 
+arearoseau -95.1454 48.8905 
+arearoseau -95.1225 48.8962 
+arearoseau -95.0995 48.9077 
+arearoseau -95.0766 48.9306 
+arearoseau -95.0823 48.7071 
+arearoseau -95.3287 48.7129 
+arearoseau -95.3230 48.5353 
+arearoseau -95.5865 48.5353 
+NA NA NA
+areascott -93.8963 44.5532 
+areascott -93.9021 44.5704 
+areascott -93.8906 44.5876 
+areascott -93.8963 44.6105 
+areascott -93.8333 44.6277 
+areascott -93.7875 44.6391 
+areascott -93.7645 44.6334 
+areascott -93.7645 44.6621 
+areascott -93.7015 44.6792 
+areascott -93.6843 44.7022 
+areascott -93.6614 44.7079 
+areascott -93.6328 44.7136 
+areascott -93.6156 44.7251 
+areascott -93.6270 44.7480 
+areascott -93.6098 44.7652 
+areascott -93.6098 44.7766 
+areascott -93.5869 44.7824 
+areascott -93.5755 44.8053 
+areascott -93.5182 44.8225 
+areascott -93.4838 44.8168 
+areascott -93.4551 44.8168 
+areascott -93.4551 44.8225 
+areascott -93.4208 44.8225 
+areascott -93.3864 44.8110 
+areascott -93.3635 44.7996 
+areascott -93.3291 44.8110 
+areascott -93.3291 44.7251 
+areascott -93.3176 44.7251 
+areascott -93.3176 44.6391 
+areascott -93.2718 44.6391 
+areascott -93.2833 44.5532 
+areascott -93.5239 44.5532 
+areascott -93.8963 44.5532 
+NA NA NA
+areasherburne -93.5182 45.4298 
+areasherburne -93.5182 45.2465 
+areasherburne -93.5354 45.2579 
+areasherburne -93.5526 45.2751 
+areasherburne -93.5640 45.3038 
+areasherburne -93.5755 45.3038 
+areasherburne -93.6098 45.3038 
+areasherburne -93.6385 45.3152 
+areasherburne -93.6729 45.3038 
+areasherburne -93.7015 45.3152 
+areasherburne -93.7302 45.3038 
+areasherburne -93.8161 45.3439 
+areasherburne -93.8276 45.3496 
+areasherburne -93.8849 45.3611 
+areasherburne -93.9192 45.3897 
+areasherburne -93.9364 45.3954 
+areasherburne -93.9651 45.3897 
+areasherburne -93.9880 45.4069 
+areasherburne -94.0338 45.4126 
+areasherburne -94.0453 45.4184 
+areasherburne -94.0510 45.4470 
+areasherburne -94.1026 45.4527 
+areasherburne -94.1198 45.4929 
+areasherburne -94.1484 45.5272 
+areasherburne -94.1484 45.5559 
+areasherburne -94.1599 45.5731 
+areasherburne -93.7703 45.5731 
+areasherburne -93.5182 45.5731 
+areasherburne -93.5182 45.4298 
+NA NA NA
+areasibley -94.4979 44.7251 
+areasibley -94.4922 44.6391 
+areasibley -94.2516 44.6391 
+areasibley -94.2516 44.7251 
+areasibley -94.0109 44.7251 
+areasibley -93.8849 44.7251 
+areasibley -93.8791 44.6850 
+areasibley -93.7645 44.6850 
+areasibley -93.7645 44.6621 
+areasibley -93.7645 44.6334 
+areasibley -93.7875 44.6391 
+areasibley -93.8333 44.6277 
+areasibley -93.8963 44.6105 
+areasibley -93.8906 44.5876 
+areasibley -93.9021 44.5704 
+areasibley -93.8963 44.5532 
+areasibley -93.8963 44.5417 
+areasibley -93.8963 44.5303 
+areasibley -93.9021 44.4959 
+areasibley -93.9250 44.4844 
+areasibley -93.9364 44.4673 
+areasibley -94.6182 44.4730 
+areasibley -94.6125 44.5532 
+areasibley -94.6297 44.5532 
+areasibley -94.6240 44.7251 
+areasibley -94.4979 44.7251 
+NA NA NA
+areast louis -93.0483 46.7648 
+areast louis -93.0369 47.0226 
+areast louis -93.0369 47.1086 
+areast louis -93.0541 47.1086 
+areast louis -93.0483 47.3664 
+areast louis -93.0598 47.3664 
+areast louis -93.0541 47.7159 
+areast louis -93.0655 47.7159 
+areast louis -93.0598 47.8821 
+areast louis -93.0655 47.9738 
+areast louis -93.0770 47.9738 
+areast louis -93.0713 48.0597 
+areast louis -93.0942 48.0654 
+areast louis -93.0713 48.6269 
+areast louis -93.0082 48.6269 
+areast louis -92.9567 48.6327 
+areast louis -92.9223 48.6212 
+areast louis -92.8822 48.5983 
+areast louis -92.8020 48.5754 
+areast louis -92.7390 48.5582 
+areast louis -92.6874 48.5582 
+areast louis -92.6530 48.5582 
+areast louis -92.6186 48.5582 
+areast louis -92.6129 48.5066 
+areast louis -92.6702 48.4951 
+areast louis -92.6874 48.4780 
+areast louis -92.6874 48.4550 
+areast louis -92.6301 48.4550 
+areast louis -92.5728 48.4550 
+areast louis -92.5327 48.4493 
+areast louis -92.5040 48.4493 
+areast louis -92.4467 48.4092 
+areast louis -92.4582 48.3691 
+areast louis -92.4525 48.3405 
+areast louis -92.4181 48.2889 
+areast louis -92.3665 48.2316 
+areast louis -92.2806 48.2545 
+areast louis -92.2863 48.3175 
+areast louis -92.2748 48.3405 
+areast louis -92.2577 48.3519 
+areast louis -92.2118 48.3576 
+areast louis -92.1545 48.3576 
+areast louis -92.0858 48.3634 
+areast louis -92.0686 48.3634 
+areast louis -92.0457 48.3576 
+areast louis -92.0170 48.3405 
+areast louis -92.0113 48.3347 
+areast louis -91.9884 48.3175 
+areast louis -91.9941 48.2832 
+areast louis -91.9769 48.2488 
+areast louis -91.9425 48.2430 
+areast louis -91.9082 48.2430 
+areast louis -91.8795 48.2373 
+areast louis -91.8451 48.2144 
+areast louis -91.7706 48.2029 
+areast louis -91.7936 47.7274 
+areast louis -91.7821 47.4925 
+areast louis -91.7878 46.9482 
+areast louis -91.8337 46.9138 
+areast louis -91.9139 46.8737 
+areast louis -91.9998 46.8336 
+areast louis -92.0743 46.8049 
+areast louis -92.1259 46.7648 
+areast louis -92.1603 46.7419 
+areast louis -92.2004 46.7132 
+areast louis -92.2233 46.6674 
+areast louis -92.2748 46.6617 
+areast louis -92.3035 46.6560 
+areast louis -92.2978 46.7648 
+areast louis -93.0483 46.7648 
+NA NA NA
+areastearns -94.7615 45.3324 
+areastearns -94.7615 45.4184 
+areastearns -95.1282 45.4184 
+areastearns -95.1282 45.5903 
+areastearns -95.1339 45.5903 
+areastearns -95.1396 45.7679 
+areastearns -95.1339 45.7851 
+areastearns -94.6354 45.7851 
+areastearns -94.2859 45.7851 
+areastearns -94.2630 45.7736 
+areastearns -94.2573 45.7449 
+areastearns -94.2229 45.7449 
+areastearns -94.2229 45.7392 
+areastearns -94.2286 45.7278 
+areastearns -94.2000 45.6877 
+areastearns -94.2057 45.6361 
+areastearns -94.1828 45.6017 
+areastearns -94.1599 45.5731 
+areastearns -94.1484 45.5559 
+areastearns -94.1484 45.5272 
+areastearns -94.1198 45.4929 
+areastearns -94.1026 45.4527 
+areastearns -94.0510 45.4470 
+areastearns -94.0453 45.4184 
+areastearns -94.0682 45.4126 
+areastearns -94.0854 45.3897 
+areastearns -94.1026 45.3496 
+areastearns -94.1198 45.3382 
+areastearns -94.1542 45.3382 
+areastearns -94.1656 45.3267 
+areastearns -94.1599 45.3038 
+areastearns -94.1828 45.3038 
+areastearns -94.2057 45.3267 
+areastearns -94.2229 45.3210 
+areastearns -94.2573 45.3038 
+areastearns -94.2630 45.2923 
+areastearns -94.3833 45.2923 
+areastearns -94.3776 45.3324 
+areastearns -94.7615 45.3324 
+NA NA NA
+areasteele -93.0541 43.8542 
+areasteele -93.4150 43.8599 
+areasteele -93.4093 44.2037 
+areasteele -93.0483 44.2037 
+areasteele -93.0541 43.8542 
+NA NA NA
+areastevens -96.2397 45.7679 
+areastevens -95.7584 45.7679 
+areastevens -95.7584 45.6017 
+areastevens -95.7470 45.6017 
+areastevens -95.7470 45.4184 
+areastevens -96.1079 45.4184 
+areastevens -96.2340 45.4184 
+areastevens -96.2397 45.5903 
+areastevens -96.2397 45.7679 
+NA NA NA
+areaswift -96.0908 45.1777 
+areaswift -96.0850 45.2465 
+areaswift -96.1079 45.2407 
+areaswift -96.1079 45.4184 
+areaswift -95.7470 45.4184 
+areaswift -95.2600 45.4184 
+areaswift -95.2542 45.2465 
+areaswift -95.2428 45.2465 
+areaswift -95.2428 45.1548 
+areaswift -96.0392 45.1548 
+areaswift -96.0564 45.1605 
+areaswift -96.0736 45.1663 
+areaswift -96.0908 45.1777 
+NA NA NA
+areatodd -95.1339 45.7851 
+areatodd -95.1339 45.9283 
+areatodd -95.1511 45.9283 
+areatodd -95.1454 46.1116 
+areatodd -95.1396 46.2835 
+areatodd -95.1511 46.2835 
+areatodd -95.1454 46.3752 
+areatodd -94.7729 46.3752 
+areatodd -94.7615 46.3752 
+areatodd -94.7386 46.3695 
+areatodd -94.7328 46.3408 
+areatodd -94.7099 46.3408 
+areatodd -94.6927 46.3523 
+areatodd -94.6870 46.3580 
+areatodd -94.6755 46.3637 
+areatodd -94.6584 46.3695 
+areatodd -94.6412 46.3637 
+areatodd -94.6297 46.3408 
+areatodd -94.6068 46.3351 
+areatodd -94.6182 46.3351 
+areatodd -94.6526 46.3351 
+areatodd -94.6354 45.7851 
+areatodd -95.1339 45.7851 
+NA NA NA
+areatraverse -96.2397 45.5903 
+areatraverse -96.8127 45.5845 
+areatraverse -96.8356 45.5903 
+areatraverse -96.8413 45.6304 
+areatraverse -96.8356 45.6475 
+areatraverse -96.8241 45.6705 
+areatraverse -96.7783 45.6877 
+areatraverse -96.6523 45.7621 
+areatraverse -96.5950 45.8194 
+areatraverse -96.5720 45.8481 
+areatraverse -96.5606 45.8767 
+areatraverse -96.5548 45.9111 
+areatraverse -96.5606 45.9398 
+areatraverse -96.5663 45.9741 
+areatraverse -96.5663 45.9971 
+areatraverse -96.5491 46.0314 
+areatraverse -96.2512 46.0314 
+areatraverse -96.2569 45.9398 
+areatraverse -96.2397 45.9340 
+areatraverse -96.2397 45.7679 
+areatraverse -96.2397 45.5903 
+NA NA NA
+areawabasha -91.8337 44.1922 
+areawabasha -92.0800 44.2037 
+areawabasha -92.0800 44.1177 
+areawabasha -92.3207 44.1235 
+areawabasha -92.3207 44.2037 
+areawabasha -92.5556 44.2037 
+areawabasha -92.5556 44.3813 
+areawabasha -92.4238 44.3756 
+areawabasha -92.4296 44.4673 
+areawabasha -92.2519 44.4558 
+areawabasha -92.0972 44.4271 
+areawabasha -92.1030 44.4214 
+areawabasha -92.0170 44.3985 
+areawabasha -91.9425 44.3641 
+areawabasha -91.9082 44.3297 
+areawabasha -91.8795 44.2782 
+areawabasha -91.8623 44.2323 
+areawabasha -91.8337 44.1922 
+NA NA NA
+areawadena -95.1454 46.3752 
+areawadena -95.1454 46.7190 
+areawadena -95.1454 46.8049 
+areawadena -94.7787 46.8049 
+areawadena -94.7787 46.6273 
+areawadena -94.7672 46.6216 
+areawadena -94.7729 46.3752 
+areawadena -95.1454 46.3752 
+NA NA NA
+areawaseca -93.4093 44.2037 
+areawaseca -93.4150 43.8599 
+areawaseca -93.6500 43.8599 
+areawaseca -93.7760 43.8599 
+areawaseca -93.7760 44.2037 
+areawaseca -93.5239 44.2037 
+areawaseca -93.4093 44.2037 
+NA NA NA
+areawashington -92.7619 45.2980 
+areawashington -92.7848 45.2866 
+areawashington -92.7676 45.2178 
+areawashington -92.7905 45.2006 
+areawashington -92.7791 45.1319 
+areawashington -92.8020 45.0746 
+areawashington -92.7905 45.0459 
+areawashington -92.7619 44.9543 
+areawashington -92.7791 44.9142 
+areawashington -92.7619 44.8683 
+areawashington -92.7962 44.8282 
+areawashington -92.8020 44.7537 
+areawashington -92.8421 44.7595 
+areawashington -92.8994 44.7824 
+areawashington -92.9166 44.7766 
+areawashington -93.0140 44.7824 
+areawashington -93.0140 44.8053 
+areawashington -93.0082 44.8626 
+areawashington -93.0140 44.8970 
+areawashington -92.9796 44.8970 
+areawashington -92.9796 45.1319 
+areawashington -93.0140 45.1319 
+areawashington -93.0140 45.3038 
+areawashington -92.7619 45.2980 
+NA NA NA
+areawatonwan -94.3719 44.1177 
+areawatonwan -94.3719 43.8599 
+areawatonwan -94.8646 43.8599 
+areawatonwan -94.8646 44.1177 
+areawatonwan -94.3719 44.1177 
+NA NA NA
+areawilkin -96.7783 46.6330 
+areawilkin -96.2569 46.6330 
+areawilkin -96.2741 46.2835 
+areawilkin -96.2569 46.2835 
+areawilkin -96.2512 46.1116 
+areawilkin -96.2512 46.0314 
+areawilkin -96.5491 46.0314 
+areawilkin -96.5491 46.0543 
+areawilkin -96.5377 46.0887 
+areawilkin -96.5548 46.1231 
+areawilkin -96.5778 46.1575 
+areawilkin -96.5778 46.2492 
+areawilkin -96.5892 46.3236 
+areawilkin -96.6236 46.3580 
+areawilkin -96.6752 46.3981 
+areawilkin -96.7095 46.4497 
+areawilkin -96.7210 46.4841 
+areawilkin -96.7382 46.5700 
+areawilkin -96.7783 46.6330 
+NA NA NA
+areawinona -91.5472 44.0318 
+areawinona -91.4956 44.0146 
+areawinona -91.4383 43.9917 
+areawinona -91.3982 43.9745 
+areawinona -91.3581 43.9287 
+areawinona -91.3066 43.8943 
+areawinona -91.2894 43.8542 
+areawinona -91.7191 43.8599 
+areawinona -92.0858 43.8599 
+areawinona -92.0800 44.1177 
+areawinona -92.0800 44.2037 
+areawinona -91.8337 44.1922 
+areawinona -91.8108 44.1750 
+areawinona -91.7248 44.1407 
+areawinona -91.6675 44.1006 
+areawinona -91.6045 44.0662 
+areawinona -91.5472 44.0318 
+NA NA NA
+areawright -94.0166 44.9829 
+areawright -94.2516 44.9829 
+areawright -94.2630 45.2923 
+areawright -94.2573 45.3038 
+areawright -94.2229 45.3210 
+areawright -94.2057 45.3267 
+areawright -94.1828 45.3038 
+areawright -94.1599 45.3038 
+areawright -94.1656 45.3267 
+areawright -94.1542 45.3382 
+areawright -94.1198 45.3382 
+areawright -94.1026 45.3496 
+areawright -94.0854 45.3897 
+areawright -94.0682 45.4126 
+areawright -94.0453 45.4184 
+areawright -94.0338 45.4126 
+areawright -93.9880 45.4069 
+areawright -93.9651 45.3897 
+areawright -93.9364 45.3954 
+areawright -93.9192 45.3897 
+areawright -93.8849 45.3611 
+areawright -93.8276 45.3496 
+areawright -93.8161 45.3439 
+areawright -93.7302 45.3038 
+areawright -93.7015 45.3152 
+areawright -93.6729 45.3038 
+areawright -93.6385 45.3152 
+areawright -93.6098 45.3038 
+areawright -93.5755 45.3038 
+areawright -93.5640 45.3038 
+areawright -93.5526 45.2751 
+areawright -93.5354 45.2579 
+areawright -93.5182 45.2465 
+areawright -93.5354 45.2293 
+areawright -93.5869 45.2350 
+areawright -93.6041 45.2178 
+areawright -93.6442 45.2178 
+areawright -93.6614 45.2064 
+areawright -93.6500 45.1835 
+areawright -93.6500 45.1720 
+areawright -93.6843 45.1605 
+areawright -93.7015 45.1548 
+areawright -93.7244 45.1090 
+areawright -93.7588 45.0918 
+areawright -93.7645 45.0689 
+areawright -93.7645 44.9886 
+areawright -94.0166 44.9829 
+NA NA NA
+areayellow medicine -95.4891 44.7766 
+areayellow medicine -95.4490 44.7595 
+areayellow medicine -95.4089 44.7537 
+areayellow medicine -95.3688 44.7194 
+areayellow medicine -95.3516 44.7136 
+areayellow medicine -95.3574 44.5532 
+areayellow medicine -95.5980 44.5532 
+areayellow medicine -95.6095 44.5532 
+areayellow medicine -95.6095 44.6449 
+areayellow medicine -96.0678 44.6391 
+areayellow medicine -96.4345 44.6391 
+areayellow medicine -96.4345 44.8168 
+areayellow medicine -95.8616 44.8110 
+areayellow medicine -95.8616 44.8970 
+areayellow medicine -95.7470 44.8970 
+areayellow medicine -95.7470 44.9314 
+areayellow medicine -95.7183 44.9256 
+areayellow medicine -95.7183 44.9084 
+areayellow medicine -95.6840 44.8970 
+areayellow medicine -95.6782 44.8970 
+areayellow medicine -95.6438 44.8912 
+areayellow medicine -95.6381 44.8798 
+areayellow medicine -95.6209 44.8741 
+areayellow medicine -95.5808 44.8511 
+areayellow medicine -95.5751 44.8397 
+areayellow medicine -95.5522 44.8397 
+areayellow medicine -95.5006 44.8053 
+areayellow medicine -95.5235 44.7996 
+areayellow medicine -95.5293 44.7824 
+areayellow medicine -95.5121 44.7824 
+areayellow medicine -95.4891 44.7766 
+
+END

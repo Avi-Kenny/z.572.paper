@@ -1,4 +1,4 @@
-#' Generate a graph corresponding to the "lattice" graph
+#' Generate an adjacency matrix from a graph
 #'
 #' @param graph Graph, represented as a data frame with two columns ('n1' and
 #'     'n2'). Each row represents an edge between two nodes. Values in the
