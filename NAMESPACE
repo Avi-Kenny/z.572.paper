@@ -2,8 +2,6 @@
 
 export(adj_from_gis_us)
 export(adj_from_graph)
-export(generate_cov_car)
-export(generate_cov_dagar)
 export(generate_dataset)
 export(generate_graph_grid)
 export(generate_graph_path)

@@ -4,24 +4,21 @@
 \alias{generate_dataset}
 \title{Generate one dataset !!!!! TO DO}
 \usage{
-generate_dataset(type, rho)
+generate_dataset(type, tau_w, phi)
 }
 \arguments{
 \item{type}{Type of dataset (either "path", "grid", or "US")}
 
-\item{rho}{Spatial correlation parameter}
+\item{tau_w}{Spatial parameter}
+
+\item{phi}{Matern covariance matrix parameter}
 }
 \value{
-A list containing the following: \cr
-    * `params`: A list of the parameters supplied in the function call \cr
-    * `reg_data`: A data frame of data points corresponding to a single
+!!!!! A list containing the following: \cr
+    * `params`: !!!!! A list of the parameters supplied in the function call \cr
+    * `reg_data`: !!!!! A data frame of data points corresponding to a single
         region \cr
-    * `adj_mtx`: The adjacency matrix \cr
-    * `x`: X \cr
-    * `x`: X \cr
-    * `x`: X \cr
-    * `x`: X \cr
-    * `x`: X
+    * `adj_mtx`: !!!!! The adjacency matrix \cr
 }
 \description{
 Generate one dataset !!!!! TO DO
