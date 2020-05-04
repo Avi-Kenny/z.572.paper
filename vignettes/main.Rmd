@@ -52,17 +52,19 @@ for (adj_mtx in list(adj_mtx_path, adj_mtx_grid, adj_mtx_US)) {
   for (rho in rhos) {
     
     # Generate average neighbor-pair correlation for DAGAR
-    cov_dagar <- generate_cov_dagar(adj_mtx, rho)
+    mtx_dagar <- generate_mtx(model="DAGAR", adj_mtx=adj_mtx, rho=rho)
+    cov_dagar <- solve(mtx_dagar$Q)
+    
     cor <- 0
     count <- 0
-    for (i in 2:length(cov_dagar$neighbors)) {
+    for (i in 2:length(mtx_dagar$neighbors)) {
       
-      nbs <- cov_dagar$neighbors[[i]]
+      nbs <- mtx_dagar$neighbors[[i]]
       if (nbs[1]!=0) {
         for (nb in 1:length(nbs)) {
           j <- nbs[nb]
-          cor <- cor + ( cov_dagar$mtx_cov[i,j] / 
-            (sqrt(cov_dagar$mtx_cov[i,i]) * sqrt(cov_dagar$mtx_cov[j,j])) )
+          cor <- cor + ( cov_dagar[i,j] / 
+            (sqrt(cov_dagar[i,i]) * sqrt(cov_dagar[j,j])) )
           count <- count+1
         }
       }
@@ -72,19 +74,19 @@ for (adj_mtx in list(adj_mtx_path, adj_mtx_grid, adj_mtx_US)) {
     rho_out <- c(rho_out, anpc_dagar)
     
     # Generate average neighbor-pair correlation for CAR
-    cov_car <- generate_cov_car(adj_mtx, rho)
+    mtx_car <- generate_mtx(model="CAR", adj_mtx=adj_mtx, rho=rho)
+    cov_car <- solve(mtx_car$Q)
     cor <- 0
     count <- 0
-    for (i in 1:length(cov_car$neighbors)) {
+    for (i in 1:length(mtx_car$neighbors)) {
       
-      nbs <- cov_car$neighbors[[i]]
+      nbs <- mtx_car$neighbors[[i]]
       if (nbs[1]!=0) {
         for (nb in 1:length(nbs)) {
           j <- nbs[nb]
-          cor <- cor + ( cov_car$mtx_cov[i,j] / 
-            (sqrt(cov_car$mtx_cov[i,i]) * sqrt(cov_car$mtx_cov[j,j])) )
+          cor <- cor + ( cov_car[i,j] / 
+            (sqrt(cov_car[i,i]) * sqrt(cov_car[j,j])) )
           count <- count+1
-          
         }
       }
       
@@ -178,8 +180,8 @@ ggplot(
     data = data.frame(
       x = rep(seq(from=0, to=1, by=0.25), 2),
       y = c(
-        c(0, 0.02, 0.07, 0.12, 0.19), # !!!!!
-        c(0, 0.06, 0.12, 0.16, 0.17) # !!!!!
+        round(rd_path(c(0, 0.25, 0.5, 0.75, 1)),2),
+        round(rd_grid(c(0, 0.25, 0.5, 0.75, 1)),2)
       ),
       grp = rep(c("(a) Path graph", "(b) Grid graph"), each=5)
     ),
@@ -227,7 +229,10 @@ sim %<>% add_constants(
 sim %<>% set_levels(
   type = c("path", "grid", "US"),
   rho = seq(from=0.1, to=0.9, by=0.1),
-  model = c("iCAR", "CAR", "DAGAR")
+  model = c("iCAR", "CAR", "DAGAR", "Scaled iCAR")
+  # type = "path",
+  # rho = 0.5,
+  # model = c("iCAR", "DAGAR")
 )
 
 sim %<>% add_creator(generate_dataset)
@@ -261,23 +266,12 @@ sim %<>% add_script(
     )
     
     # Create necessary matrices and objects to send to JAGS (depending on model)
+    # Create JAGS code
     
-    if (L$model %in% c("iCAR", "CAR")) {
-      
-      # Create D matrix
-      dim <- length(adj_mtx[1,])
-      n_i <- c()
-      for (i in 1:dim) {
-        nset <- c()
-        for (j in 1:dim) {
-          if (adj_mtx[i,j]==1 & i!=j) {
-            nset <- c(nset, j)
-          }
-        }
-        n_i <- c(n_i, length(nset))
-      }
-      mtx_D <- diag(n_i)
-      
+    if (L$model %in% c("iCAR", "CAR", "Scaled iCAR")) {
+      mtx <- generate_mtx(L$model, adj_mtx)
+      D <- mtx$D
+      n_i <- mtx$n_i
     }
     
     if (L$model %in% c("iCAR", "Scaled iCAR")) {
@@ -297,7 +291,7 @@ sim %<>% add_script(
           }
           
           w ~ dmnorm(mu0, Q)
-          Q <- tau_w * ((D-A)) + perturb
+          Q <- tau_w * (D-A) + perturb
           
           beta1 ~ dnorm(0, 0.0001)
           beta2 ~ dnorm(0, 0.0001)
@@ -306,6 +300,31 @@ sim %<>% add_script(
         }
       ")
       
+    }
+    
+    if (L$model == "Scaled iCAR") {
+      
+      sigma2ref <- exp(mean(log(diag(ginv(D - adj_mtx)))))
+      
+      # JAGS model code
+      jags_code <- quote("
+        model {
+          for (i in 1:k) {
+            y[i] ~ dnorm(x1[i]*beta1 + x2[i]*beta2 + w[i], tau_e)
+          }
+          
+          w ~ dmnorm(mu0, Q)
+          Q <- tau_w * (D-A) + perturb
+          
+          beta1 ~ dnorm(0, 0.0001)
+          beta2 ~ dnorm(0, 0.0001)
+          tau_w ~ dgamma(2, sigma2ref)
+          tau_e ~ dgamma(2, 0.1)
+        }
+      ")
+      
+    } else {
+      sigma2ref <- NULL
     }
     
     if (L$model == "CAR") {
@@ -318,7 +337,7 @@ sim %<>% add_script(
           }
           
           w ~ dmnorm(mu0, Q)
-          Q <- tau_w * (D - rho*A)
+          Q <- tau_w * (D - (rho*A))
           
           beta1 ~ dnorm(0, 0.0001)
           beta2 ~ dnorm(0, 0.0001)
@@ -330,28 +349,11 @@ sim %<>% add_script(
       
     }
     
-    if (L$model == "Scaled iCAR") {
-      # !!!!!
-    }
-    
     if (L$model %in% c("DAGAR", "DAGAR_OF")) {
       
-      # Create neighbor sets
-      n_i <- c()
-      for (i in 1:k) {
-        nset <- c()
-        for (j in 1:k) {
-          if (j<i & adj_mtx[i,j]==1) {
-            nset <- c(nset, j)
-          }
-        }
-        if (!is.null(nset)) {
-          n_i <- c(n_i, length(nset))
-        } else {
-          n_i <- c(n_i, 0)
-        }
-      }
-      
+      mtx <- generate_mtx(L$model, adj_mtx)
+      n_i <- mtx$n_i
+
       # JAGS model code
       jags_code <- quote("
         model {
@@ -360,13 +362,13 @@ sim %<>% add_script(
           }
           
           w ~ dmnorm(mu0, Q)
-          Q <- t(L) %*% F %*% L
+          Q <- tau_w * (t(L) %*% FF %*% L)
           L <- I - B
           
           for (i in 1:k) {
             for (j in 1:k) {
               
-              F[i,j] <- ifelse(i==j, tau[i], 0)
+              FF[i,j] <- ifelse(i==j, tau[i], 0)
               B[i,j] <- ifelse(
                 j<i && A[i,j]==1,
                 rho / (1+(n_i[i]-1)*(rho^2)),
@@ -410,10 +412,11 @@ sim %<>% add_script(
         x1 = data$x1,
         x2 = data$x2,
         y = data$y,
-        D = mtx_D,
+        D = D,
         I = diag(rep(1,k)),
         A = adj_mtx,
         n_i = n_i,
+        sigma2ref = sigma2ref,
         perturb = perturb,
         mu0 = rep(0,k)
       ),
@@ -443,35 +446,5 @@ sim %>% summary() %>% arrange(model, type, rho)
 
 saveRDS(sim, file="sim")
 # readRDS("sim")
-
-```
-
-
-
-# Archive
-```{r}
-
-# Create D matrix (CAR)
-# !!!!! OLD: neighbors <- list()
-# !!!!! OLD: neighbors[[as.character(i)]] <- nset
-
-# # Create neighbor sets (DAGAR)
-# neighbors <- list()
-# n_i <- c()
-# for (i in 1:dim) {
-#   nset <- c()
-#   for (j in 1:dim) {
-#     if (j<i & adj_mtx[i,j]==1) {
-#       nset <- c(nset, j)
-#     }
-#   }
-#   if (!is.null(nset)) {
-#     neighbors[[as.character(i)]] <- nset
-#     n_i <- c(n_i, length(nset))
-#   } else {
-#     neighbors[[as.character(i)]] <- 0
-#     n_i <- c(n_i, 0)
-#   }
-# }
 
 ```
