@@ -32,7 +32,7 @@ generate_mtx <- function(model, adj_mtx, rho=1) {
 
     # Create precision
     if (model %in% c("iCAR", "Scaled iCAR")) {
-      Q <- (D-adj_mtx)
+      Q <- (D-0.999999*adj_mtx)
     }
     if (model=="CAR") {
       Q <- (D-(rho*adj_mtx))
@@ -64,20 +64,17 @@ generate_mtx <- function(model, adj_mtx, rho=1) {
       }
     }
 
-    tau <- (1+(n_i-1)*(rho^2)) / (1-rho^2)
+    tau <- (1+(n_i-1)*(rho^2)) / (1-(rho^2))
+    FF <- diag(tau)
 
     B <- matrix(0, nrow=dim, ncol=dim)
-    FF <- matrix(0, nrow=dim, ncol=dim)
     for (i in 1:dim) {
       for (j in 1:dim) {
-
-        FF[i,j] <- ifelse(i==j, tau[i], 0)
         B[i,j] <- ifelse(
           j<i && adj_mtx[i,j]==1,
-          rho / (1+(n_i[i]-1)*(rho^2)),
+          rho / (1+((n_i[i]-1)*(rho^2))),
           0
         )
-
       }
     }
 

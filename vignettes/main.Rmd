@@ -25,6 +25,7 @@ library(maps)
 library(maptools)
 library(mvtnorm)
 library(rjags) # !!!!! On hutch load module: JAGS/4.2.0-foss-2016b
+library(MASS)
 
 ```
 
@@ -207,6 +208,8 @@ ggplot(
 
 set.seed(1)
 
+start_time <- Sys.time()
+
 sim <- new_sim()
 
 sim %<>% set_config(
@@ -214,7 +217,7 @@ sim %<>% set_config(
   parallel = "outer",
   packages = c("z.572.paper", "sp", "rgeos", "spdep", "parallel", "rgdal",
                "simba", "ggplot2", "dplyr", "magrittr", "permute", "maps", 
-               "maptools", "mvtnorm", "rjags")
+               "maptools", "mvtnorm", "rjags", "MASS")
 )
 
 sim %<>% add_constants(
@@ -224,14 +227,12 @@ sim %<>% add_constants(
   adj_mtx_US = adj_from_gis_us()
 )
 
-# sim %<>% add_method( "m", function(x) { return (x) } )
-
 sim %<>% set_levels(
   type = c("path", "grid", "US"),
   rho = seq(from=0.1, to=0.9, by=0.1),
   model = c("iCAR", "CAR", "DAGAR", "Scaled iCAR")
   # type = "path",
-  # rho = 0.5,
+  # rho = 0.5
   # model = c("iCAR", "DAGAR")
 )
 
@@ -274,13 +275,6 @@ sim %<>% add_script(
       n_i <- mtx$n_i
     }
     
-    if (L$model %in% c("iCAR", "Scaled iCAR")) {
-      # Perturbation (to account for singularity of Q)
-      perturb = diag(rep(10^-6,k))
-    } else {
-      perturb = NULL
-    }
-    
     if (L$model == "iCAR") {
       
       # JAGS model code
@@ -291,7 +285,7 @@ sim %<>% add_script(
           }
           
           w ~ dmnorm(mu0, Q)
-          Q <- tau_w * (D-A) + perturb
+          Q <- tau_w * (D-A)
           
           beta1 ~ dnorm(0, 0.0001)
           beta2 ~ dnorm(0, 0.0001)
@@ -314,7 +308,7 @@ sim %<>% add_script(
           }
           
           w ~ dmnorm(mu0, Q)
-          Q <- tau_w * (D-A) + perturb
+          Q <- tau_w * (D-A)
           
           beta1 ~ dnorm(0, 0.0001)
           beta2 ~ dnorm(0, 0.0001)
@@ -417,7 +411,6 @@ sim %<>% add_script(
         A = adj_mtx,
         n_i = n_i,
         sigma2ref = sigma2ref,
-        perturb = perturb,
         mu0 = rep(0,k)
       ),
       n.chains = 1,
@@ -442,9 +435,59 @@ sim %<>% add_script(
 
 sim %<>% run("script_mainsim")
 
-sim %>% summary() %>% arrange(model, type, rho)
+summ <- sim %>% summary() %>% arrange(model, type, rho)
 
-saveRDS(sim, file="sim")
-# readRDS("sim")
+# Plot results
+# !!!!! Need to test this
+ggplot(
+  data = summ,
+  aes(x=rho, y=mean_mse, group=model,
+      color=as.factor(model))) + 
+  geom_line() + geom_point(size=1) +
+  # scale_color_manual(values=c("firebrick", "darkolivegreen4")) +
+  xlim(0,1) +
+  ylim(0,4) +
+  facet_wrap(~type, ncol=3) +
+  labs(
+    title = paste0("Figure 3. MSE as a function of the true rho for the ",
+                   "exponential GP simulation data"),
+    x = "rho",
+    y = "MSE",
+    color = "Model"
+  ) +
+  theme(legend.position = "right")
+
+
+
+saveRDS(sim, file=paste("sim",Sys.time()))
+# sim2 <- readRDS("../sim 2020-05-04 01_00_37")
+
+print(round(difftime(Sys.time(), start_time),2))
+
+```
+
+
+
+# Testing
+```{r}
+
+# Adj matrix for presentation
+A <- rbind(
+  c(0,1,1,0,0,0,0,0),
+  c(1,0,1,1,0,0,0,0),
+  c(1,1,0,1,0,0,0,1),
+  c(0,1,1,0,1,0,0,1),
+  c(0,0,0,1,0,1,0,1),
+  c(0,0,0,0,1,0,1,1),
+  c(0,0,0,0,0,1,0,1),
+  c(0,0,1,1,1,1,1,0)
+)
+mtx_dagar <- generate_mtx(model="DAGAR", adj_mtx=A, rho=0.8)
+cov_dagar <- solve(mtx_dagar$Q)
+mtx_car <- generate_mtx(model="CAR", adj_mtx=A, rho=0.8)
+cov_car <- solve(mtx_car$Q)
+
+round(cov_dagar/mean(diag(cov_dagar)),2)
+round(cov_car/mean(diag(cov_car)),2)
 
 ```
