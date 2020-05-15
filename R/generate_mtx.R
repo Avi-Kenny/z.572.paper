@@ -8,7 +8,7 @@
 #'     * `Q`: Precision matrix (with tau_W param set to 1) \cr
 #'     # `neighbors`: A list of neighbors, indexed by region i
 #' @export
-generate_mtx <- function(model, adj_mtx, rho=1) {
+generate_mtx <- function(model, adj_mtx, rho=0.99) {
 
   if (model %in% c("iCAR", "CAR", "Scaled iCAR")) {
 
@@ -44,40 +44,24 @@ generate_mtx <- function(model, adj_mtx, rho=1) {
 
     # !!!!! TO DO: DAGAR_OF
 
-    # Create neighbor sets
+    # Get number of neighbors
     dim <- length(adj_mtx[1,])
     neighbors <- list()
-    n_i <- c()
+    mtx_nbrs <- adj_mtx * lower.tri(adj_mtx)
+    n_i <- as.numeric(mtx_nbrs %*% rep(1,dim))
+
+    # Get neighbors
+    mtx_cols <- matrix(rep(1:dim, each=dim), nrow=dim)
+    mtx_nbrs2 <- mtx_nbrs * mtx_cols
     for (i in 1:dim) {
-      nset <- c()
-      for (j in 1:dim) {
-        if (j<i & adj_mtx[i,j]==1) {
-          nset <- c(nset, j)
-        }
-      }
-      if (!is.null(nset)) {
-        neighbors[[as.character(i)]] <- nset
-        n_i <- c(n_i, length(nset))
-      } else {
-        neighbors[[as.character(i)]] <- 0
-        n_i <- c(n_i, 0)
-      }
+      neighbors[[as.character(i)]] <- mtx_nbrs2[i,][mtx_nbrs2[i,]!=0]
     }
 
+    # Create matrices
     tau <- (1+(n_i-1)*(rho^2)) / (1-(rho^2))
     FF <- diag(tau)
-
-    B <- matrix(0, nrow=dim, ncol=dim)
-    for (i in 1:dim) {
-      for (j in 1:dim) {
-        B[i,j] <- ifelse(
-          j<i && adj_mtx[i,j]==1,
-          rho / (1+((n_i[i]-1)*(rho^2))),
-          0
-        )
-      }
-    }
-
+    b_i <- rho / (1+((n_i-1)*(rho^2)))
+    B <- mtx_nbrs * matrix(rep(b_i,dim), nrow=dim)
     L <- diag(rep(1,dim)) - B
     Q <- t(L) %*% FF %*% L
     D = NULL
