@@ -40,9 +40,7 @@ generate_mtx <- function(model, adj_mtx, rho=0.99) {
 
   }
 
-  if (model %in% c("DAGAR", "DAGAR_OF")) {
-
-    # !!!!! TO DO: DAGAR_OF
+  if (model == "DAGAR") {
 
     # Get number of neighbors
     dim <- length(adj_mtx[1,])
@@ -64,7 +62,53 @@ generate_mtx <- function(model, adj_mtx, rho=0.99) {
     B <- mtx_nbrs * matrix(rep(b_i,dim), nrow=dim)
     L <- diag(rep(1,dim)) - B
     Q <- t(L) %*% FF %*% L
-    D = NULL
+    D <- NULL
+
+  }
+
+  if (model == "DAGAR_OF") {
+
+    dim <- length(adj_mtx[1,])
+    Q_list <- list()
+    counter <- 0
+
+    # DAGAR_OF: this is a stochastic approximation
+    for (p in list(1:dim, dim:1, sample(1:dim), sample(1:dim))) {
+
+      # Increment counter
+      counter <- counter+1
+
+      # Permute adjacency matrix
+      mtx_p <- as(as.integer(p), "pMatrix")
+      mtx_p_inv <- Matrix::t(mtx_p)
+      adj_mtx_p <- mtx_p %*% adj_mtx %*% mtx_p_inv
+
+      # Get number of neighbors
+      # neighbors <- list()
+      mtx_nbrs <- adj_mtx_p * lower.tri(adj_mtx_p)
+      n_i <- as.numeric(mtx_nbrs %*% rep(1,dim))
+
+      # Get neighbors
+      # mtx_cols <- matrix(rep(1:dim, each=dim), nrow=dim)
+      # mtx_nbrs2 <- mtx_nbrs * mtx_cols
+      # for (i in 1:dim) {
+      #   neighbors[[as.character(i)]] <- mtx_nbrs2[i,][mtx_nbrs2[i,]!=0]
+      # }
+
+      # Create matrices
+      tau <- (1+(n_i-1)*(rho^2)) / (1-(rho^2))
+      FF <- diag(tau)
+      b_i <- rho / (1+((n_i-1)*(rho^2)))
+      B <- mtx_nbrs * matrix(rep(b_i,dim), nrow=dim)
+      L <- diag(rep(1,dim)) - B
+      Q_list[[counter]] <- mtx_p_inv %*% t(L) %*% FF %*% L %*% mtx_p
+
+    }
+
+    n_i <- NULL
+    neighbors <- NULL
+    D <- NULL
+    Q <- (Q_list[[1]]+Q_list[[2]]+Q_list[[3]]+Q_list[[4]])/4
 
   }
 
