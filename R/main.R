@@ -8,43 +8,59 @@
 ##### Setup #####
 #################.
 
+# install.packages(
+#   pkgs = 'bit64',
+#   lib = '/home/akenny/R_lib',                  # Hutch - Gizmo
+#   repos = 'http://cran.us.r-project.org',
+#   dependencies = TRUE,
+#   verbose = TRUE
+# )
+
 # Load packages
-library(sp)
-library(rgeos)
-library(sqldf)
-library(spdep)
-library(parallel)
-library(rgdal)
-library(simba)
-library(ggplot2)
-library(dplyr)
-library(magrittr)
-library(permute)
-library(maps)
-library(maptools)
-library(mvtnorm)
-library(rjags) # !!!!! On hutch load module: JAGS/4.2.0-foss-2016b
-library(MASS)
-library(pbapply)
-library(ngspatial)
-library(Matrix)
-library(INLA)
+{
+  library(sp)
+  library(rgeos)
+  library(sqldf)
+  library(spdep)
+  library(parallel)
+  library(rgdal)
+  library(simba)
+  library(ggplot2)
+  library(dplyr)
+  library(magrittr)
+  library(permute)
+  library(maps)
+  library(maptools)
+  library(mvtnorm)
+  library(rjags) # !!!!! On hutch load module: JAGS/4.2.0-foss-2016b
+  library(MASS)
+  library(pbapply)
+  library(ngspatial)
+  library(Matrix)
+  library(INLA)
+}
 
 # Load functions
-source(adj_from_gis_us.R)
-source(adj_from_graph.R)
-source(generate_dataset.R)
-source(generate_graph_grid.R)
-source(generate_graph_path.R)
-source(generate_matern_cov.R)
-source(generate_mtx.R)
+{
+  path_to_main <- "z.572.paper/R/"
+  # path_to_main <- "R/"
+  source(paste0(path_to_main, "adj_from_gis_us.R"))
+  source(paste0(path_to_main, "adj_from_graph.R"))
+  source(paste0(path_to_main, "generate_dataset.R"))
+  source(paste0(path_to_main, "generate_graph_grid.R"))
+  source(paste0(path_to_main, "generate_graph_path.R"))
+  source(paste0(path_to_main, "generate_matern_cov.R"))
+  source(paste0(path_to_main, "generate_mtx.R"))
+}
 
 # Set code blocks to run
-run_fig1 <- FALSE
-run_fig2 <- FALSE
-run_fig35 <- TRUE
-run_fig68 <- FALSE
-run_ima <- FALSE
+{
+  run_fig1 <- FALSE
+  run_fig2 <- FALSE
+  run_fig35 <- TRUE
+  run_fig68 <- FALSE
+  run_ima <- FALSE
+}
 
 
 
@@ -88,28 +104,6 @@ if (run_fig1) {
 
     for (rho in rhos) {
 
-      # Generate average neighbor-pair correlation for DAGAR
-      mtx_dagar <- generate_mtx(model="DAGAR", adj_mtx=adj_mtx, rho=rho)
-      cov_dagar <- solve(mtx_dagar$Q)
-
-      cor <- 0
-      count <- 0
-      for (i in 2:length(mtx_dagar$neighbors)) {
-
-        nbs <- mtx_dagar$neighbors[[i]]
-        if (nbs[1]!=0) {
-          for (nb in 1:length(nbs)) {
-            j <- nbs[nb]
-            cor <- cor + ( cov_dagar[i,j] /
-              (sqrt(cov_dagar[i,i]) * sqrt(cov_dagar[j,j])) )
-            count <- count+1
-          }
-        }
-
-      }
-      anpc_dagar <- cor/count
-      rho_out <- c(rho_out, anpc_dagar)
-
       # Generate average neighbor-pair correlation for CAR
       mtx_car <- generate_mtx(model="CAR", adj_mtx=adj_mtx, rho=rho)
       cov_car <- solve(mtx_car$Q)
@@ -122,7 +116,7 @@ if (run_fig1) {
           for (nb in 1:length(nbs)) {
             j <- nbs[nb]
             cor <- cor + ( cov_car[i,j] /
-              (sqrt(cov_car[i,i]) * sqrt(cov_car[j,j])) )
+                             (sqrt(cov_car[i,i]) * sqrt(cov_car[j,j])) )
             count <- count+1
           }
         }
@@ -131,16 +125,39 @@ if (run_fig1) {
       anpc_car <- cor/count
       rho_out <- c(rho_out, anpc_car)
 
+      # Generate average neighbor-pair correlation for DAGAR
+      mtx_dagar <- generate_mtx(model="DAGAR", adj_mtx=adj_mtx, rho=rho)
+      cov_dagar <- solve(mtx_dagar$Q)
+
+      cor <- 0
+      count <- 0
+      for (i in 2:length(mtx_dagar$neighbors)) {
+
+        nbs <- mtx_dagar$neighbors[[i]]
+        if (length(nbs)!=0) {
+          for (nb in 1:length(nbs)) {
+            j <- nbs[nb]
+            cor <- cor + ( cov_dagar[i,j] /
+                             (sqrt(cov_dagar[i,i]) * sqrt(cov_dagar[j,j])) )
+            count <- count+1
+          }
+        }
+
+      }
+      anpc_dagar <- cor/count
+      rho_out <- c(rho_out, anpc_dagar)
+
     }
 
   }
 
   # Plot results
+  # Export 800w x 500h
   ggplot(
     data = data.frame(
       x = rep(rep(rhos, each=2), 3),
       y = rho_out,
-      grp = rep(c("DAGAR","CAR"), 27),
+      grp = rep(c("CAR","DAGAR"), 27),
       type = rep(c(
         "(a) Path graph of length 100",
         "(b) 10 x 10 grid",
@@ -156,8 +173,6 @@ if (run_fig1) {
     ylim(0,1) +
     facet_wrap(~type, ncol=3) +
     labs(
-      title = paste0("Figure 1. Average neighbor pair correlations as a function",
-                     " of rho for proper CAR and DAGAR model"),
       x = "rho",
       y = "Average neighbor correlation",
       color = "Model"
@@ -207,6 +222,7 @@ if (run_fig2) {
   rhos <- seq(from=0, to=1, length.out=n)
 
   # Plot results
+  # Export 800w x 500h
   ggplot(
     data = data.frame(
       x = rep(rhos, 2),
@@ -232,8 +248,6 @@ if (run_fig2) {
     # ylim(0,1) +
     facet_wrap(~grp, ncol=2) +
     labs(
-      title = paste0("Figure 2. Asymptotic relative difference between the DAGAR",
-                     "model and the order free DAGAR model"),
       x = "rho",
       y = "Relative difference"
     )
@@ -264,15 +278,15 @@ if (run_fig35) {
   #   phi = -1*log(rho)
   # )
 
-  set.seed(12)
-
-  start_time <- Sys.time()
+  # .tid <- .tid + 10000 # !!!!!
+  set.seed(.tid)
 
   sim <- new_sim()
 
   sim %<>% set_config(
-    num_sim = 20, # !!!!!
-    parallel = "outer",
+    # num_sim = 2, # !!!!!
+    num_sim = 100,
+    parallel = "none", # !!!!!
     packages = c("z.572.paper", "sp", "rgeos", "spdep", "parallel", "rgdal",
                  "simba", "ggplot2", "dplyr", "magrittr", "permute", "maps",
                  "maptools", "mvtnorm", "rjags", "MASS", "ngspatial", "Matrix")
@@ -287,8 +301,8 @@ if (run_fig35) {
 
   sim %<>% set_levels(
     type = c("path", "grid", "US"),
-    rho = c(0.1, 0.3, 0.5, 0.7, 0.9),
-    # rho = seq(from=0.1, to=0.9, by=0.1),
+    # rho = c(0.1, 0.3, 0.5, 0.7, 0.9),
+    rho = seq(from=0.1, to=0.9, by=0.1),
     model = c("iCAR", "CAR", "DAGAR", "DAGAR_OF", "SGLMM", "Scaled iCAR")
     # type = "US",
     # rho = c(0.2,0.8),
@@ -323,6 +337,9 @@ if (run_fig35) {
         type = L$type,
         tau_w = C$tau_w,
         phi = -1*log(L$rho)
+        # type = "US",
+        # tau_w = 0.25,
+        # phi = -1*log(0.3)
       )
 
       # Create JAGS code and objects
@@ -649,113 +666,137 @@ if (run_fig35) {
     }
   )
 
-  sim %<>% run("script_mainsim")
+  # print(nrow(sim$levels_grid))
+  # sim %<>% run("script_mainsim")
+  sim %<>% run("script_mainsim", sim_uids=.tid)
 
-  saveRDS(sim, file=paste("sim",Sys.time()))
+  # Create output folder if it doesn't exist and save output
+  if (!file.exists("simba.out")) { dir.create("simba.out") }
+  saveRDS(sim, file=paste0("simba.out/sim_",.tid,".simba"))
+
+  # saveRDS(sim, file=paste("sim",Sys.time()))
   # sim <- readRDS("../sim 2020-05-16 18_02_37")
 
-  summ <- sim %>% summary() %>% arrange(model, type, rho)
-  summ$type %<>% recode(
-    "path" = "(a) Path",
-    "grid" = "(b) Grid",
-    "US" = "(c) USA"
-  )
+  # !!!!! Pass this in, possibly through .tid==0
+  # Need to skip the above if process_results <- TRUE
+  process_results <- FALSE
+  if (process_results) {
 
-  summ2 <- summary(
-    sim_obj = sim,
-    coverage = list(
-      list(name="cov_beta1", truth=1, estimate="beta1_hat", se="beta1_se"),
-      list(name="cov_beta2", truth=5, estimate="beta2_hat", se="beta2_se"),
-      list(name="cov_rho", truth="rho", estimate="rho_hat", se="rho_se"),
-      list(name="cov_sigma2", truth=(1/2.5),
-           estimate="sigma2_e_hat", se="sigma2_e_se")
+    # !!!!! Create a function in `simba`` for this
+    sims <- list.files(
+      path = "simba.out",
+      pattern = "*.simba",
+      full.names = TRUE,
+      recursive = FALSE
     )
-  )
-  summ2$type %<>% recode(
-    "path" = "(a) Path",
-    "grid" = "(b) Grid",
-    "US" = "(c) USA"
-  )
+    sim <- NULL
+    for (s in sims) {
+      s <- readRDS(s)
+      if (is.null(sim)) { sim <- s } else { sim <- merge(sim, s) }
+    }
 
-  summ2_stacked <- sqldf("
+    summ <- sim %>% summary() %>% arrange(model, type, rho)
+    summ$type %<>% recode(
+      "path" = "(a) Path",
+      "grid" = "(b) Grid",
+      "US" = "(c) USA"
+    )
+
+    summ2 <- summary(
+      sim_obj = sim,
+      coverage = list(
+        list(name="cov_beta1", truth=1, estimate="beta1_hat", se="beta1_se"),
+        list(name="cov_beta2", truth=5, estimate="beta2_hat", se="beta2_se"),
+        list(name="cov_rho", truth="rho", estimate="rho_hat", se="rho_se"),
+        list(name="cov_sigma2", truth=(1/2.5),
+             estimate="sigma2_e_hat", se="sigma2_e_se")
+      )
+    )
+    summ2$type %<>% recode(
+      "path" = "(a) Path",
+      "grid" = "(b) Grid",
+      "US" = "(c) USA"
+    )
+
+    summ2_stacked <- sqldf("
     SELECT type, 'beta1' AS `type2`, rho, model, cov_beta1 AS `cov` FROM summ2
     UNION SELECT type, 'beta2', rho, model, cov_beta2 FROM summ2
     UNION SELECT type, 'sigma2', rho, model, cov_sigma2 FROM summ2
     UNION SELECT type, 'rho', rho, model, cov_rho FROM summ2
   ")
-  summ2_stacked$type2 <- factor(summ2_stacked$type2, labels=c(
-    bquote(beta[1]), bquote(beta[2]), bquote(rho), bquote(sigma^2)
-  ))
+    summ2_stacked$type2 <- factor(summ2_stacked$type2, labels=c(
+      bquote(beta[1]), bquote(beta[2]), bquote(rho), bquote(sigma^2)
+    ))
 
-  # Plot figure 3
-  ggplot(
-    data = summ,
-    aes(x=rho, y=mean_mse, color=model)) +
-    geom_line() + geom_point(size=1) +
-    xlim(0,1) +
-    # ylim(0,4) +
-    facet_wrap(~type, ncol=3) +
-    labs(
-      title = paste0("Figure 3. MSE as a function of the true rho for the ",
-                     "exponential GP simulation data"),
-      x = "rho",
-      y = "MSE",
-      color = "Model"
-    ) +
-    theme(legend.position = "right")
+    # Plot figure 3
+    ggplot(
+      data = summ,
+      aes(x=rho, y=mean_mse, color=model)) +
+      geom_line() + geom_point(size=1) +
+      xlim(0,1) +
+      # ylim(0,4) +
+      facet_wrap(~type, ncol=3) +
+      labs(
+        title = paste0("Figure 3. MSE as a function of the true rho for the ",
+                       "exponential GP simulation data"),
+        x = "rho",
+        y = "MSE",
+        color = "Model"
+      ) +
+      theme(legend.position = "right")
 
-  # Plot figure 4
-  ggplot(
-    data = summ %>%
-      filter(model %in% c("CAR", "DAGAR", "DAGAR_OF")) %>%
-      mutate(
-        # Think about calculating SEs of expit(rho)
-        ci_l = pmax(mean_rho_hat-1.96*mean_rho_se,0),
-        ci_u = pmin(mean_rho_hat+1.96*mean_rho_se,1)
-      ),
-    aes(x=rho, y=mean_rho_hat)) +
-    geom_line(aes(color=model)) +
-    geom_point(aes(color=model), size=1) +
-    geom_ribbon(
-      aes(ymin=ci_l, ymax=ci_u, fill=model),
-      alpha = 0.2
-    ) +
-    geom_segment(x=0, y=0, xend=1, yend=1, linetype=5) +
-    xlim(0,1) +
-    ylim(0,1) +
-    facet_wrap(~type, ncol=3) +
-    labs(
-      title = paste0("Figure 4. Estimate and confidence bands of rho as a ",
-                     "function of the true rho"),
-      x = "rho",
-      y = "Estimate",
-      color = "Model",
-      fill = "Model"
-    ) +
-    theme(legend.position = "right")
+    # Plot figure 4
+    ggplot(
+      data = summ %>%
+        filter(model %in% c("CAR", "DAGAR", "DAGAR_OF")) %>%
+        mutate(
+          # Think about calculating SEs of expit(rho)
+          ci_l = pmax(mean_rho_hat-1.96*mean_rho_se,0),
+          ci_u = pmin(mean_rho_hat+1.96*mean_rho_se,1)
+        ),
+      aes(x=rho, y=mean_rho_hat)) +
+      geom_line(aes(color=model)) +
+      geom_point(aes(color=model), size=1) +
+      geom_ribbon(
+        aes(ymin=ci_l, ymax=ci_u, fill=model),
+        alpha = 0.2
+      ) +
+      geom_segment(x=0, y=0, xend=1, yend=1, linetype=5) +
+      xlim(0,1) +
+      ylim(0,1) +
+      facet_wrap(~type, ncol=3) +
+      labs(
+        title = paste0("Figure 4. Estimate and confidence bands of rho as a ",
+                       "function of the true rho"),
+        x = "rho",
+        y = "Estimate",
+        color = "Model",
+        fill = "Model"
+      ) +
+      theme(legend.position = "right")
 
-  # Plot figure 5
-  ggplot(
-    data = summ2_stacked,
-    aes(x=rho, y=cov, color=model)) +
-    geom_line() + geom_point(size=1) +
-    xlim(0,1) +
-    # ylim(0,4) +
-    facet_grid(
-      cols = vars(type),
-      rows = vars(type2),
-      labeller = labeller(.rows=label_parsed)
-    ) +
-    labs(
-      title = paste0("Figure 5. Coverage probabilities of the parameters as a",
-                     " function of the true rho"),
-      x = "rho",
-      y = "Coverage",
-      color = "Model"
-    ) +
-    theme(legend.position = "right")
+    # Plot figure 5
+    ggplot(
+      data = summ2_stacked,
+      aes(x=rho, y=cov, color=model)) +
+      geom_line() + geom_point(size=1) +
+      xlim(0,1) +
+      # ylim(0,4) +
+      facet_grid(
+        cols = vars(type),
+        rows = vars(type2),
+        labeller = labeller(.rows=label_parsed)
+      ) +
+      labs(
+        title = paste0("Figure 5. Coverage probabilities of the parameters as a",
+                       " function of the true rho"),
+        x = "rho",
+        y = "Coverage",
+        color = "Model"
+      ) +
+      theme(legend.position = "right")
 
-  print(round(difftime(Sys.time(), start_time),2))
+  }
 
 }
 
@@ -894,7 +935,6 @@ if (run_ima) {
   )
   print(summary(model))
   print(model$dic$deviance.mean)
-  # started 10:01 AM
 
   # DAGAR: declare model using INLA
   inla.rgeneric.DAGAR.model <- function(
@@ -959,8 +999,8 @@ if (run_ima) {
     log.prior <- function() {
 
       param = interpret.theta()
-      res <- dgamma(param$tau_w, 2, 1, log = TRUE) + log(param$tau_w) +
-             log(1) + log(param$rho) + log(1 - param$rho)
+      res <- dgamma(param$tau_w, 2, 1, log=TRUE) + log(param$tau_w) +
+             log(1) + log(param$rho) + log(1-param$rho)
 
       return(res)
 
@@ -981,10 +1021,6 @@ if (run_ima) {
   # DAGAR: run model using INLA
   set.seed(12)
   W <- as(A, "sparseMatrix")
-  # e.values <- eigen(W)$values
-  # rho.min <- min(e.values)
-  # rho.max <- max(e.values)
-  # W <- W / rho.max
   DAGAR.model <- inla.rgeneric.define(inla.rgeneric.DAGAR.model, W=W)
   model <- inla(
     deaths ~ low_weight + black + hispanic + gini + affluence +

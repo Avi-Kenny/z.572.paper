@@ -2,6 +2,9 @@
 .Rhistory
 .Rapp.history
 
+# Simulation results
+simba.out
+
 # Session Data files
 .RData
 

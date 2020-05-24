@@ -8,7 +8,7 @@
 #'     * `Q`: Precision matrix (with tau_W param set to 1) \cr
 #'     # `neighbors`: A list of neighbors, indexed by region i
 #' @export
-generate_mtx <- function(model, adj_mtx, rho=0.99) {
+generate_mtx <- function(model, adj_mtx, rho=0.99, p_order=NA) {
 
   if (model %in% c("iCAR", "CAR", "Scaled iCAR")) {
 
@@ -42,6 +42,12 @@ generate_mtx <- function(model, adj_mtx, rho=0.99) {
 
   if (model == "DAGAR") {
 
+    # If necessary, permute adjacency matrix
+    if (!is.na(p_order)) {
+      mtx_p <- as(as.integer(p_order), "pMatrix")
+      adj_mtx <- mtx_p %*% adj_mtx %*% t(mtx_p)
+    }
+
     # Get number of neighbors
     dim <- length(adj_mtx[1,])
     neighbors <- list()
@@ -63,6 +69,16 @@ generate_mtx <- function(model, adj_mtx, rho=0.99) {
     L <- diag(rep(1,dim)) - B
     Q <- t(L) %*% FF %*% L
     D <- NULL
+
+    # # Permute back vectors
+    # if (!is.na(p_order)) {
+    #   neighbors_new <- list()
+    #   for (i in 1:length(neighbors)) {
+    #     neighbors_new[[i]] <- neighbors[[p_order[i]]]
+    #   }
+    #   neighbors <- neighbors_new
+    #   n_i <- t(mtx_p) %*% n_i
+    # }
 
   }
 
