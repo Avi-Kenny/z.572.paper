@@ -8,13 +8,12 @@
 ##### Setup #####
 #################.
 
-# install.packages(
-#   pkgs = 'bit64',
-#   lib = '/home/akenny/R_lib',                  # Hutch - Gizmo
-#   repos = 'http://cran.us.r-project.org',
-#   dependencies = TRUE,
-#   verbose = TRUE
-# )
+# Set working directory
+if (Sys.getenv("USERDOMAIN")=="AVI-KENNY-T460") {
+  setwd("C:/Users/avike/OneDrive/Desktop/Avi/Biostats + Research/Course materials/BIOST 572/Final project/z.572.paper/R")
+} else {
+  setwd("z.572.paper/R")
+}
 
 # Load packages
 {
@@ -42,47 +41,49 @@
 
 # Load functions
 {
-  path_to_main <- "z.572.paper/R/"
-  # path_to_main <- "R/"
-  source(paste0(path_to_main, "adj_from_gis_us.R"))
-  source(paste0(path_to_main, "adj_from_graph.R"))
-  source(paste0(path_to_main, "generate_dataset.R"))
-  source(paste0(path_to_main, "generate_graph_grid.R"))
-  source(paste0(path_to_main, "generate_graph_path.R"))
-  source(paste0(path_to_main, "generate_matern_cov.R"))
-  source(paste0(path_to_main, "generate_mtx.R"))
+  source("adj_from_gis_us.R")
+  source("adj_from_graph.R")
+  source("generate_dataset.R")
+  source("generate_graph_grid.R")
+  source("generate_graph_path.R")
+  source("generate_matern_cov.R")
+  source("generate_mtx.R")
 }
 
 # Set code blocks to run
 {
+  run_testing <- FALSE
   run_fig1 <- FALSE
   run_fig2 <- FALSE
-  run_fig35 <- TRUE
-  run_fig68 <- FALSE
+  run_fig345 <- TRUE
+  run_fig6 <- FALSE
+  run_fig7 <- FALSE
+  run_fig8 <- FALSE
+  run_graphs <- FALSE
   run_ima <- FALSE
 }
 
 
 
-#########################.
-##### Testing: INLA #####
-#########################.
+#######################################.
+##### Testing: temp C and L lists #####
+#######################################.
 
-if (FALSE) {
+if (run_testing) {
 
-  # INLA:::inla.dynload.workaround()
+  C = list(
+    tau_w = 0.25,
+    adj_mtx_path = generate_graph_path() %>% adj_from_graph(),
+    adj_mtx_grid = generate_graph_grid() %>% adj_from_graph(),
+    adj_mtx_US = adj_from_gis_us()
+  )
 
-  # beta <- c(2,3)
-  # x <- rnorm(1000, mean=6,sd=2)
-  # y <- rnorm(1000, mean=(beta[1]+beta[2]*x),sd=1)
-  # model_1 <- inla(
-  #   y~x,
-  #   family = c("gaussian"),
-  #   data = data.frame(x=x, y=y),
-  #   control.predictor = list(link=1),
-  #   verbose = TRUE
-  # )
-  # summary(model_1)
+  L = list(
+    type = "US",
+    rho = 0.9,
+    model = "SGLMM",
+    p_order = "none" # "NE", "ZZ"
+  )
 
 }
 
@@ -128,7 +129,6 @@ if (run_fig1) {
       # Generate average neighbor-pair correlation for DAGAR
       mtx_dagar <- generate_mtx(model="DAGAR", adj_mtx=adj_mtx, rho=rho)
       cov_dagar <- solve(mtx_dagar$Q)
-
       cor <- 0
       count <- 0
       for (i in 2:length(mtx_dagar$neighbors)) {
@@ -164,19 +164,16 @@ if (run_fig1) {
         "(c) 48 contiguous US states"
       ), each=18)
     ),
-    aes(x=x, y=y, group=grp,
-        color=as.factor(grp))) +
+    aes(x=x, y=y, group=grp, color=as.factor(grp))
+  ) +
     geom_segment(x=0, y=0, xend=1, yend=1, color="grey") +
-    geom_line() + geom_point(size=3) +
+    geom_line() +
+    geom_point(size=3) +
     scale_color_manual(values=c("firebrick", "darkolivegreen4")) +
     xlim(0,1) +
     ylim(0,1) +
     facet_wrap(~type, ncol=3) +
-    labs(
-      x = "rho",
-      y = "Average neighbor correlation",
-      color = "Model"
-    ) +
+    labs(x="rho", y="Average neighbor correlation", color="Model") +
     theme(legend.position = "bottom")
 
 }
@@ -226,7 +223,7 @@ if (run_fig2) {
   ggplot(
     data = data.frame(
       x = rep(rhos, 2),
-      y = c( rd_path(rhos), rd_grid(rhos) ),
+      y = c(rd_path(rhos), rd_grid(rhos)),
       grp = rep(c("(a) Path graph","(b) Grid graph"), each=n)
     ),
     aes(x=x, y=y, group=grp)
@@ -245,113 +242,57 @@ if (run_fig2) {
       size = 2
     ) +
     xlim(0,1) +
-    # ylim(0,1) +
     facet_wrap(~grp, ncol=2) +
-    labs(
-      x = "rho",
-      y = "Relative difference"
-    )
+    labs(x="rho", y="Relative difference")
 
 }
 
 
 
-################################.
-##### Generate figures 3-5 #####
-################################.
+#############################.
+##### Simulation script #####
+#############################.
 
-if (run_fig35) {
+if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
 
-  # # !!!!! Testing ("resume" after `# Generate data`)
-  # type <- "path"
-  # rho <- 0.5
-  # model <- "SGLMM"
-  # tau_w = 0.25
-  # adj_mtx_path <- generate_graph_path() %>% adj_from_graph()
-  # adj_mtx_grid <- generate_graph_grid() %>% adj_from_graph()
-  # adj_mtx_US <- adj_from_gis_us()
-  # adj_mtx <- adj_mtx_path
-  # k <- 100
-  # data <- generate_dataset(
-  #   type = type,
-  #   tau_w = tau_w,
-  #   phi = -1*log(rho)
-  # )
+  script_mainsim <- function(L,C) {
 
-  # .tid <- .tid + 10000 # !!!!!
-  set.seed(.tid)
+    # Set variables depending on `type`
+    switch(
+      L$type,
+      "path" = {
+        k <- 100
+        adj_mtx <- C$adj_mtx_path
+      },
+      "grid" = {
+        k <- 100
+        adj_mtx <- C$adj_mtx_grid
+      },
+      "US" = {
+        k <- 48
+        adj_mtx <- C$adj_mtx_US
+      }
+    )
 
-  sim <- new_sim()
+    # Generate data
+    data <- generate_dataset(
+      type = L$type,
+      tau_w = C$tau_w,
+      cov_type = L$cov_type,
+      phi = -1*log(L$rho),
+      rho = L$rho
+    )
 
-  sim %<>% set_config(
-    # num_sim = 2, # !!!!!
-    num_sim = 100,
-    parallel = "none", # !!!!!
-    packages = c("z.572.paper", "sp", "rgeos", "spdep", "parallel", "rgdal",
-                 "simba", "ggplot2", "dplyr", "magrittr", "permute", "maps",
-                 "maptools", "mvtnorm", "rjags", "MASS", "ngspatial", "Matrix")
-  )
+    # Create JAGS code and objects
 
-  sim %<>% add_constants(
-    tau_w = 0.25,
-    adj_mtx_path = generate_graph_path() %>% adj_from_graph(),
-    adj_mtx_grid = generate_graph_grid() %>% adj_from_graph(),
-    adj_mtx_US = adj_from_gis_us()
-  )
+    if (L$model == "iCAR") {
 
-  sim %<>% set_levels(
-    type = c("path", "grid", "US"),
-    # rho = c(0.1, 0.3, 0.5, 0.7, 0.9),
-    rho = seq(from=0.1, to=0.9, by=0.1),
-    model = c("iCAR", "CAR", "DAGAR", "DAGAR_OF", "SGLMM", "Scaled iCAR")
-    # type = "US",
-    # rho = c(0.2,0.8),
-    # model = c("iCAR", "CAR", "DAGAR", "DAGAR_OF", "SGLMM", "Scaled iCAR")
-  )
+      mtx <- generate_mtx(L$model, adj_mtx)
+      D <- mtx$D
+      n_i <- mtx$n_i
 
-  sim %<>% add_creator(generate_dataset)
-
-  sim %<>% add_script(
-    "script_mainsim",
-    function(L,C) {
-
-      # Set variables depending on `type`
-      switch(
-        L$type,
-        "path" = {
-          k <- 100
-          adj_mtx <- C$adj_mtx_path
-        },
-        "grid" = {
-          k <- 100
-          adj_mtx <- C$adj_mtx_grid
-        },
-        "US" = {
-          k <- 48
-          adj_mtx <- C$adj_mtx_US
-        }
-      )
-
-      # Generate data
-      data <- generate_dataset(
-        type = L$type,
-        tau_w = C$tau_w,
-        phi = -1*log(L$rho)
-        # type = "US",
-        # tau_w = 0.25,
-        # phi = -1*log(0.3)
-      )
-
-      # Create JAGS code and objects
-
-      if (L$model == "iCAR") {
-
-        mtx <- generate_mtx(L$model, adj_mtx)
-        D <- mtx$D
-        n_i <- mtx$n_i
-
-        # JAGS model code
-        jags_code <- quote("
+      # JAGS model code
+      jags_code <- quote("
           model {
             for (i in 1:k) {
               y[i] ~ dnorm(x1[i]*beta1 + x2[i]*beta2 + w[i], tau_e)
@@ -367,18 +308,18 @@ if (run_fig35) {
           }
         ")
 
-      }
+    }
 
-      if (L$model == "Scaled iCAR") {
+    if (L$model == "Scaled iCAR") {
 
-        mtx <- generate_mtx(L$model, adj_mtx)
-        D <- mtx$D
-        n_i <- mtx$n_i
+      mtx <- generate_mtx(L$model, adj_mtx)
+      D <- mtx$D
+      n_i <- mtx$n_i
 
-        sigma2ref <- exp(mean(log(diag(ginv(D - adj_mtx)))))
+      sigma2ref <- exp(mean(log(diag(ginv(D - adj_mtx)))))
 
-        # JAGS model code
-        jags_code <- quote("
+      # JAGS model code
+      jags_code <- quote("
           model {
             for (i in 1:k) {
               y[i] ~ dnorm(x1[i]*beta1 + x2[i]*beta2 + w[i], tau_e)
@@ -394,16 +335,16 @@ if (run_fig35) {
           }
         ")
 
-      }
+    }
 
-      if (L$model == "CAR") {
+    if (L$model == "CAR") {
 
-        mtx <- generate_mtx(L$model, adj_mtx)
-        D <- mtx$D
-        n_i <- mtx$n_i
+      mtx <- generate_mtx(L$model, adj_mtx)
+      D <- mtx$D
+      n_i <- mtx$n_i
 
-        # JAGS model code
-        jags_code <- quote("
+      # JAGS model code
+      jags_code <- quote("
           model {
             for (i in 1:k) {
               y[i] ~ dnorm(x1[i]*beta1 + x2[i]*beta2 + w[i], tau_e)
@@ -420,15 +361,43 @@ if (run_fig35) {
           }
         ")
 
+    }
+
+    if (L$model=="DAGAR") {
+
+      if (L$p_order!="none") {
+
+        # Create order vectors (see `State_order.xlsx`, from QGIS centroids)
+        order_sw <- c(21,2,17,1,10,43,40,22,25,8,27,31,24,15,29,14,48,38,45,
+                      37,28,18,20,12,16,3,47,41,7,42,33,23,34,13,4,39,44,30,
+                      19,26,9,6,46,36,5,35,32,11)
+        order_se <- c(18,39,25,45,37,4,5,1,12,46,26,24,32,33,21,22,6,11,3,27,
+                      35,20,28,44,36,43,10,8,34,15,9,40,23,30,47,16,2,7,38,
+                      19,29,42,14,13,48,17,31,41)
+
+        p_o <- case_when(
+          L$p_order=="SW" ~ order_sw,
+          L$p_order=="SE" ~ order_se,
+          L$p_order=="NW" ~ rev(order_se),
+          L$p_order=="NE" ~ rev(order_sw),
+          TRUE ~ as.numeric(c(1:48))
+        )
+
+        mtx_p <- as(as.integer(p_o), "pMatrix")
+
+        data$y <- Matrix::t(mtx_p) %*% data$y
+        data$w <- Matrix::t(mtx_p) %*% data$w
+        data$x1 <- Matrix::t(mtx_p) %*% data$x1
+        data$x2 <- Matrix::t(mtx_p) %*% data$x2
+        adj_mtx <- Matrix::t(mtx_p) %*% adj_mtx %*% mtx_p
+
       }
 
-      if (L$model=="DAGAR") {
+      mtx <- generate_mtx(model=L$model, adj_mtx=adj_mtx)
+      n_i <- mtx$n_i
 
-        mtx <- generate_mtx(L$model, adj_mtx)
-        n_i <- mtx$n_i
-
-        # JAGS model code
-        jags_code <- quote("
+      # JAGS model code
+      jags_code <- quote("
           model {
             for (i in 1:k) {
               y[i] ~ dnorm(x1[i]*beta1 + x2[i]*beta2 + w[i], tau_e)
@@ -461,35 +430,35 @@ if (run_fig35) {
           }
         ")
 
-      }
+    }
 
-      if (L$model=="DAGAR_OF") {
+    if (L$model=="DAGAR_OF") {
 
-        # This is an approximation to the DAGAR_OF done by sampling permutations
+      # This is an approximation to the DAGAR_OF done by sampling permutations
 
-        p1 <- c(k:1)
-        p2 <- sample(1:k)
-        p3 <- sample(1:k)
-        mtx_p1 <- as(as.integer(p1), "pMatrix")
-        mtx_p2 <- as(as.integer(p2), "pMatrix")
-        mtx_p3 <- as(as.integer(p3), "pMatrix")
-        mtx_p1 <- as.matrix(mtx_p1) * as.matrix(mtx_p1)
-        mtx_p2 <- as.matrix(mtx_p2) * as.matrix(mtx_p2)
-        mtx_p3 <- as.matrix(mtx_p3) * as.matrix(mtx_p3)
-        adj_mtx_p1 <- mtx_p1 %*% adj_mtx %*% t(mtx_p1)
-        adj_mtx_p2 <- mtx_p2 %*% adj_mtx %*% t(mtx_p2)
-        adj_mtx_p3 <- mtx_p3 %*% adj_mtx %*% t(mtx_p3)
-        mtx_nbrs0 <- adj_mtx * lower.tri(adj_mtx)
-        mtx_nbrs1 <- adj_mtx_p1 * lower.tri(adj_mtx_p1)
-        mtx_nbrs2 <- adj_mtx_p2 * lower.tri(adj_mtx_p2)
-        mtx_nbrs3 <- adj_mtx_p3 * lower.tri(adj_mtx_p3)
-        n_i <- as.numeric(mtx_nbrs0 %*% rep(1,k))
-        n_i1 <- as.numeric(mtx_nbrs1 %*% rep(1,k))
-        n_i2 <- as.numeric(mtx_nbrs2 %*% rep(1,k))
-        n_i3 <- as.numeric(mtx_nbrs3 %*% rep(1,k))
+      p1 <- c(k:1)
+      p2 <- sample(1:k)
+      p3 <- sample(1:k)
+      mtx_p1 <- as(as.integer(p1), "pMatrix")
+      mtx_p2 <- as(as.integer(p2), "pMatrix")
+      mtx_p3 <- as(as.integer(p3), "pMatrix")
+      mtx_p1 <- as.matrix(mtx_p1) * as.matrix(mtx_p1)
+      mtx_p2 <- as.matrix(mtx_p2) * as.matrix(mtx_p2)
+      mtx_p3 <- as.matrix(mtx_p3) * as.matrix(mtx_p3)
+      adj_mtx_p1 <- t(mtx_p1) %*% adj_mtx %*% mtx_p1
+      adj_mtx_p2 <- t(mtx_p2) %*% adj_mtx %*% mtx_p2
+      adj_mtx_p3 <- t(mtx_p3) %*% adj_mtx %*% mtx_p3
+      mtx_nbrs0 <- adj_mtx * lower.tri(adj_mtx)
+      mtx_nbrs1 <- adj_mtx_p1 * lower.tri(adj_mtx_p1)
+      mtx_nbrs2 <- adj_mtx_p2 * lower.tri(adj_mtx_p2)
+      mtx_nbrs3 <- adj_mtx_p3 * lower.tri(adj_mtx_p3)
+      n_i <- as.numeric(mtx_nbrs0 %*% rep(1,k))
+      n_i1 <- as.numeric(mtx_nbrs1 %*% rep(1,k))
+      n_i2 <- as.numeric(mtx_nbrs2 %*% rep(1,k))
+      n_i3 <- as.numeric(mtx_nbrs3 %*% rep(1,k))
 
-        # JAGS model code
-        jags_code <- quote("
+      # JAGS model code
+      jags_code <- quote("
           model {
             for (i in 1:k) {
               y[i] ~ dnorm(x1[i]*beta1 + x2[i]*beta2 + w[i], tau_e)
@@ -500,9 +469,9 @@ if (run_fig35) {
             Q <- (Q0+Q1+Q2+Q3)/4
 
             Q0 <- tau_w * (t(L0) %*% FF0 %*% L0)
-            Q1 <- tau_w * (t(mtx_p1) %*% t(L1) %*% FF1 %*% L1 %*% mtx_p1)
-            Q2 <- tau_w * (t(mtx_p2) %*% t(L2) %*% FF2 %*% L2 %*% mtx_p2)
-            Q3 <- tau_w * (t(mtx_p3) %*% t(L3) %*% FF3 %*% L3 %*% mtx_p3)
+            Q1 <- tau_w * (mtx_p1 %*% t(L1) %*% FF1 %*% L1 %*% t(mtx_p1))
+            Q2 <- tau_w * (mtx_p2 %*% t(L2) %*% FF2 %*% L2 %*% t(mtx_p2))
+            Q3 <- tau_w * (mtx_p3 %*% t(L3) %*% FF3 %*% L3 %*% t(mtx_p3))
 
             L0 <- I - B0
             L1 <- I - B1
@@ -546,154 +515,201 @@ if (run_fig35) {
           }
         ")
 
+    }
+
+    objs <- c("n_i", "n_i1", "n_i2", "n_i3", "mtx_p1", "mtx_p2", "mtx_p3",
+              "adj_mtx_p1", "adj_mtx_p2", "adj_mtx_p3", "sigma2ref")
+    for (obj in objs) {
+      if (!exists(obj)) {
+        assign(obj, NULL)
       }
+    }
 
-      objs <- c("n_i", "n_i1", "n_i2", "n_i3", "mtx_p1", "mtx_p2", "mtx_p3",
-                "adj_mtx_p1", "adj_mtx_p2", "adj_mtx_p3", "sigma2ref")
-      for (obj in objs) {
-        if (!exists(obj)) {
-          assign(obj, NULL)
-        }
-      }
+    # Run SGLMM
+    if (L$model == "SGLMM") {
 
-      # Run SGLMM
-      if (L$model == "SGLMM") {
+      attr <- case_when(
+        L$type == "path" ~ 40,
+        L$type == "grid" ~ 40,
+        L$type == "US" ~ 17 # !!!!! This might throw an error
+      )
 
-        attr <- case_when(
-          L$type == "path" ~ 40,
-          L$type == "grid" ~ 40,
-          L$type == "US" ~ 15
-        )
+      sm <- sparse.sglmm(
+        y ~ x1 + x2,
+        data = data.frame(y=data$y, x1=data$x1, x2=data$x2),
+        A = adj_mtx,
+        method = "RSR",
+        attractive = attr,
+        minit = 10000,
+        maxit = 50000
+      )
 
-        sm <- sparse.sglmm(
-          y ~ x1 + x2,
-          data = data.frame(y=data$y, x1=data$x1, x2=data$x2),
-          A = adj_mtx,
-          method = "RSR",
-          attractive = attr,
-          minit = 4000,
-          maxit = 8000
-        )
-
-        w_hat <- data$y - (
-          sm$coefficients[[1]] +
+      w_hat <- data$y - (
+        sm$coefficients[[1]] +
           (data$x1 * sm$coefficients["x1"]) +
           (data$x2 * sm$coefficients["x2"])
-        ) - sm$residuals
+      ) - sm$residuals
 
-        beta1_hat <- mean(sm$beta.sample[,2])
-        beta1_se <- sd(sm$beta.sample[,2])
-        beta2_hat <- mean(sm$beta.sample[,3])
-        beta2_se <- sd(sm$beta.sample[,3])
-        sigma2_e_hat <- mean(sm$residuals^2) # !!!!! Placeholder
-        sigma2_e_se <- sd(sm$residuals^2) # !!!!! Placeholder
+      beta1_hat <- mean(sm$beta.sample[,2])
+      beta1_se <- sd(sm$beta.sample[,2])
+      beta2_hat <- mean(sm$beta.sample[,3])
+      beta2_se <- sd(sm$beta.sample[,3])
+      sigma2_e_hat <- mean(sm$residuals^2) # !!!!! Placeholder
+      sigma2_e_se <- sd(sm$residuals^2) # !!!!! Placeholder
 
-        mse <- mean((data$w-w_hat)^2)
+      mse <- mean((data$w-w_hat)^2)
+      rho_hat <- NA
+      rho_se <- NA
+
+    }
+
+    # Run others
+    if (L$model != "SGLMM") {
+
+      # Run JAGS model
+      jm <- jags.model(
+        file = textConnection(jags_code),
+        data = list(
+          k=k, x1=data$x1, x2=data$x2, y=data$y, D=D, I=diag(rep(1,k)),
+          A=adj_mtx, n_i=n_i, sigma2ref=sigma2ref, mu0=rep(0,k), n_i1=n_i1,
+          n_i2=n_i2, n_i3=n_i3, mtx_p1=mtx_p1, mtx_p2=mtx_p2, mtx_p3=mtx_p3,
+          adj_mtx_p1=adj_mtx_p1, adj_mtx_p2=adj_mtx_p2, adj_mtx_p3=adj_mtx_p3
+        ),
+        n.chains = 1,
+        n.adapt = 1000
+      )
+      if (L$model %in% c("CAR", "DAGAR", "DAGAR_OF")) {
+        variable.names <- c("w", "rho", "beta1", "beta2", "tau_e")
+      } else {
+        variable.names <- c("w", "beta1", "beta2", "tau_e")
+      }
+      output <- coda.samples(
+        model = jm,
+        variable.names = variable.names,
+        n.iter = 1000,
+        thin = 1
+      )
+
+      # Calculate w_hat
+      s <- summary(output)
+      if (L$model %in% c("CAR", "DAGAR", "DAGAR_OF")) {
+
+        w_hat <- as.numeric(s$quantiles[,"50%"])[5:(k+4)]
+        rho_hat <- s$statistics["rho","Mean"]
+        rho_se <- s$statistics["rho","SD"]
+
+      } else {
+        w_hat <- as.numeric(s$quantiles[,"50%"])[4:(k+3)]
         rho_hat <- NA
         rho_se <- NA
-
       }
 
-      # Run others
-      if (L$model != "SGLMM") {
+      # Get other summary stats
+      beta1_hat <- s$statistics["beta1","Mean"]
+      beta1_se <- s$statistics["beta1","SD"]
+      beta2_hat <- s$statistics["beta2","Mean"]
+      beta2_se <- s$statistics["beta2","SD"]
 
-        # Run JAGS model
-        jm <- jags.model(
-          file = textConnection(jags_code),
-          data = list(
-            k=k, x1=data$x1, x2=data$x2, y=data$y, D=D, I=diag(rep(1,k)),
-            A=adj_mtx, n_i=n_i, sigma2ref=sigma2ref, mu0=rep(0,k), n_i1=n_i1,
-            n_i2=n_i2, n_i3=n_i3, mtx_p1=mtx_p1, mtx_p2=mtx_p2, mtx_p3=mtx_p3,
-            adj_mtx_p1=adj_mtx_p1, adj_mtx_p2=adj_mtx_p2, adj_mtx_p3=adj_mtx_p3
-          ),
-          n.chains = 1,
-          n.adapt = 1000
-        )
-        if (L$model %in% c("CAR", "DAGAR", "DAGAR_OF")) {
-          variable.names <- c("w", "rho", "beta1", "beta2", "tau_e")
-        } else {
-          variable.names <- c("w", "beta1", "beta2", "tau_e")
-        }
-        output <- coda.samples(
-          model = jm,
-          variable.names = variable.names,
-          n.iter = 1000,
-          thin = 1
-        )
+      # Get sigma2_e summary stats
+      tau_e_samples <- output[[1]][,"tau_e"]
+      sigma2_e_hat <- mean(1/tau_e_samples)
+      sigma2_e_se <- sd(1/tau_e_samples)
 
-        # Calculate w_hat
-        s <- summary(output)
-        if (L$model %in% c("CAR", "DAGAR", "DAGAR_OF")) {
-
-          w_hat <- as.numeric(s$quantiles[,"50%"])[5:(k+4)]
-          rho_hat <- s$statistics["rho","Mean"]
-          rho_se <- s$statistics["rho","SD"]
-
-        } else {
-          w_hat <- as.numeric(s$quantiles[,"50%"])[4:(k+3)]
-          rho_hat <- NA
-          rho_se <- NA
-        }
-
-        # Get other summary stats
-        beta1_hat <- s$statistics["beta1","Mean"]
-        beta1_se <- s$statistics["beta1","SD"]
-        beta2_hat <- s$statistics["beta2","Mean"]
-        beta2_se <- s$statistics["beta2","SD"]
-
-        # Get sigma2_e summary stats
-        tau_e_samples <- output[[1]][,"tau_e"]
-        sigma2_e_hat <- mean(1/tau_e_samples)
-        sigma2_e_se <- sd(1/tau_e_samples)
-
-        # Calculate MSE
-        mse <- mean((data$w-w_hat)^2)
-
-      }
-
-      return (list(
-        "mse" = mse,
-        "rho_hat" = rho_hat,
-        "rho_se" = rho_se,
-        "beta1_hat" = beta1_hat,
-        "beta1_se" = beta1_se,
-        "beta2_hat" = beta2_hat,
-        "beta2_se" = beta2_se,
-        "sigma2_e_hat" = sigma2_e_hat,
-        "sigma2_e_se" = sigma2_e_se
-      ))
+      # Calculate MSE
+      mse <- mean((data$w-w_hat)^2)
 
     }
+
+    return (list(
+      "mse" = mse,
+      "rho_hat" = rho_hat,
+      "rho_se" = rho_se,
+      "beta1_hat" = beta1_hat,
+      "beta1_se" = beta1_se,
+      "beta2_hat" = beta2_hat,
+      "beta2_se" = beta2_se,
+      "sigma2_e_hat" = sigma2_e_hat,
+      "sigma2_e_se" = sigma2_e_se
+    ))
+
+  }
+
+  set.seed(.tid)
+
+  sim <- new_sim()
+
+  sim %<>% set_config(
+    num_sim = 100,
+    parallel = "none",
+    packages = c("z.572.paper", "sp", "rgeos", "spdep", "parallel", "rgdal",
+                 "simba", "ggplot2", "dplyr", "magrittr", "permute", "maps",
+                 "maptools", "mvtnorm", "rjags", "MASS", "ngspatial", "Matrix")
   )
 
+  sim %<>% add_constants(
+    tau_w = 0.25,
+    adj_mtx_path = generate_graph_path() %>% adj_from_graph(),
+    adj_mtx_grid = generate_graph_grid() %>% adj_from_graph(),
+    adj_mtx_US = adj_from_gis_us()
+  )
+
+  sim %<>% add_creator(generate_dataset)
+  sim %<>% add_script(script_mainsim)
+
+
+
+}
+
+
+
+###########################################################.
+##### Compile simulation results into a single object #####
+###########################################################.
+
+if (FALSE) {
+
+  # Merge *.simba files
+  sims <- list.files(
+    path = "../simba.out",
+    pattern = "*.simba",
+    full.names = TRUE,
+    recursive = FALSE
+  )
+  sim <- NULL
+  for (s in sims) {
+    s <- readRDS(s)
+    if (is.null(sim)) { sim <- s } else { sim <- merge(sim, s) }
+  }
+  saveRDS(sim, file="sim_fig0_00.simba")
+
+}
+
+
+
+################################.
+##### Generate figures 3-5 #####
+################################.
+
+if (run_fig345) {
+
+  sim %<>% set_levels(
+    type = c("path", "grid", "US"),
+    rho = seq(from=0.1, to=0.9, by=0.1),
+    model = c("iCAR", "CAR", "DAGAR", "DAGAR_OF", "SGLMM", "Scaled iCAR"),
+    cov_type = "Matern",
+    p_order = "none"
+  )
+
+  # Run simulation and save output
   # print(nrow(sim$levels_grid))
-  # sim %<>% run("script_mainsim")
   sim %<>% run("script_mainsim", sim_uids=.tid)
+  if (!file.exists("../simba.out")) { dir.create("../simba.out") }
+  saveRDS(sim, file=paste0("../simba.out/sim_",.tid,".simba"))
 
-  # Create output folder if it doesn't exist and save output
-  if (!file.exists("simba.out")) { dir.create("simba.out") }
-  saveRDS(sim, file=paste0("simba.out/sim_",.tid,".simba"))
+  # Create graphs
+  if (run_graphs) {
 
-  # saveRDS(sim, file=paste("sim",Sys.time()))
-  # sim <- readRDS("../sim 2020-05-16 18_02_37")
-
-  # !!!!! Pass this in, possibly through .tid==0
-  # Need to skip the above if process_results <- TRUE
-  process_results <- FALSE
-  if (process_results) {
-
-    # !!!!! Create a function in `simba`` for this
-    sims <- list.files(
-      path = "simba.out",
-      pattern = "*.simba",
-      full.names = TRUE,
-      recursive = FALSE
-    )
-    sim <- NULL
-    for (s in sims) {
-      s <- readRDS(s)
-      if (is.null(sim)) { sim <- s } else { sim <- merge(sim, s) }
-    }
+    sim <- readRDS("../simba.out/sim_fig35_16200.simba")
 
     summ <- sim %>% summary() %>% arrange(model, type, rho)
     summ$type %<>% recode(
@@ -727,34 +743,32 @@ if (run_fig35) {
     summ2_stacked$type2 <- factor(summ2_stacked$type2, labels=c(
       bquote(beta[1]), bquote(beta[2]), bquote(rho), bquote(sigma^2)
     ))
+    summ2_stacked$type2 <- factor(summ2_stacked$type2, levels=c("beta[1]","beta[2]","sigma^2","rho"))
 
     # Plot figure 3
+    # Export 900w x 300h
     ggplot(
       data = summ,
       aes(x=rho, y=mean_mse, color=model)) +
-      geom_line() + geom_point(size=1) +
+      geom_line() +
+      geom_point(size=1) +
       xlim(0,1) +
-      # ylim(0,4) +
       facet_wrap(~type, ncol=3) +
-      labs(
-        title = paste0("Figure 3. MSE as a function of the true rho for the ",
-                       "exponential GP simulation data"),
-        x = "rho",
-        y = "MSE",
-        color = "Model"
-      ) +
+      labs(x="rho", y="MSE", color="Model") +
       theme(legend.position = "right")
 
     # Plot figure 4
+    # Export 900w x 300h
     ggplot(
       data = summ %>%
         filter(model %in% c("CAR", "DAGAR", "DAGAR_OF")) %>%
         mutate(
-          # Think about calculating SEs of expit(rho)
+          # Think about calculating SEs of logit(rho)
           ci_l = pmax(mean_rho_hat-1.96*mean_rho_se,0),
           ci_u = pmin(mean_rho_hat+1.96*mean_rho_se,1)
         ),
-      aes(x=rho, y=mean_rho_hat)) +
+      aes(x=rho, y=mean_rho_hat)
+    ) +
       geom_line(aes(color=model)) +
       geom_point(aes(color=model), size=1) +
       geom_ribbon(
@@ -765,35 +779,23 @@ if (run_fig35) {
       xlim(0,1) +
       ylim(0,1) +
       facet_wrap(~type, ncol=3) +
-      labs(
-        title = paste0("Figure 4. Estimate and confidence bands of rho as a ",
-                       "function of the true rho"),
-        x = "rho",
-        y = "Estimate",
-        color = "Model",
-        fill = "Model"
-      ) +
+      labs(x="rho", y="Estimate", color="Model", fill="Model") +
       theme(legend.position = "right")
 
     # Plot figure 5
+    # Export 700w x 700h
     ggplot(
       data = summ2_stacked,
-      aes(x=rho, y=cov, color=model)) +
-      geom_line() + geom_point(size=1) +
-      xlim(0,1) +
-      # ylim(0,4) +
+      aes(x=rho, y=cov, color=model)
+    ) +
+      geom_line() +
+      geom_point(size=1) +
       facet_grid(
         cols = vars(type),
         rows = vars(type2),
         labeller = labeller(.rows=label_parsed)
       ) +
-      labs(
-        title = paste0("Figure 5. Coverage probabilities of the parameters as a",
-                       " function of the true rho"),
-        x = "rho",
-        y = "Coverage",
-        color = "Model"
-      ) +
+      labs(x="rho", y="Coverage", color="Model") +
       theme(legend.position = "right")
 
   }
@@ -802,21 +804,177 @@ if (run_fig35) {
 
 
 
-################################.
-##### Generate figures 6-8 #####
-################################.
+#############################.
+##### Generate figure 6 #####
+#############################.
 
-if (run_fig68) {
+if (run_fig6) {
 
-  # Create order vectors (see `State_order.xlsx`, from QGIS centroids)
-  order_sw <- c(21,2,17,1,10,43,40,22,25,8,27,31,24,15,29,14,48,38,45,
-                37,28,18,20,12,16,3,47,41,7,42,33,23,34,13,4,39,44,30,
-                19,26,9,6,46,36,5,35,32,11)
-  order_se <- c(18,39,25,45,37,4,5,1,12,46,26,24,32,33,21,22,6,11,3,27,
-                35,20,28,44,36,43,10,8,34,15,9,40,23,30,47,16,2,7,38,
-                19,29,42,14,13,48,17,31,41)
-  order_nw <- rev(order_se)
-  order_ne <- rev(order_sw)
+  sim %<>% set_levels(
+    type = "US",
+    rho = seq(from=0.1, to=0.9, by=0.1),
+    model = "DAGAR",
+    cov_type = "Matern",
+    p_order = c("NW", "NE", "SW", "SE")
+  )
+
+  # Run simulation and save output
+  # print(nrow(sim$levels_grid))
+  sim %<>% run("script_mainsim", sim_uids=.tid)
+  if (!file.exists("../simba.out")) { dir.create("../simba.out") }
+  saveRDS(sim, file=paste0("../simba.out/sim_",.tid,".simba"))
+
+  # Create graphs
+  if (run_graphs) {
+
+    sim <- readRDS("../simba.out/sim_fig6_3600.simba")
+
+    summ <- sim %>% summary() %>% arrange(model, type, rho)
+    summ$p_order %<>% recode(
+      "NW" = "Northwest",
+      "NE" = "Northeast",
+      "SW" = "Southwest",
+      "SE" = "Southeast"
+    )
+
+    # Plot figure 6.1
+    # Export 400w x 300h
+    ggplot(
+      data = summ %>% mutate(header="(a) USA: MSE"),
+      aes(x=rho, y=mean_mse, color=p_order)
+    ) +
+      geom_line() + geom_point(size=1) +
+      facet_wrap(~header) +
+      xlim(0,1) +
+      labs(x="rho", y="MSE", color="Order") +
+      theme(legend.position = "right")
+
+    # Plot figure 6.2
+    # Export 500w x 350h
+    ggplot(
+      data = summ %>%
+        mutate(
+          # Think about calculating SEs of logit(rho)
+          header = "(b) USA: Estimate and confidence bands of rho",
+          ci_l = pmax(mean_rho_hat-1.96*mean_rho_se,0),
+          ci_u = pmin(mean_rho_hat+1.96*mean_rho_se,1)
+        ),
+      aes(x=rho, y=mean_rho_hat)
+    ) +
+      geom_line(aes(color=p_order)) +
+      geom_point(aes(color=p_order), size=1) +
+      geom_ribbon(
+        aes(ymin=ci_l, ymax=ci_u, fill=p_order),
+        alpha = 0.2
+      ) +
+      geom_segment(x=0, y=0, xend=1, yend=1, linetype=5) +
+      facet_wrap(~header) +
+      xlim(0,1) +
+      ylim(0,1) +
+      labs(x="rho", y="Estimate", color="Order", fill="Order") +
+      theme(legend.position = "right")
+
+  }
+
+}
+
+
+
+#############################.
+##### Generate figure 7 #####
+#############################.
+
+if (run_fig7) {
+
+  sim %<>% set_levels(
+    type = c("path", "grid", "US"),
+    rho = seq(from=0.1, to=0.9, by=0.1),
+    model = c("iCAR", "CAR", "DAGAR", "DAGAR_OF", "SGLMM", "Scaled iCAR"),
+    cov_type = "DAGAR",
+    p_order = "none"
+  )
+
+  # Run simulation and save output
+  # print(nrow(sim$levels_grid))
+  sim %<>% run("script_mainsim", sim_uids=.tid)
+  if (!file.exists("../simba.out")) { dir.create("../simba.out") }
+  saveRDS(sim, file=paste0("../simba.out/sim_",.tid,".simba"))
+
+  if (run_graphs) {
+
+    sim <- readRDS("../simba.out/sim_fig7_16200.simba")
+
+    summ <- sim %>% summary() %>% arrange(model, type, rho)
+    summ$type %<>% recode(
+      "path" = "(a) Path",
+      "grid" = "(b) Grid",
+      "US" = "(c) USA"
+    )
+
+    # Plot figure 7
+    # Export 900w x 300h
+    ggplot(
+      data = summ,
+      aes(x=rho, y=mean_mse, color=model)
+    ) +
+      geom_line() +
+      geom_point(size=1) +
+      xlim(0,1) +
+      facet_wrap(~type, ncol=3) +
+      labs(x="rho", y="MSE", color="Model") +
+      theme(legend.position = "right")
+
+  }
+
+}
+
+
+
+#############################.
+##### Generate figure 8 #####
+#############################.
+
+if (run_fig8) {
+
+  sim %<>% set_levels(
+    type = c("path", "grid", "US"),
+    rho = seq(from=0.1, to=0.9, by=0.1),
+    model = c("iCAR", "CAR", "DAGAR", "DAGAR_OF", "SGLMM", "Scaled iCAR"),
+    cov_type = "CAR",
+    p_order = "none"
+  )
+
+  # Run simulation and save output
+  # print(nrow(sim$levels_grid))
+  sim %<>% run("script_mainsim", sim_uids=.tid)
+  if (!file.exists("../simba.out")) { dir.create("../simba.out") }
+  saveRDS(sim, file=paste0("../simba.out/sim_",.tid,".simba"))
+
+  if (run_graphs) {
+
+    sim <- readRDS("../simba.out/sim_fig7_16200.simba")
+
+    summ <- sim %>% summary() %>% arrange(model, type, rho)
+    summ$type %<>% recode(
+      "path" = "(a) Path",
+      "grid" = "(b) Grid",
+      "US" = "(c) USA"
+    )
+
+    # Plot figure 8
+    # Export 900w x 300h
+    ggplot(
+      data = summ,
+      aes(x=rho, y=mean_mse, color=model)
+    ) +
+      geom_line() +
+      geom_point(size=1) +
+      xlim(0,1) +
+      facet_wrap(~type, ncol=3) +
+      labs(x="rho", y="MSE", color="Model") +
+      theme(legend.position = "right")
+
+  }
 
 }
 

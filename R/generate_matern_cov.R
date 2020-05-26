@@ -34,6 +34,8 @@ generate_matern_cov <- function(type, phi) {
 
   if (type=="US") {
 
+    load("../data/mtx_dist_US.rda")
+
     adj_mtx_us <- adj_from_gis_us()
     m <- adj_mtx_us * mtx_dist_US
     num_neighbors <- sum(adj_mtx_us)
