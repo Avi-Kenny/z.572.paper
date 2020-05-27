@@ -55,10 +55,10 @@ if (Sys.getenv("USERDOMAIN")=="AVI-KENNY-T460") {
   run_testing <- FALSE
   run_fig1 <- FALSE
   run_fig2 <- FALSE
-  run_fig345 <- TRUE
+  run_fig345 <- FALSE
   run_fig6 <- FALSE
   run_fig7 <- FALSE
-  run_fig8 <- FALSE
+  run_fig8 <- TRUE
   run_graphs <- FALSE
   run_ima <- FALSE
 }
@@ -639,7 +639,7 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
   sim <- new_sim()
 
   sim %<>% set_config(
-    num_sim = 100,
+    num_sim = 60, # !!!!!
     parallel = "none",
     packages = c("z.572.paper", "sp", "rgeos", "spdep", "parallel", "rgdal",
                  "simba", "ggplot2", "dplyr", "magrittr", "permute", "maps",
@@ -656,8 +656,6 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
   sim %<>% add_creator(generate_dataset)
   sim %<>% add_script(script_mainsim)
 
-
-
 }
 
 
@@ -670,7 +668,7 @@ if (FALSE) {
 
   # Merge *.simba files
   sims <- list.files(
-    path = "../simba.out",
+    path = "../simba.out/simba.out",
     pattern = "*.simba",
     full.names = TRUE,
     recursive = FALSE
@@ -680,7 +678,7 @@ if (FALSE) {
     s <- readRDS(s)
     if (is.null(sim)) { sim <- s } else { sim <- merge(sim, s) }
   }
-  saveRDS(sim, file="sim_fig0_00.simba")
+  saveRDS(sim, file="../simba.out/sim_fig8_9720.simba")
 
 }
 
@@ -701,7 +699,6 @@ if (run_fig345) {
   )
 
   # Run simulation and save output
-  # print(nrow(sim$levels_grid))
   sim %<>% run("script_mainsim", sim_uids=.tid)
   if (!file.exists("../simba.out")) { dir.create("../simba.out") }
   saveRDS(sim, file=paste0("../simba.out/sim_",.tid,".simba"))
@@ -819,7 +816,6 @@ if (run_fig6) {
   )
 
   # Run simulation and save output
-  # print(nrow(sim$levels_grid))
   sim %<>% run("script_mainsim", sim_uids=.tid)
   if (!file.exists("../simba.out")) { dir.create("../simba.out") }
   saveRDS(sim, file=paste0("../simba.out/sim_",.tid,".simba"))
@@ -895,7 +891,6 @@ if (run_fig7) {
   )
 
   # Run simulation and save output
-  # print(nrow(sim$levels_grid))
   sim %<>% run("script_mainsim", sim_uids=.tid)
   if (!file.exists("../simba.out")) { dir.create("../simba.out") }
   saveRDS(sim, file=paste0("../simba.out/sim_",.tid,".simba"))
@@ -945,14 +940,13 @@ if (run_fig8) {
   )
 
   # Run simulation and save output
-  # print(nrow(sim$levels_grid))
   sim %<>% run("script_mainsim", sim_uids=.tid)
   if (!file.exists("../simba.out")) { dir.create("../simba.out") }
   saveRDS(sim, file=paste0("../simba.out/sim_",.tid,".simba"))
 
   if (run_graphs) {
 
-    sim <- readRDS("../simba.out/sim_fig7_16200.simba")
+    sim <- readRDS("../simba.out/sim_fig8_16200.simba")
 
     summ <- sim %>% summary() %>% arrange(model, type, rho)
     summ$type %<>% recode(
