@@ -1,6 +1,6 @@
 # Title: "572 Paper Reproduction"
 # Author: Avi Kenny
-# Date: 2020-05-20
+# Date: 2020-06-19
 
 
 
@@ -37,6 +37,8 @@ if (Sys.getenv("USERDOMAIN")=="AVI-KENNY-T460") {
   library(ngspatial)
   library(Matrix)
   library(INLA)
+
+  # INLA:::inla.dynload.workaround()
 }
 
 # Load functions
@@ -65,25 +67,26 @@ if (Sys.getenv("USERDOMAIN")=="AVI-KENNY-T460") {
 
 
 
-#######################################.
-##### Testing: temp C and L lists #####
-#######################################.
+###########################################################.
+##### Compile simulation results into a single object #####
+###########################################################.
 
-if (run_testing) {
+if (FALSE) {
 
-  C = list(
-    tau_w = 0.25,
-    adj_mtx_path = generate_graph_path() %>% adj_from_graph(),
-    adj_mtx_grid = generate_graph_grid() %>% adj_from_graph(),
-    adj_mtx_US = adj_from_gis_us()
+  # Merge *.simba files
+  sims <- list.files(
+    path = "../simba.out/simba.out",
+    pattern = "*.simba",
+    full.names = TRUE,
+    recursive = FALSE
   )
-
-  L = list(
-    type = "US",
-    rho = 0.9,
-    model = "SGLMM",
-    p_order = "none" # "NE", "ZZ"
-  )
+  print(length(sims))
+  sim <- NULL
+  for (s in sims) {
+    s <- readRDS(s)
+    if (is.null(sim)) { sim <- s } else { sim <- merge(sim, s) }
+  }
+  saveRDS(sim, file="../simba.out/sim_fig8_16200_6.16.simba")
 
 }
 
@@ -152,7 +155,7 @@ if (run_fig1) {
   }
 
   # Plot results
-  # Export 800w x 500h
+  # Export 900w x 400h
   ggplot(
     data = data.frame(
       x = rep(rep(rhos, each=2), 3),
@@ -164,16 +167,20 @@ if (run_fig1) {
         "(c) 48 contiguous US states"
       ), each=18)
     ),
-    aes(x=x, y=y, group=grp, color=as.factor(grp))
+    aes(x=x, y=y, group=grp, color=as.factor(grp), shape=as.factor(grp),
+        linetype=as.factor(grp))
   ) +
     geom_segment(x=0, y=0, xend=1, yend=1, color="grey") +
     geom_line() +
     geom_point(size=3) +
     scale_color_manual(values=c("firebrick", "darkolivegreen4")) +
-    xlim(0,1) +
+    xlim(0.1,0.9) +
     ylim(0,1) +
     facet_wrap(~type, ncol=3) +
-    labs(x="rho", y="Average neighbor correlation", color="Model") +
+    scale_shape_manual(values=c(16,17)) +
+    scale_linetype_manual(values=c(1,2)) +
+    labs(x="rho", y="Average neighbor correlation", color="Model",
+         shape="Model", linetype="Model") +
     theme(legend.position = "bottom")
 
 }
@@ -219,7 +226,7 @@ if (run_fig2) {
   rhos <- seq(from=0, to=1, length.out=n)
 
   # Plot results
-  # Export 800w x 500h
+  # Export 800w x 450h
   ggplot(
     data = data.frame(
       x = rep(rhos, 2),
@@ -244,6 +251,31 @@ if (run_fig2) {
     xlim(0,1) +
     facet_wrap(~grp, ncol=2) +
     labs(x="rho", y="Relative difference")
+
+}
+
+
+
+#######################################.
+##### Testing: temp C and L lists #####
+#######################################.
+
+if (run_testing) {
+
+  C = list(
+    tau_w = 0.25,
+    adj_mtx_path = generate_graph_path() %>% adj_from_graph(),
+    adj_mtx_grid = generate_graph_grid() %>% adj_from_graph(),
+    adj_mtx_US = adj_from_gis_us()
+  )
+
+  L = list(
+    type = "path",
+    rho = 0.9,
+    cov_type = "Matern",
+    model = "iCAR",
+    p_order = "none" # "NE", "ZZ"
+  )
 
 }
 
@@ -287,6 +319,32 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
 
     if (L$model == "iCAR") {
 
+      # # Run INLA model
+      # data_inla <- data.frame(
+      #   id=c(1:k), y=data$y, w=data$w, x1=data$x1, x2=data$x2
+      # )
+      # # hyper <- list(prec=list(param=c(2,1)))
+      # inla_model <- inla(
+      #   y ~ x1 + x2 -1 + f(id, model="besag", graph=adj_mtx),
+      #   # y ~ x1 + x2 -1 + f(id, model="besag", graph=adj_mtx, hyper=hyper),
+      #   data = data_inla
+      # )
+      #
+      # # Get summary stats
+      # w_hat <- inla_model$summary.random$id[["0.5quant"]]
+      # rho_hat <- NA
+      # ci_l_rho <- NA
+      # ci_u_rho <- NA
+      # beta1_hat <- inla_model$summary.fixed["x1","mean"]
+      # beta1_se <- inla_model$summary.fixed["x1","sd"]
+      # beta2_hat <- inla_model$summary.fixed["x2","mean"]
+      # beta2_se <- inla_model$summary.fixed["x2","sd"]
+      # sigma2_e_hat <- 1/inla_model$summary.hyperpar[1,"0.5quant"]
+      # sigma2_e_se <- (
+      #   sigma2_e_hat - (1/inla_model$summary.hyperpar[1,"0.975quant"])
+      # ) / 1.96
+      # mse <- mean((data$w-w_hat)^2)
+
       mtx <- generate_mtx(L$model, adj_mtx)
       D <- mtx$D
       n_i <- mtx$n_i
@@ -299,7 +357,7 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
             }
 
             w ~ dmnorm(mu0, Q)
-            Q <- tau_w * (D-(0.999999*A))
+            Q <- tau_w * (D-(0.99*A))
 
             beta1 ~ dnorm(0, 0.0001)
             beta2 ~ dnorm(0, 0.0001)
@@ -317,6 +375,7 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
       n_i <- mtx$n_i
 
       sigma2ref <- exp(mean(log(diag(ginv(D - adj_mtx)))))
+      sigma2ref <- 1/sigma2ref
 
       # JAGS model code
       jags_code <- quote("
@@ -326,7 +385,7 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
             }
 
             w ~ dmnorm(mu0, Q)
-            Q <- tau_w * (D-(0.999999*A))
+            Q <- tau_w * (D-(0.99*A))
 
             beta1 ~ dnorm(0, 0.0001)
             beta2 ~ dnorm(0, 0.0001)
@@ -531,35 +590,43 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
       attr <- case_when(
         L$type == "path" ~ 40,
         L$type == "grid" ~ 40,
-        L$type == "US" ~ 17 # !!!!! This might throw an error
+        L$type == "US" ~ 10
       )
 
       sm <- sparse.sglmm(
-        y ~ x1 + x2,
+        y ~ x1 + x2 -1,
+        family = "gaussian",
         data = data.frame(y=data$y, x1=data$x1, x2=data$x2),
         A = adj_mtx,
         method = "RSR",
         attractive = attr,
-        minit = 10000,
-        maxit = 50000
+        minit = 5000,
+        maxit = 20000
+        # tune = list(sigma.s = 0.02),
+        # hyper = list(
+        #   a.h = 2,
+        #   b.h = 10,
+        #   sigma.b = 100
+        # )
       )
 
       w_hat <- data$y - (
-        sm$coefficients[[1]] +
+        # sm$coefficients[[1]] +
           (data$x1 * sm$coefficients["x1"]) +
           (data$x2 * sm$coefficients["x2"])
       ) - sm$residuals
 
-      beta1_hat <- mean(sm$beta.sample[,2])
-      beta1_se <- sd(sm$beta.sample[,2])
-      beta2_hat <- mean(sm$beta.sample[,3])
-      beta2_se <- sd(sm$beta.sample[,3])
-      sigma2_e_hat <- mean(sm$residuals^2) # !!!!! Placeholder
-      sigma2_e_se <- sd(sm$residuals^2) # !!!!! Placeholder
+      beta1_hat <- mean(sm$beta.sample[,1])
+      beta1_se <- sd(sm$beta.sample[,1])
+      beta2_hat <- mean(sm$beta.sample[,2])
+      beta2_se <- sd(sm$beta.sample[,2])
+      sigma2_e_hat <- mean(1/sm$tau.h.sample)
+      sigma2_e_se <- sd(1/sm$tau.h.sample)
 
       mse <- mean((data$w-w_hat)^2)
       rho_hat <- NA
-      rho_se <- NA
+      ci_l_rho <- NA
+      ci_u_rho <- NA
 
     }
 
@@ -586,22 +653,28 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
       output <- coda.samples(
         model = jm,
         variable.names = variable.names,
-        n.iter = 1000,
+        n.iter = 5000,
         thin = 1
       )
 
-      # Calculate w_hat
+      # Calculate w_hat and rho_hat
       s <- summary(output)
       if (L$model %in% c("CAR", "DAGAR", "DAGAR_OF")) {
 
+        logit_rho <- (function(x){log(x/(1-x))})(output[[1]][,"rho"])
+        ci_l_logit_rho <- mean(logit_rho) - 1.96*sd(logit_rho)
+        ci_u_logit_rho <- mean(logit_rho) + 1.96*sd(logit_rho)
+        ci_l_rho <- 1/(1+exp(-ci_l_logit_rho))
+        ci_u_rho <- 1/(1+exp(-ci_u_logit_rho))
+
         w_hat <- as.numeric(s$quantiles[,"50%"])[5:(k+4)]
         rho_hat <- s$statistics["rho","Mean"]
-        rho_se <- s$statistics["rho","SD"]
 
       } else {
         w_hat <- as.numeric(s$quantiles[,"50%"])[4:(k+3)]
         rho_hat <- NA
-        rho_se <- NA
+        ci_l_rho <- NA
+        ci_u_rho <- NA
       }
 
       # Get other summary stats
@@ -623,7 +696,8 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
     return (list(
       "mse" = mse,
       "rho_hat" = rho_hat,
-      "rho_se" = rho_se,
+      "ci_l_rho" = ci_l_rho,
+      "ci_u_rho" = ci_u_rho,
       "beta1_hat" = beta1_hat,
       "beta1_se" = beta1_se,
       "beta2_hat" = beta2_hat,
@@ -634,16 +708,27 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
 
   }
 
+}
+
+
+
+############################.
+##### Simulation setup #####
+############################.
+
+if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
+
   set.seed(.tid)
 
   sim <- new_sim()
 
   sim %<>% set_config(
-    num_sim = 60, # !!!!!
-    parallel = "none",
+    num_sim = 100, # !!!!!
+    parallel = "outer",
     packages = c("z.572.paper", "sp", "rgeos", "spdep", "parallel", "rgdal",
                  "simba", "ggplot2", "dplyr", "magrittr", "permute", "maps",
-                 "maptools", "mvtnorm", "rjags", "MASS", "ngspatial", "Matrix")
+                 "maptools", "mvtnorm", "rjags", "MASS", "ngspatial", "Matrix",
+                 "INLA")
   )
 
   sim %<>% add_constants(
@@ -655,30 +740,6 @@ if (run_fig345 || run_fig6 || run_fig7 || run_fig8) {
 
   sim %<>% add_creator(generate_dataset)
   sim %<>% add_script(script_mainsim)
-
-}
-
-
-
-###########################################################.
-##### Compile simulation results into a single object #####
-###########################################################.
-
-if (FALSE) {
-
-  # Merge *.simba files
-  sims <- list.files(
-    path = "../simba.out/simba.out",
-    pattern = "*.simba",
-    full.names = TRUE,
-    recursive = FALSE
-  )
-  sim <- NULL
-  for (s in sims) {
-    s <- readRDS(s)
-    if (is.null(sim)) { sim <- s } else { sim <- merge(sim, s) }
-  }
-  saveRDS(sim, file="../simba.out/sim_fig8_9720.simba")
 
 }
 
@@ -706,7 +767,7 @@ if (run_fig345) {
   # Create graphs
   if (run_graphs) {
 
-    sim <- readRDS("../simba.out/sim_fig35_16200.simba")
+    sim <- readRDS("../simba.out/sim_fig345_16200_5.31.simba")
 
     summ <- sim %>% summary() %>% arrange(model, type, rho)
     summ$type %<>% recode(
@@ -720,8 +781,9 @@ if (run_fig345) {
       coverage = list(
         list(name="cov_beta1", truth=1, estimate="beta1_hat", se="beta1_se"),
         list(name="cov_beta2", truth=5, estimate="beta2_hat", se="beta2_se"),
-        list(name="cov_rho", truth="rho", estimate="rho_hat", se="rho_se"),
-        list(name="cov_sigma2", truth=(1/2.5),
+        list(name="cov_rho", truth="rho", estimate="rho_hat",
+             lower="ci_l_rho", upper="ci_u_rho"),
+        list(name="cov_sigma2", truth=0.4,
              estimate="sigma2_e_hat", se="sigma2_e_se")
       )
     )
@@ -740,40 +802,62 @@ if (run_fig345) {
     summ2_stacked$type2 <- factor(summ2_stacked$type2, labels=c(
       bquote(beta[1]), bquote(beta[2]), bquote(rho), bquote(sigma^2)
     ))
-    summ2_stacked$type2 <- factor(summ2_stacked$type2, levels=c("beta[1]","beta[2]","sigma^2","rho"))
+    summ2_stacked$type2 <- factor(
+      summ2_stacked$type2,
+      levels=c("beta[1]","beta[2]","sigma^2","rho")
+    )
 
     # Plot figure 3
     # Export 900w x 300h
     ggplot(
       data = summ,
-      aes(x=rho, y=mean_mse, color=model)) +
+      aes(x=rho, y=mean_mse, color=model, shape=model, linetype=model)) +
       geom_line() +
       geom_point(size=1) +
-      xlim(0,1) +
+      xlim(0.1,0.9) +
       facet_wrap(~type, ncol=3) +
-      labs(x="rho", y="MSE", color="Model") +
+      labs(x="rho", y="MSE", color="Model", shape="Model", linetype="Model") +
+      scale_color_manual(values=c("orangered3", "chartreuse3", "royalblue1",
+                                  "plum4", "gray32", "lightsalmon3")) +
+      scale_shape_manual(values=c(16,17,15,3,7,8)) +
+      scale_linetype_manual(values=c(1,2,2,5,3,4)) +
       theme(legend.position = "right")
+
+
+    # # !!!!! !!!!! !!!!! !!!!! !!!!!
+    # # New prior
+    # ggplot(
+    #   data = summ %>% filter(model!="SGLMM" & model!="Scaled iCAR"),
+    #   aes(x=rho, y=mean_mse, color=model, shape=model, linetype=model)) +
+    #   geom_line() +
+    #   geom_point(size=1) +
+    #   xlim(0.1,0.9) +
+    #   ylim(0,4) +
+    #   facet_wrap(~type, ncol=3) +
+    #   labs(x="rho", y="MSE", color="Model", shape="Model", linetype="Model") +
+    #   scale_color_manual(values=c("orangered3", "chartreuse3", "royalblue1",
+    #                               "plum4")) +
+    #   scale_shape_manual(values=c(16,17,15,3)) +
+    #   scale_linetype_manual(values=c(1,2,2,5)) +
+    #   theme(legend.position = "right")
+    # # !!!!! !!!!! !!!!! !!!!! !!!!!
+
 
     # Plot figure 4
     # Export 900w x 300h
     ggplot(
       data = summ %>%
-        filter(model %in% c("CAR", "DAGAR", "DAGAR_OF")) %>%
-        mutate(
-          # Think about calculating SEs of logit(rho)
-          ci_l = pmax(mean_rho_hat-1.96*mean_rho_se,0),
-          ci_u = pmin(mean_rho_hat+1.96*mean_rho_se,1)
-        ),
+        filter(model %in% c("CAR", "DAGAR", "DAGAR_OF")),
       aes(x=rho, y=mean_rho_hat)
     ) +
       geom_line(aes(color=model)) +
       geom_point(aes(color=model), size=1) +
       geom_ribbon(
-        aes(ymin=ci_l, ymax=ci_u, fill=model),
+        aes(ymin=mean_ci_l_rho, ymax=mean_ci_u_rho, fill=model),
         alpha = 0.2
       ) +
       geom_segment(x=0, y=0, xend=1, yend=1, linetype=5) +
-      xlim(0,1) +
+      xlim(0.1,0.9) +
       ylim(0,1) +
       facet_wrap(~type, ncol=3) +
       labs(x="rho", y="Estimate", color="Model", fill="Model") +
@@ -783,16 +867,21 @@ if (run_fig345) {
     # Export 700w x 700h
     ggplot(
       data = summ2_stacked,
-      aes(x=rho, y=cov, color=model)
+      aes(x=rho, y=cov, color=model, shape=model, linetype=model)
     ) +
       geom_line() +
       geom_point(size=1) +
+      xlim(0.1,0.9) +
       facet_grid(
         cols = vars(type),
         rows = vars(type2),
         labeller = labeller(.rows=label_parsed)
       ) +
-      labs(x="rho", y="Coverage", color="Model") +
+      labs(x="rho",y="Coverage",color="Model",shape="Model",linetype="Model") +
+      scale_color_manual(values=c("orangered3", "chartreuse3", "royalblue1",
+                                  "plum4", "gray32", "lightsalmon3")) +
+      scale_shape_manual(values=c(16,17,15,3,7,8)) +
+      scale_linetype_manual(values=c(1,2,2,5,3,4)) +
       theme(legend.position = "right")
 
   }
@@ -825,7 +914,10 @@ if (run_fig6) {
 
     sim <- readRDS("../simba.out/sim_fig6_3600.simba")
 
-    summ <- sim %>% summary() %>% arrange(model, type, rho)
+    summ <- sim %>% summary(
+      mean = list(all=TRUE, na.rm=TRUE)
+    ) %>% arrange(model, type, rho)
+
     summ$p_order %<>% recode(
       "NW" = "Northwest",
       "NE" = "Northeast",
@@ -834,40 +926,49 @@ if (run_fig6) {
     )
 
     # Plot figure 6.1
-    # Export 400w x 300h
+    # Export 500w x 350h
     ggplot(
       data = summ %>% mutate(header="(a) USA: MSE"),
-      aes(x=rho, y=mean_mse, color=p_order)
+      aes(x=rho, y=mean_mse, color=p_order, shape=p_order, linetype=p_order)
     ) +
       geom_line() + geom_point(size=1) +
       facet_wrap(~header) +
-      xlim(0,1) +
-      labs(x="rho", y="MSE", color="Order") +
+      xlim(0.1,0.9) +
+      labs(x="rho", y="MSE", color="Order", shape="Order", linetype="Order") +
+      scale_color_manual(values=c("orangered3", "chartreuse3", "royalblue1",
+                                  "plum4")) +
+      scale_shape_manual(values=c(16,17,15,3)) +
+      scale_linetype_manual(values=c(1,2,2,5)) +
       theme(legend.position = "right")
 
     # Plot figure 6.2
     # Export 500w x 350h
     ggplot(
       data = summ %>%
-        mutate(
-          # Think about calculating SEs of logit(rho)
-          header = "(b) USA: Estimate and confidence bands of rho",
-          ci_l = pmax(mean_rho_hat-1.96*mean_rho_se,0),
-          ci_u = pmin(mean_rho_hat+1.96*mean_rho_se,1)
-        ),
+        mutate(header="(b) USA: Estimate and confidence bands of rho"),
+        # mutate(
+        #   header = "(b) USA: Estimate and confidence bands of rho",
+        #   mean_ci_l_rho = pmax(mean_rho_hat-1.96*mean_rho_se,0),
+        #   mean_ci_u_rho = pmin(mean_rho_hat+1.96*mean_rho_se,1)
+        # ),
       aes(x=rho, y=mean_rho_hat)
     ) +
-      geom_line(aes(color=p_order)) +
-      geom_point(aes(color=p_order), size=1) +
+      geom_line(aes(color=p_order, linetype=p_order)) +
+      geom_point(aes(color=p_order, shape=p_order), size=1) +
       geom_ribbon(
-        aes(ymin=ci_l, ymax=ci_u, fill=p_order),
+        aes(ymin=mean_ci_l_rho, ymax=mean_ci_u_rho, fill=p_order),
         alpha = 0.2
       ) +
       geom_segment(x=0, y=0, xend=1, yend=1, linetype=5) +
       facet_wrap(~header) +
-      xlim(0,1) +
+      xlim(0.1,0.9) +
       ylim(0,1) +
-      labs(x="rho", y="Estimate", color="Order", fill="Order") +
+      labs(x="rho", y="Estimate", color="Order", shape="Order",
+           linetype="Order", fill="Order") +
+      scale_color_manual(values=c("orangered3", "chartreuse3", "royalblue1",
+                                  "plum4")) +
+      scale_shape_manual(values=c(16,17,15,3)) +
+      scale_linetype_manual(values=c(1,2,2,5)) +
       theme(legend.position = "right")
 
   }
@@ -897,7 +998,7 @@ if (run_fig7) {
 
   if (run_graphs) {
 
-    sim <- readRDS("../simba.out/sim_fig7_16200.simba")
+    sim <- readRDS("../simba.out/sim_fig7_9720.simba")
 
     summ <- sim %>% summary() %>% arrange(model, type, rho)
     summ$type %<>% recode(
@@ -910,13 +1011,17 @@ if (run_fig7) {
     # Export 900w x 300h
     ggplot(
       data = summ,
-      aes(x=rho, y=mean_mse, color=model)
+      aes(x=rho, y=mean_mse, color=model, shape=model, linetype=model)
     ) +
       geom_line() +
       geom_point(size=1) +
-      xlim(0,1) +
+      xlim(0.1,0.9) +
       facet_wrap(~type, ncol=3) +
-      labs(x="rho", y="MSE", color="Model") +
+      labs(x="rho", y="MSE", color="Model", shape="Model", linetype="Model") +
+      scale_color_manual(values=c("orangered3", "chartreuse3", "royalblue1",
+                                  "plum4", "gray32", "lightsalmon3")) +
+      scale_shape_manual(values=c(16,17,15,3,7,8)) +
+      scale_linetype_manual(values=c(1,2,2,5,3,4)) +
       theme(legend.position = "right")
 
   }
@@ -946,7 +1051,7 @@ if (run_fig8) {
 
   if (run_graphs) {
 
-    sim <- readRDS("../simba.out/sim_fig8_16200.simba")
+    sim <- readRDS("../simba.out/sim_fig8_9720_6.01.simba")
 
     summ <- sim %>% summary() %>% arrange(model, type, rho)
     summ$type %<>% recode(
@@ -959,13 +1064,18 @@ if (run_fig8) {
     # Export 900w x 300h
     ggplot(
       data = summ,
-      aes(x=rho, y=mean_mse, color=model)
+      aes(x=rho, y=mean_mse, color=model, shape=model, linetype=model)
     ) +
       geom_line() +
       geom_point(size=1) +
-      xlim(0,1) +
+      xlim(0.1,0.9) +
+      ylim(0,4) +
       facet_wrap(~type, ncol=3) +
-      labs(x="rho", y="MSE", color="Model") +
+      labs(x="rho", y="MSE", color="Model", shape="Model", linetype="Model") +
+      scale_color_manual(values=c("orangered3", "chartreuse3", "royalblue1",
+                                  "plum4", "gray32", "lightsalmon3")) +
+      scale_shape_manual(values=c(16,17,15,3,7,8)) +
+      scale_linetype_manual(values=c(1,2,2,5,3,4)) +
       theme(legend.position = "right")
 
   }
@@ -987,106 +1097,109 @@ if (run_ima) {
   infant$id <- c(1:3071)
 
   # Sparse sGLMM: run model
-  # set.seed(12)
-  # fit = sparse.sglmm(
-  #   deaths ~ low_weight + black + hispanic + gini + affluence +
-  #            stability + offset(log(births)),
-  #   data = infant,
-  #   family = poisson,
-  #   A = A,
-  #   method = "RSR",
-  #   tune = list(sigma.s = 0.02),
-  #   verbose = TRUE,
-  #   minit = 4000,
-  #   maxit = 8000
-  # )
-  # summary(fit)
+  set.seed(12)
+  fit = sparse.sglmm(
+    deaths ~ low_weight + black + hispanic + gini + affluence +
+             stability + offset(log(births)),
+    data = infant,
+    family = poisson,
+    A = A,
+    method = "RSR",
+    tune = list(sigma.s = 0.02),
+    verbose = TRUE,
+    minit = 5000,
+    maxit = 20000
+  )
+  summary(fit)
+  print(fit$tau.s.est)
+  print(quantile(fit$tau.s.sample, c(0.025,0.975)))
 
   # iCAR: run model using INLA
   set.seed(12)
+  tau_prior <- list(prec=list(param=c(2, 1)))
   model <- inla(
     deaths ~ low_weight + black + hispanic + gini + affluence +
-             # stability + f(id, model="besagproper", graph=A),
-             stability + f(id, model="besag", graph=A),
-    data = infant,
-    family = "poisson",
-    E = births,
-    control.compute = list(dic=TRUE)
-    # verbose = TRUE
-  )
-  print(summary(model))
-  print(model$dic$deviance.mean)
-
-  # TESTING: declare model using generic INLA (CAR)
-  inla.rgeneric.CAR.model <- function(
-    cmd = c("graph", "Q", "mu", "initial", "log.norm.const",
-            "log.prior", "quit"),
-    theta = NULL) {
-
-    envir = parent.env(environment())
-
-    interpret.theta <- function() {
-      return(list(
-        tau_w = exp(theta[1L]),
-        rho = 1 / (1 + exp(-theta[2L]))
-      ))
-    }
-
-    graph <- function(){
-      require(Matrix)
-      return(Diagonal(nrow(W), x = 1) + W)
-    }
-
-    Q <- function() {
-      require(Matrix)
-      param <- interpret.theta()
-      return(param$tau_w * (Diagonal(nrow(W), x = 1) - param$rho * W) )
-    }
-
-    mu = function() { return(numeric(0)) }
-
-    log.norm.const <- function() { return(numeric(0)) }
-
-    log.prior <- function() {
-
-      param = interpret.theta()
-      res <- dgamma(param$tau_w, 1, 5e-05, log = TRUE) + log(param$tau_w) +
-             log(1) + log(param$rho) + log(1 - param$rho)
-
-      return(res)
-
-    }
-
-    initial <- function() {
-      return(c(0,0))
-    }
-
-    quit <- function() { return(invisible()) }
-
-    res <- do.call(match.arg(cmd), args = list())
-
-    return(res)
-
-  }
-
-  # TESTING: run model using generic INLA (CAR)
-  set.seed(12)
-  W <- as(A, "sparseMatrix")
-  e.values <- eigen(W)$values
-  rho.min <- min(e.values)
-  rho.max <- max(e.values)
-  W <- W / rho.max
-  CAR.model <- inla.rgeneric.define(inla.rgeneric.CAR.model, W=W)
-  model <- inla(
-    deaths ~ low_weight + black + hispanic + gini + affluence +
-             stability + f(id, model=CAR.model),
+             stability + f(id, model="besag", graph=A, hyper=tau_prior),
     data = infant,
     family = "poisson",
     E = births,
     control.compute = list(dic=TRUE)
   )
-  print(summary(model))
+  # print(summary(model))
+  print(model$summary.fixed)
+  print(model$summary.hyperpar)
   print(model$dic$deviance.mean)
+
+  # # TESTING: declare model using generic INLA (CAR)
+  # inla.rgeneric.CAR.model <- function(
+  #   cmd = c("graph", "Q", "mu", "initial", "log.norm.const",
+  #           "log.prior", "quit"),
+  #   theta = NULL) {
+  #
+  #   envir = parent.env(environment())
+  #
+  #   interpret.theta <- function() {
+  #     return(list(
+  #       tau_w = exp(theta[1L]),
+  #       rho = 1 / (1 + exp(-theta[2L]))
+  #     ))
+  #   }
+  #
+  #   graph <- function(){
+  #     require(Matrix)
+  #     return(Diagonal(nrow(W), x = 1) + W)
+  #   }
+  #
+  #   Q <- function() {
+  #     require(Matrix)
+  #     param <- interpret.theta()
+  #     return(param$tau_w * (Diagonal(nrow(W), x = 1) - param$rho * W) )
+  #   }
+  #
+  #   mu = function() { return(numeric(0)) }
+  #
+  #   log.norm.const <- function() { return(numeric(0)) }
+  #
+  #   log.prior <- function() {
+  #
+  #     param = interpret.theta()
+  #     res <- dgamma(param$tau_w, 1, 5e-05, log = TRUE) + log(param$tau_w) +
+  #            log(1) + log(param$rho) + log(1 - param$rho)
+  #
+  #     return(res)
+  #
+  #   }
+  #
+  #   initial <- function() {
+  #     return(c(0,0))
+  #   }
+  #
+  #   quit <- function() { return(invisible()) }
+  #
+  #   res <- do.call(match.arg(cmd), args = list())
+  #
+  #   return(res)
+  #
+  # }
+  #
+  # # TESTING: run model using generic INLA (CAR)
+  # set.seed(12)
+  # W <- as(A, "sparseMatrix")
+  # e.values <- eigen(W)$values
+  # rho.min <- min(e.values)
+  # rho.max <- max(e.values)
+  # W <- W / rho.max
+  # CAR.model <- inla.rgeneric.define(inla.rgeneric.CAR.model, W=W)
+  # model <- inla(
+  #   deaths ~ low_weight + black + hispanic + gini + affluence +
+  #            stability + f(id, model=CAR.model),
+  #   data = infant,
+  #   family = "poisson",
+  #   E = births,
+  #   control.compute = list(dic=TRUE)
+  # )
+  # print(summary(model))
+  # print(model$dic$deviance.mean)
 
   # DAGAR: declare model using INLA
   inla.rgeneric.DAGAR.model <- function(
@@ -1103,7 +1216,7 @@ if (run_ima) {
       ))
     }
 
-    graph <- function(){
+    graph <- function() {
 
       require(Matrix)
 
@@ -1151,6 +1264,8 @@ if (run_ima) {
     log.prior <- function() {
 
       param = interpret.theta()
+      # res <- dgamma(param$tau_w, 2, 0.01, log=TRUE) + log(param$tau_w) +
+      #        log(1) + log(param$rho) + log(1-param$rho)
       res <- dgamma(param$tau_w, 2, 1, log=TRUE) + log(param$tau_w) +
              log(1) + log(param$rho) + log(1-param$rho)
 
@@ -1171,7 +1286,7 @@ if (run_ima) {
   }
 
   # DAGAR: run model using INLA
-  set.seed(12)
+  set.seed(13)
   W <- as(A, "sparseMatrix")
   DAGAR.model <- inla.rgeneric.define(inla.rgeneric.DAGAR.model, W=W)
   model <- inla(
@@ -1183,6 +1298,8 @@ if (run_ima) {
     control.compute = list(dic=TRUE)
   )
   summary(model)
+  print(model$summary.fixed)
+  print(model$summary.hyperpar)
   print(model$dic$deviance.mean)
 
 }
